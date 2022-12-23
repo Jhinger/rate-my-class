@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -14,6 +10,7 @@
 
 html,
 body {
+  background-color: #242131;
   max-width: 100vw;
   overflow-x: hidden;
 }

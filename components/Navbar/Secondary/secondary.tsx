@@ -4,7 +4,7 @@ const SecondaryNavbar = ({
 }) => {
     return (
         <div {...props}>
-            Hello.
+            Hello from Secondary.
         </div>
     )
 }
