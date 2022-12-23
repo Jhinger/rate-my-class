@@ -20,9 +20,8 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": [
-        "components/*"
-      ]
+      "@/components/*": ["components/*"],
+      "@/static/*": ["public/static/*"]
     }
   },
   "include": [
