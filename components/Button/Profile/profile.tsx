@@ -6,13 +6,14 @@ import type { Maybe } from "@/types";
 
 interface IProfileProps {
     session: Maybe<Session>;
+    onClickTask(): Promise<undefined>;
 }
 
-const Profile = ({ session }: IProfileProps) => {
+const Profile = ({ session, onClickTask }: IProfileProps) => {
     return (
-        <div className="relative mr-8">
+        <div className="relative mr-8" onClick={onClickTask}>
             <Image
-                className="rounded-md duration-200"
+                className="unselectable rounded-md duration-200 cursor-pointer ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-white"
                 src={session?.user?.image || defaultuser}
                 height={35}
                 width={35}
