@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary: "#A8C7F5"
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
