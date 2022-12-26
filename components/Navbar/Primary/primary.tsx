@@ -4,19 +4,20 @@ import { useSession } from 'next-auth/react';
 import logo from '@/static/logo.svg'
 import Profile from '@/components/Button/Profile';
 import SignIn from '@/components/Button/SignIn';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 import type { StatusOptions } from '@/types';
 
-const PrimaryNavbar = ({...props}) => {
+const PrimaryNavbar = () => {
     const { data: session, status } = useSession();
 
     const relevantStatusComponent = (status: StatusOptions) => {
         switch(status) {
             case "loading": {
-                return <div>Loading</div>;
+                return  <LoadingSpinner />;
             }
             case "authenticated": {
-                return <Profile />
+                return <Profile session={session}/>
             }
             case "unauthenticated": {
                 return <SignIn />
@@ -24,10 +25,12 @@ const PrimaryNavbar = ({...props}) => {
         }
     }
 
+    console.log(session);
+
     const baseSocialURL = '/static/socials/';
 
     return (
-        <div {...props} className="relative w-screen border-2 border-solid border-red-500 justify-center items-center">
+        <div className="relative w-screen justify-center items-center">
             <nav className="flex justify-between items-center cursor-pointer">
                 <Image 
                     src={logo}
@@ -37,9 +40,9 @@ const PrimaryNavbar = ({...props}) => {
                 />
 
                 <div className="flex flex-row space-x-10">
-                    <Image src={baseSocialURL + 'github.svg'} width={28} height={25} alt={'GitHub'} className="fill-primary hover:fill-white duration-100" priority={true} draggable={false}/>
-                    <Image src={baseSocialURL + 'linkedin.svg'} width={28} height={25} alt={'LinkedIn'} className="fill-primary hover:fill-white duration-100" priority={true} draggable={false}/>
-                    <Image src={baseSocialURL + 'instagram.svg'} width={28} height={25} alt={'Instagram'} className="fill-primary hover:fill-white duration-100" priority={true} draggable={false}/>
+                    <Image src={baseSocialURL + 'github.svg'} width={28} height={25} alt={'GitHub'} priority={true} draggable={false}/>
+                    <Image src={baseSocialURL + 'linkedin.svg'} width={28} height={25} alt={'LinkedIn'} priority={true} draggable={false}/>
+                    <Image src={baseSocialURL + 'instagram.svg'} width={28} height={25} alt={'Instagram'} priority={true} draggable={false}/>
                 </div>
 
                 <ul className="flex flex-row space-x-10 text-primary">
