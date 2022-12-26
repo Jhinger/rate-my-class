@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 import logo from '@/static/logo.svg'
 import Profile from '@/components/Button/Profile';
@@ -17,10 +17,10 @@ const PrimaryNavbar = () => {
                 return  <LoadingSpinner />;
             }
             case "authenticated": {
-                return <Profile session={session}/>
+                return <Profile session={session} onClickTask={() => signOut()}/>
             }
             case "unauthenticated": {
-                return <SignIn />
+                return <SignIn onClickTask={() => signIn()} />
             }
         }
     }
@@ -30,9 +30,10 @@ const PrimaryNavbar = () => {
     const baseSocialURL = '/static/socials/';
 
     return (
-        <div className="relative w-screen justify-center items-center mt-2 mb-2">
-            <nav className="flex justify-between items-center cursor-pointer">
+        <div className="relative w-full mt-2 mb-2">
+            <nav className="max-w-[2100px] flex justify-between center items-center">
                 <Image 
+                    className="unselectable cursor-pointer"
                     src={logo}
                     width={55}
                     height={55}
@@ -40,14 +41,14 @@ const PrimaryNavbar = () => {
                 />
 
                 <div className="flex flex-row space-x-10 invisible md:visible">
-                    <Image src={baseSocialURL + 'github.svg'} width={28} height={25} alt={'GitHub'} priority={true} draggable={false}/>
-                    <Image src={baseSocialURL + 'linkedin.svg'} width={28} height={25} alt={'LinkedIn'} priority={true} draggable={false}/>
-                    <Image src={baseSocialURL + 'instagram.svg'} width={28} height={25} alt={'Instagram'} priority={true} draggable={false}/>
+                    <Image className="unselectable cursor-pointer" src={baseSocialURL + 'github.svg'} width={28} height={25} alt={'GitHub'} priority={true} />
+                    <Image className="unselectable cursor-pointer" src={baseSocialURL + 'linkedin.svg'} width={28} height={25} alt={'LinkedIn'} priority={true} />
+                    <Image className="unselectable cursor-pointer" src={baseSocialURL + 'instagram.svg'} width={28} height={25} alt={'Instagram'} priority={true} />
                 </div>
 
                 <ul className="flex flex-row space-x-10 text-primary invisible md:visible">
-                    <li className="hover:text-white duration-100">contact</li>
-                    <li className="hover:text-white duration-100">about</li>
+                    <li className="hover:text-white duration-100 cursor-pointer">contact</li>
+                    <li className="hover:text-white duration-100 cursor-pointer">about</li>
                 </ul>
 
                 { relevantStatusComponent(status) }
