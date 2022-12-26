@@ -1,12 +1,7 @@
 import Head from 'next/head'
 import Header from '@/components/Header'
-import { signIn, signOut, useSession } from "next-auth/react"
 
 export default function Home() {
-	const { data: session } = useSession();
-
-	console.log(session);
-
 	return (
 		<>
 			<Head>
@@ -17,7 +12,6 @@ export default function Home() {
 			</Head>
 			<Header>
 				Hello from Header.
-				<button onClick={() => signIn()} className="rounded-md p-4 bg-primary">Sign In</button>
 			</Header>
 		</>
 	)
