@@ -30,7 +30,7 @@ const PrimaryNavbar = () => {
     const baseSocialURL = '/static/socials/';
 
     return (
-        <div className="relative w-screen justify-center items-center">
+        <div className="relative w-screen justify-center items-center mt-2 mb-2">
             <nav className="flex justify-between items-center cursor-pointer">
                 <Image 
                     src={logo}
@@ -39,13 +39,13 @@ const PrimaryNavbar = () => {
                     alt="RateMyClass"
                 />
 
-                <div className="flex flex-row space-x-10">
+                <div className="flex flex-row space-x-10 invisible md:visible">
                     <Image src={baseSocialURL + 'github.svg'} width={28} height={25} alt={'GitHub'} priority={true} draggable={false}/>
                     <Image src={baseSocialURL + 'linkedin.svg'} width={28} height={25} alt={'LinkedIn'} priority={true} draggable={false}/>
                     <Image src={baseSocialURL + 'instagram.svg'} width={28} height={25} alt={'Instagram'} priority={true} draggable={false}/>
                 </div>
 
-                <ul className="flex flex-row space-x-10 text-primary">
+                <ul className="flex flex-row space-x-10 text-primary invisible md:visible">
                     <li className="hover:text-white duration-100">contact</li>
                     <li className="hover:text-white duration-100">about</li>
                 </ul>

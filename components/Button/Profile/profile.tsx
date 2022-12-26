@@ -10,7 +10,7 @@ interface IProfileProps {
 
 const Profile = ({ session }: IProfileProps) => {
     return (
-        <div className="relative mr-4">
+        <div className="relative mr-8">
             <Image
                 className="rounded-md duration-200"
                 src={session?.user?.image || defaultuser}
