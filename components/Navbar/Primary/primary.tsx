@@ -14,25 +14,13 @@ const PrimaryNavbar = () => {
     const relevantStatusComponent = (status: StatusOptions) => {
         switch(status) {
             case "loading": {
-                return  (
-                    <div className="mr-8 flex justify-center items-center">
-                        <LoadingSpinner />;
-                    </div>
-                )
+                return  <LoadingSpinner className="mr-8 flex justify-center items-center" />
             }
             case "authenticated": {
-                return (
-                    <div className="mr-8 flex justify-center items-center">
-                        <Profile session={session} onClickTask={() => signOut()}/>
-                    </div>
-                )
+                return <Profile session={session} onClickTask={() => signOut()} className="mr-8 flex justify-center items-center"/>
             }
             case "unauthenticated": {
-                return (
-                    <div className="mr-8 flex justify-center items-center">
-                        <SignIn onClickTask={() => signIn()} />
-                    </div>
-                )
+                return <SignIn onClickTask={() => signIn()} className="mr-8 flex justify-center items-center" />
             }
         }
     }
