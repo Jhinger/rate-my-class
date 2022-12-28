@@ -11,7 +11,7 @@ interface IProfileProps {
 
 const Profile = ({ session, onClickTask }: IProfileProps) => {
     return (
-        <div className="relative mr-8" onClick={onClickTask}>
+        <div onClick={onClickTask}>
             <Image
                 className="unselectable rounded-md duration-200 cursor-pointer ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-white"
                 src={session?.user?.image || defaultuser}
