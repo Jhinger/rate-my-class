@@ -1,8 +1,12 @@
 
-const TrayItem = () => {
+interface ITrayItem {
+    children: React.ReactNode;
+}
+
+const TrayItem = ({ children }: ITrayItem) => {
     return (
         <div>
-            TrayItem.
+            { children }
         </div>
     )
 }
