@@ -3,15 +3,16 @@ import TrayItem from '@/components/TrayItem'
 interface ITrayProps {
     isVisible: boolean;
     children: React.ReactNode;
+    className?: string;
 }
 
-const Tray = ({ isVisible = false, children }: ITrayProps) => {
+const Tray = ({ isVisible, children, className="" }: ITrayProps) => {
     return (
         <>
             {isVisible &&
-                <div>
-
-                </div>
+                <menu className={`${className} flex flex-col w-max bg-primary aspect-square`}>
+                    { children }
+                </menu>
             }
         </>
     )
