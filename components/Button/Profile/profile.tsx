@@ -1,5 +1,9 @@
+import { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import defaultuser from "@/static/defaultuser.png"
+import Tray from "@/components/Tray";
+import TrayItem from "@/components/TrayItem";
+import useOnClickOutside from "@/hooks/useOnClickOutside";
 
 import type { Session } from "next-auth";
 import type { Maybe } from "@/types";
@@ -11,15 +15,39 @@ interface IProfileProps {
 }
 
 const Profile = ({ session, className = "", onClickTask }: IProfileProps) => {
+    const [isTrayVisible, setIsTrayVisible] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
+
+    const closeTray = useCallback(() => {
+        setIsTrayVisible(false);
+    }, []);
+
+    const updateTrayVisibility = () => {
+        setIsTrayVisible(!isTrayVisible);
+    }
+
+    useOnClickOutside(ref, closeTray);
+
     return (
-        <div onClick={onClickTask}>
+        <div 
+            ref={ref}
+            onClick={updateTrayVisibility}
+            className={`${className} flex justify-center w-max h-max`}
+        >
             <Image
-                className={`${className} unselectable rounded-md duration-200 cursor-pointer ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-white`}
+                className={`unselectable rounded-md duration-200 cursor-pointer ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-white`}
                 src={session?.user?.image || defaultuser}
                 height={35}
                 width={35}
                 alt={session?.user?.name || "Profile"}
             />
+
+            <Tray isVisible={isTrayVisible} className="absolute top-full mt-2">
+                <TrayItem>Testing</TrayItem>
+                <TrayItem>Another</TrayItem>
+                <TrayItem>Component</TrayItem>
+                <TrayItem>Created</TrayItem>
+            </Tray>
         </div>
     )
 }
