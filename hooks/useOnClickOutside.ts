@@ -9,7 +9,6 @@ export default function useOnClickOutside(ref: any, handler: any) {
             return;
           }
           
-          console.log("updating visibility from hook");
           handler(event);
         };
 
