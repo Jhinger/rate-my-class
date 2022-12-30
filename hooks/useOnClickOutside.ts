@@ -6,10 +6,10 @@ export default function useOnClickOutside(ref: any, handler: any) {
         
         const listener = (event: MouseEvent | TouchEvent) => {
           if (!ref.current || ref.current.contains(event.target)) {
-            console.log("HERE");
             return;
           }
           
+          console.log("updating visibility from hook");
           handler(event);
         };
 
