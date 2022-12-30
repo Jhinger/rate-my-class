@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import defaultuser from "@/static/defaultuser.png"
 import Tray from "@/components/Tray";
@@ -22,8 +22,14 @@ const Profile = ({ session, className = "", onClickTask }: IProfileProps) => {
         setIsTrayVisible(false);
     }, []);
 
-    const updateTrayVisibility = () => {
+    const updateTrayVisibility = (event: React.MouseEvent) => {
+        event.stopPropagation();
         setIsTrayVisible(!isTrayVisible);
+        console.log("updating visibility from profile");
+    }
+
+    const stopPropagation = (event: Event)  => {
+        event.stopPropagation();
     }
 
     useOnClickOutside(ref, closeTray);
@@ -32,7 +38,7 @@ const Profile = ({ session, className = "", onClickTask }: IProfileProps) => {
         <div 
             ref={ref}
             onClick={updateTrayVisibility}
-            className={`${className} flex justify-center w-max h-max`}
+            className={`${className} flex justify-center`}
         >
             <Image
                 className={`unselectable rounded-md duration-200 cursor-pointer ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-white`}
@@ -42,7 +48,7 @@ const Profile = ({ session, className = "", onClickTask }: IProfileProps) => {
                 alt={session?.user?.name || "Profile"}
             />
 
-            <Tray isVisible={isTrayVisible} className="absolute top-full mt-2">
+            <Tray onClick={stopPropagation} isVisible={isTrayVisible} className="absolute top-full mt-2">
                 <TrayItem>Testing</TrayItem>
                 <TrayItem>Another</TrayItem>
                 <TrayItem>Component</TrayItem>
