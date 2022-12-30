@@ -22,10 +22,8 @@ const Profile = ({ session, className = "", onClickTask }: IProfileProps) => {
         setIsTrayVisible(false);
     }, []);
 
-    const updateTrayVisibility = (event: React.MouseEvent) => {
-        event.stopPropagation();
+    const updateTrayVisibility = () => {
         setIsTrayVisible(!isTrayVisible);
-        console.log("updating visibility from profile");
     }
 
     const stopPropagation = (event: Event)  => {
