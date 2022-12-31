@@ -11,7 +11,7 @@ const Tray = ({ isVisible, children, className="", ...props }: ITrayProps) => {
     return (
         <>
             {isVisible &&
-                <menu {...props} className={`${className} flex flex-col w-max bg-primary aspect-square`}>
+                <menu {...props} className={`${className} flex flex-col w-max h-max`}>
                     { children }
                 </menu>
             }
