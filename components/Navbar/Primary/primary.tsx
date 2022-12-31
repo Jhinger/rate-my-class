@@ -17,7 +17,7 @@ const PrimaryNavbar = () => {
                 return <LoadingSpinner className="relative right-8" />
             }
             case "authenticated": {
-                return <Profile session={session} onClickTask={() => signOut()} className="relative right-8"/>
+                return <Profile session={session} onClickTask={() => signOut()} className="relative right-7"/>
             }
             case "unauthenticated": {
                 return <SignIn onClickTask={() => signIn()} className="relative right-4" />
