@@ -14,7 +14,7 @@ const PrimaryNavbar = () => {
     const relevantStatusComponent = (status: StatusOptions) => {
         switch(status) {
             case "loading": {
-                return <LoadingSpinner className="relative right-8" />
+                return <LoadingSpinner className="relative right-7" />
             }
             case "authenticated": {
                 return <Profile session={session} onClickTask={() => signOut()} className="relative right-7"/>
