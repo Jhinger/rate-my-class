@@ -25,7 +25,7 @@ const Hero = ({
                         alt=""
                         priority={true}
                     />
-                    <h1 className="p-2 font-extrabold text-8xl tracking-tightest bg-gradient-to-r bg-clip-text text-transparent from-primary to-tertiary animate-gradient"> 
+                    <h1 className="p-2 font-extrabold text-8xl tracking-tightest bg-gradient-to-r bg-clip-text text-transparent from-primary via-tertiaryAccent to-tertiary animate-gradient"> 
                         { title } 
                     </h1>
                 </div>

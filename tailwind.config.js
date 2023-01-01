@@ -10,7 +10,8 @@ module.exports = {
         primary: "#A8C7F5",
         primaryAccent: "#82B3FD",
         secondary: "#242131",
-        tertiary: "#E2AFF3"
+        tertiary: "#E2AFF3",
+        tertiaryAccent: "#B5C2F5",
       },
       letterSpacing: {
         tightest: '-.075em'
@@ -18,7 +19,7 @@ module.exports = {
       animation: {
         fadeDown: 'fadeDown 0.2s ease-in-out',
         fadeDownDelay: 'fadeDown 0.35s ease-in-out',
-        gradient: 'gradient 20s ease-in-out infinite'
+        gradient: 'gradient 10s ease-in-out infinite'
       },
       keyframes: {
         fadeDown: {
