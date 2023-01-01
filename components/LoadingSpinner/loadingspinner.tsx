@@ -6,7 +6,7 @@ interface ILoadingSpinnerProps {
 const LoadingSpinner = ({ className = "" }: ILoadingSpinnerProps) => {
     return (
         <div 
-            className={`${className} animate-spin w-8 aspect-square rounded-full border-4 border-solid border-gray border-t-blue-500`}
+            className={`${className} animate-spin w-10 aspect-square rounded-full border-4 border-solid border-gray border-t-blue-500`}
         />
     )
 }
