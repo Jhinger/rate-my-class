@@ -1,5 +1,7 @@
 import Hero from '@/components/Hero'
 import Head from 'next/head'
+import Features from '@/components/Features'
+import Overview from '@/components/Overview'
 
 export default function Home() {
 	return (
@@ -11,6 +13,8 @@ export default function Home() {
 				<link rel="icon" href="/static/logo-2.svg" sizes='16x16'/>
 			</Head>
 			<Hero />
+			<Features />
+			<Overview />
 		</>
 	)
 }
