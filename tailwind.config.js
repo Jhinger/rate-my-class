@@ -19,7 +19,8 @@ module.exports = {
       animation: {
         fadeDown: 'fadeDown 0.2s ease-in-out',
         fadeDownDelay: 'fadeDown 0.35s ease-in-out',
-        gradient: 'gradient 10s ease-in-out infinite'
+        gradient: 'gradient 10s ease-in-out infinite',
+        scroll: "scroll 40s linear infinite"
       },
       keyframes: {
         fadeDown: {
@@ -41,7 +42,15 @@ module.exports = {
             'background-size':'200% 200%',
             'background-position': 'right center'
           }
-      },
+        },
+        scroll: {
+          '0%': {
+            transform: 'translateX(0)'
+          },
+          '100%':  {
+            transform: 'translateX(calc(-250px * 7))'
+          }
+        }
       }
     },
   },
