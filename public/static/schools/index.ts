@@ -1,17 +1,19 @@
 import ucla from './ucla.svg'
 import nyu from "./nyu.svg"
-import yale from './yale.svg'
-import ubc from "./ubc.svg"
+import princeton from './princeton.svg';
+import stanford from './stanford.svg';
+import umich from './umich.svg';
 import ucirvine from "./ucirvine.svg"
 import mit from './mit.svg'
 import waterloo from "./waterloo.svg"
 
 const schoolsImagesArr = [
-    ucla,
     nyu,
-    yale,
+    ucla,
+    princeton,
+    umich,
     ucirvine,
-    ubc,
+    stanford,
     mit,
     waterloo
 ];

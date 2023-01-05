@@ -1,10 +1,18 @@
 import Carousel from "@/components/Carousel"
+import Request from "../Button/Request";
 import schoolsImagesArr from "@/static/schools";
 
-const Overview =() => {
+const NUM_SCHOOLS_PLACEHOLDER = 240;
+const NUM_RATINGS_PLACEHOLDER = 34890;
+
+const Overview = () => {
     return (
-        <div className="w-full h-[40rem] bg-secondary border-2 border-solid border-green-500">
+        <div className="w-full min-h-[40rem] max-h-[50rem] bg-secondary border-2 border-solid border-green-500 flex flex-col items-center justify-center">
             <Carousel schools={schoolsImagesArr} />
+            <div className="text-white text-5xl my-8 tracking-tight">
+                { NUM_SCHOOLS_PLACEHOLDER } <span className="font-black">SCHOOLS</span> | { NUM_RATINGS_PLACEHOLDER } <span className="font-black">RATINGS</span>
+            </div>
+            <Request />
         </div>
     )
 }
