@@ -7,7 +7,7 @@ const NUM_RATINGS_PLACEHOLDER = 34890;
 
 const Overview = () => {
     return (
-        <div className="w-full min-h-[40rem] max-h-[50rem] bg-secondary border-2 border-solid border-green-500 flex flex-col items-center justify-center">
+        <div className="w-full h-[35rem] bg-secondary flex flex-col items-center justify-center">
             <Carousel schools={schoolsImagesArr} />
             <div className="text-white text-5xl my-8 tracking-tight">
                 { NUM_SCHOOLS_PLACEHOLDER } <span className="font-black">SCHOOLS</span> | { NUM_RATINGS_PLACEHOLDER } <span className="font-black">RATINGS</span>

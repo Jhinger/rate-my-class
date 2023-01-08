@@ -13,7 +13,7 @@ const Hero = ({
         children
     }: IHeroProps) => {
     return (
-        <header className="w-full h-[40rem] flex flex-col justify-center items-center border-2 border-red-500 border-solid">
+        <header className="w-full h-[40rem] flex flex-col justify-center items-center">
             <div className="flex flex-col justify-center items-center relative -top-10">
                 <div className="flex flex-row items-center">
                     <Image
