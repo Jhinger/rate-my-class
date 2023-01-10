@@ -10,22 +10,22 @@ const Footer = () => {
                 <div className="flex flex-row">
                     <div className="text-primary flex flex-col mx-8">
                         <span className="font-black my-2">SITE</span>
-                        <a href="#" className="font-extralight text-sm">about</a>
-                        <a href="#" className="font-extralight text-sm">contact</a>
-                        <a href="#" className="font-extralight text-sm">FAQ</a>
+                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">about</a>
+                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">contact</a>
+                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">FAQ</a>
                     </div>
                     <div className="text-primary flex flex-col mx-8">
                         <span className="font-black my-2">LEGAL</span>
-                        <a href="#" className="font-extralight text-sm">terms & conditions</a>
-                        <a href="#" className="font-extralight text-sm">privacy policy</a>
-                        <a href="#" className="font-extralight text-sm">site guidelines</a>
+                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">terms & conditions</a>
+                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">privacy policy</a>
+                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">site guidelines</a>
                     </div>
                     <div className="text-primary flex flex-col mx-8">
                         <span className="font-black my-2">FOLLOW US</span>
-                        <a href="#" className="font-extralight text-sm">LinkedIn</a>
-                        <a href="#" className="font-extralight text-sm">GitHub</a>
-                        <a href="#" className="font-extralight text-sm">Instagram</a>
-                        <a href="#" className="font-extralight text-sm">Twitter</a>
+                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">LinkedIn</a>
+                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">GitHub</a>
+                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">Instagram</a>
+                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">Twitter</a>
                     </div>
                 </div>
                 <div className="flex flex-row items-center my-4">
