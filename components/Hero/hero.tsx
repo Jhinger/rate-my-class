@@ -37,7 +37,7 @@ const Hero = ({
                     { children }
                 </div>
                 <div className="text-white text-sm font-extralight text-center">
-                    Can&lsquo;t find your school? Request it to be <span className='text-blue-400 hover:text-tertiary hover:cursor-pointer'>added here</span>.
+                    Can&lsquo;t find your school? Request it to be <a href='#request' className='text-blue-400 hover:text-tertiary hover:cursor-pointer'>added here</a>.
                 </div>
             </div>
         </header>
