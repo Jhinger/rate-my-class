@@ -17,7 +17,7 @@ interface IProfileProps {
 
 const Profile = ({ session, className = "", onClickTask }: IProfileProps) => {
     const [isTrayVisible, setIsTrayVisible] = useState(false);
-    const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLButtonElement>(null);
 
     const closeTray = useCallback(() => {
         setIsTrayVisible(false);
@@ -34,7 +34,7 @@ const Profile = ({ session, className = "", onClickTask }: IProfileProps) => {
     useOnClickOutside(ref, closeTray);
 
     return (
-        <div 
+        <button 
             ref={ref}
             onClick={updateTrayVisibility}
             className={`${className} flex justify-center w-10`}
@@ -55,7 +55,7 @@ const Profile = ({ session, className = "", onClickTask }: IProfileProps) => {
                     Log Out
                 </TrayItem>
             </Tray>
-        </div>
+        </button>
     )
 }
 
