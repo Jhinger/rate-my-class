@@ -1,6 +1,11 @@
 
+interface TemporarySchoolProp {
+    name: string;
+    short: string;
+}
+
 interface ISearchBarProps {
-    options: any[];
+    options: TemporarySchoolProp[];
 }
 
 const SearchBar = ({ options }: ISearchBarProps) => {
