@@ -3,19 +3,9 @@ import Head from 'next/head'
 import Features from '@/components/Features'
 import Overview from '@/components/Overview'
 import SearchBar from '@/components/Searchbar'
+import { defaultOptions } from '@/util/defaults'
 
 export default function Home() {
-	const defaultOptions = [
-		{
-			name: "Simon Fraser University",
-			short: "SFU",
-		},
-		{
-			name: "University of British Columbia",
-			short: "UBC",
-		}
-	]
-
 	return (
 		<>
 			<Head>
