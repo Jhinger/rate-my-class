@@ -15,7 +15,7 @@ export default function Home() {
 				<link rel="icon" href="/static/logo-2.svg" sizes='16x16'/>
 			</Head>
 			<Hero>
-				<SearchBar options={defaultOptions} />
+				<SearchBar options={defaultOptions} className="w-[60rem]" />
 			</Hero>
 			<Features />
 			<Overview />

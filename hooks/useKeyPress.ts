@@ -8,27 +8,27 @@ interface IUpDown {
 const useKeyPress = (targetKey: string) => {
     const [keyPressed, setKeyPressed] = useState(false);
 
-    useEffect(() => {
-        function downHandler({ key }: IUpDown) {
-            if (key === targetKey) {
-                setKeyPressed(true);
-            }
+    function downHandler({ key }: IUpDown): void {
+        if (key === targetKey) {
+            setKeyPressed(true);
         }
-    
-        function upHandler({ key }: IUpDown) {
-            if (key === targetKey) {
-                setKeyPressed(true);
-            }
-        }
+    }
 
+    function upHandler({ key }: IUpDown): void {
+        if (key === targetKey) {
+            setKeyPressed(false);
+        }
+    }
+
+    useEffect(() => {
         window.addEventListener(KEY_DOWN, downHandler);
         window.addEventListener(KEY_UP, upHandler);
 
         return () => {
-            window.removeEventListener("keydown", downHandler);
-            window.removeEventListener("keyup", upHandler);
+            window.removeEventListener(KEY_DOWN, downHandler);
+            window.removeEventListener(KEY_UP, upHandler);
         }
-    }, [targetKey]);
+    });
 
     return keyPressed;
 }
