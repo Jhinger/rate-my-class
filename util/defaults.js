@@ -7,6 +7,10 @@ const defaultOptions = [
     {
         name: "University of British Columbia",
         short: "UBC",
+    },
+    {
+        name: "University of the Fraser Valley",
+        short: "UFV"
     }
 ];
 

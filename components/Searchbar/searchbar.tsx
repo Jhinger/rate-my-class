@@ -25,7 +25,7 @@ interface ISearchBarProps {
 type OptionKeys = keyof ValueOfType<Pick<ISearchBarProps, "options">>[number];
 
 const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProps) => {
-    const [filtered, setFiltered] = useState<UntypedObject[]>()
+    const [filteredOptions, setFilteredOptions] = useState<UntypedObject[]>()
     const [userInput, setUserInput] = useState("");
     const [selected, setSelected] = useState();
     const [cursor, setCursor] = useState(0);
@@ -40,7 +40,7 @@ const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProp
         setUserInput(input);
 
         if (!input.length) {
-            setFiltered([]);
+            setFilteredOptions([]);
             setCursor(0);
             return;
         }
@@ -55,12 +55,12 @@ const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProp
             return false;
         });
 
-        setFiltered(newFilter);
+        setFilteredOptions(newFilter);
     }
 
     useEffect(() => {
-        console.log(filtered);
-    }, [filtered]);
+        console.log(filteredOptions);
+    }, [filteredOptions]);
     
 
     return (
