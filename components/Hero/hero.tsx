@@ -1,4 +1,4 @@
-import SearchBar from '../Searchbar';
+import SearchBar from '../SearchBar';
 import Image from 'next/image';
 import logo from '@/static/logo-hero.svg'
 
