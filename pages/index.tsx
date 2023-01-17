@@ -2,7 +2,7 @@ import Hero from '@/components/Hero'
 import Head from 'next/head'
 import Features from '@/components/Features'
 import Overview from '@/components/Overview'
-import SearchBar from '@/components/Searchbar'
+import SearchBar from '@/components/SearchBar'
 import { defaultOptions } from '@/util/defaults'
 
 export default function Home() {
