@@ -61,7 +61,6 @@ const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProp
     useEffect(() => {
         console.log(filteredOptions);
     }, [filteredOptions]);
-    
 
     return (
         <div>
