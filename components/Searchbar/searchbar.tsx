@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { ARROW_DOWN, ARROW_UP, ENTER } from "@/constants/"
 import useKeyPress from "@/hooks/useKeyPress";
 import { ValueOfType, UntypedObject } from "@/types/"
+import SearchResults from '@/components/SearchResults'
 
 interface ISearchBarProps {
 
@@ -25,9 +26,9 @@ interface ISearchBarProps {
 type OptionKeys = keyof ValueOfType<Pick<ISearchBarProps, "options">>[number];
 
 const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProps) => {
-    const [filteredOptions, setFilteredOptions] = useState<UntypedObject[]>()
+    const [filteredOptions, setFilteredOptions] = useState<UntypedObject[]>([]);
     const [userInput, setUserInput] = useState("");
-    const [selected, setSelected] = useState();
+    const [selected, setSelected] = useState<UntypedObject>();
     const [cursor, setCursor] = useState(0);
     const [hovered, setHovered] = useState();
 
@@ -62,8 +63,36 @@ const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProp
         console.log(filteredOptions);
     }, [filteredOptions]);
 
+    useEffect(() => {
+        if (filteredOptions.length && downPress) {
+            setCursor(prevState => 
+                prevState < filteredOptions.length - 1 ? prevState + 1 : prevState   
+            );
+        }
+    }, [filteredOptions.length, downPress]);
+
+    useEffect(() => {
+        if (filteredOptions.length && upPress) {
+            setCursor(prevState => 
+                prevState > 0 ? prevState - 1 : prevState    
+            );
+        }
+    }, [filteredOptions.length, upPress])
+
+    useEffect(() => {
+        if (filteredOptions.length && enterPress) {
+            setSelected(filteredOptions[cursor]);
+        }
+    }, [filteredOptions, cursor, enterPress]);
+
+    useEffect(() => {
+        if (filteredOptions.length && hovered) {
+            setCursor(filteredOptions.indexOf(hovered));
+        }
+    }, [filteredOptions, hovered]);
+
     return (
-        <div>
+        <div className="relative">
             <input 
                 autoFocus
                 type="text" 
@@ -71,6 +100,9 @@ const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProp
                 placeholder={`ex. 'Simon Fraser University' or 'SFU'`}
                 onChange={handleChange}
             />
+            <div>
+                <SearchResults results={filteredOptions} className="absolute" />
+            </div>
         </div>
     )
 }
