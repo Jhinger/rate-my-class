@@ -1,16 +1,26 @@
 import type { UntypedObject } from '@/types/'
+import { Dispatch, SetStateAction } from 'react';
 
 interface ISearchResultProps {
     results: UntypedObject[];
+    numResults: number;
+    cursor: number;
+    setHovered: Dispatch<SetStateAction<UntypedObject>>;
+    setSelected: Dispatch<SetStateAction<UntypedObject>>;
     className?: string;
 }
 
-const SearchResult = ({ results, className, ...rest }: ISearchResultProps) => {
+const SearchResult = ({ cursor, results, numResults, setHovered, setSelected, className, ...rest }: ISearchResultProps) => {
 
-    const renderResults = results.map((result, index) => 
-        <div key={index} {...rest} className="duration-100 px-2 py-3 indent-2 text-gray-500 hover:text-black hover:cursor-pointer hover:bg-gray-200 hover:rounded-md text-sm" >
-            { result.name }
-        </div>
+    const renderResults = results.slice(0, numResults).map((result, index) => {
+            const cursorClass = cursor === index ? "bg-gray-200 text-black rounded-md" : "";
+
+            return (
+                <div key={index} {...rest} className={`${cursorClass} duration-100 px-2 py-3 indent-2 text-gray-500 hover:text-black hover:cursor-pointer hover:bg-gray-200 hover:rounded-md text-sm`} >
+                    { result.name }
+                </div>
+            )
+        }
     )
 
     return (
