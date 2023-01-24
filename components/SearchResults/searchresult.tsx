@@ -16,7 +16,14 @@ const SearchResult = ({ cursor, results, numResults, setHovered, setSelected, cl
             const cursorClass = cursor === index ? "bg-gray-200 text-black rounded-md" : "";
 
             return (
-                <div key={index} {...rest} className={`${cursorClass} duration-100 px-2 py-3 indent-2 text-gray-500 hover:text-black hover:cursor-pointer hover:bg-gray-200 hover:rounded-md text-sm`} >
+                <div 
+                    key={index} 
+                    onMouseEnter={() => setHovered(result)} 
+                    onMouseLeave={() => setHovered({})} 
+                    onClick={() => setSelected(result)} 
+                    className={`${cursorClass} duration-100 px-2 py-3 indent-2 text-gray-500 hover:text-black hover:cursor-pointer hover:bg-gray-200 hover:rounded-md text-sm`}
+                    {...rest} 
+                >
                     { result.name }
                 </div>
             )
