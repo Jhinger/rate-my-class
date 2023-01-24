@@ -11,7 +11,7 @@ const SchoolIndex = ({ school }: InferGetServerSidePropsType<typeof getServerSid
 
 export default SchoolIndex;
 
-export async function getServerSideProps<Q extends ParsedUrlQuery, D extends PreviewData>(context: GetServerSidePropsContext<Q, D>,) {
+export async function getServerSideProps<Q extends ParsedUrlQuery, D extends PreviewData>(context: GetServerSidePropsContext<Q, D>) {
     const params = context.params!;
     const school = params.school;
 
