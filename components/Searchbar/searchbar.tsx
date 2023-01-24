@@ -30,7 +30,7 @@ const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProp
     const [userInput, setUserInput] = useState("");
     const [selected, setSelected] = useState<UntypedObject>();
     const [cursor, setCursor] = useState(0);
-    const [hovered, setHovered] = useState();
+    const [hovered, setHovered] = useState<UntypedObject>();
 
     const downPress = useKeyPress(ARROW_DOWN);
     const upPress = useKeyPress(ARROW_UP);
@@ -98,10 +98,18 @@ const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProp
                 type="text" 
                 className={`${className} px-4 py-2 bg-white rounded-md ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-tertiary duration-100 focus:outline-none`} 
                 placeholder={`ex. 'Simon Fraser University' or 'SFU'`}
+                value={userInput}
                 onChange={handleChange}
             />
             <div>
-                <SearchResults results={filteredOptions} className="absolute" />
+                <SearchResults 
+                    className="absolute"
+                    cursor={cursor} 
+                    results={filteredOptions} 
+                    numResults={numVisibleOptions} 
+                    setHovered={setHovered}
+                    setSelected={setSelected}
+                />
             </div>
         </div>
     )
