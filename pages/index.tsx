@@ -4,6 +4,7 @@ import Features from '@/components/Features'
 import Overview from '@/components/Overview'
 import SearchBar from '@/components/SearchBar'
 import { defaultOptions } from '@/util/defaults'
+import prisma from '@/lib/prismadb'
 
 export default function Home() {
 	return (
@@ -22,3 +23,5 @@ export default function Home() {
 		</>
 	)
 }
+
+// export async function getStaticProps() {}
