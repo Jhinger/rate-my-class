@@ -67,24 +67,58 @@ model School {
   short     String
 
   classes Class[]
+
+  @@index([name, short])
+  @@map("schools")
 }
 
 model Class {
   id        Int       @id @default(autoincrement())
 
-  School    School?   @relation(fields: [schoolId], references: [id])
+  school    School?   @relation(fields: [schoolId], references: [id])
   schoolId  Int?
+
+  comments  Comment[]
+
+  name      String
+
+  @@index([name])
+  @@map("classes")
 }
 
 model Comment {
-  id        Int       @id @default(autoincrement())
-  User      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
+  id              Int       @id @default(autoincrement())
 
-  createdAt DateTime  @default(now()) @map("created_at")
+  User            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String
 
-  overview  String
-  tips      String
+  class           Class     @relation(fields: [classId], references: [id])
+  classId         Int
 
-  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  overview        String
+  tips            String
+  difficulty      Int       
+  upvoteCount     Int       @default(0)
+  gradeRecieved   GRADE     @default(UNKNOWN)
+  workloadHours   Int?
+  isGPABooster    Boolean?  @map("gpa_booster")
+  isRecommended   Boolean?  @map("is_recommended")
+
+  @@map("comments")
+}
+
+enum GRADE {
+  APLUS
+  A
+  AMINUS
+  BPLUS
+  B
+  BMINUS
+  CPLUS
+  C
+  CMINUS
+  D
+  F
+  UNKNOWN
 }
