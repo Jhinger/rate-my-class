@@ -6,7 +6,12 @@ import SearchBar from '@/components/SearchBar'
 import { defaultOptions } from '@/util/defaults'
 import prisma from '@/lib/prismadb'
 
-export default function Home() {
+import type { School } from '@prisma/client'
+import { InferGetStaticPropsType } from 'next'
+
+export default function Home({ schools }: InferGetStaticPropsType<typeof getStaticProps>) {
+	console.log(schools);
+
 	return (
 		<>
 			<Head>
@@ -16,7 +21,7 @@ export default function Home() {
 				<link rel="icon" href="/static/logo-2.svg" sizes='16x16'/>
 			</Head>
 			<Hero>
-				<SearchBar options={defaultOptions} className="w-[60rem]" />
+				<SearchBar options={schools} className="w-[60rem]" />
 			</Hero>
 			<Features />
 			<Overview />
@@ -24,4 +29,17 @@ export default function Home() {
 	)
 }
 
-// export async function getStaticProps() {}
+export async function getStaticProps() {
+	const schools: Partial<School>[] = await prisma.school.findMany({
+		select: {
+			name: true,
+			short: true
+		}
+	});
+
+	return {
+		props: {
+			schools
+		}
+	}
+}
