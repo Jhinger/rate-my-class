@@ -66,8 +66,10 @@ const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProp
     useEffect(() => {
         if (filteredOptions.length && downPress) {
             setCursor(prevState => 
-                prevState < filteredOptions.length - 1 ? prevState + 1 : prevState   
+                prevState < Math.min(filteredOptions.length, 5) - 1 ? prevState + 1 : prevState   
             );
+
+            console.log(cursor);
         }
     }, [filteredOptions.length, downPress]);
 
