@@ -1,5 +1,6 @@
 import Image from "next/image";
 import logo from '@/static/logo-hero.svg'
+import Link from "next/link";
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -10,22 +11,22 @@ const Footer = () => {
                 <div className="flex flex-row">
                     <div className="text-primary flex flex-col mx-8">
                         <span className="font-black my-2">SITE</span>
-                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">about</a>
-                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">contact</a>
-                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">FAQ</a>
+                        <Link href='/about' className="font-extralight text-sm hover:text-white duration-100">about</Link>
+                        <Link href="/contact" className="font-extralight text-sm hover:text-white duration-100">contact</Link>
+                        <Link href="/faq" className="font-extralight text-sm hover:text-white duration-100">FAQ</Link>
                     </div>
                     <div className="text-primary flex flex-col mx-8">
                         <span className="font-black my-2">LEGAL</span>
-                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">terms & conditions</a>
-                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">privacy policy</a>
-                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">site guidelines</a>
+                        <Link href="/terms" className="font-extralight text-sm hover:text-white duration-100">terms & conditions</Link>
+                        <Link href="privacy-policy" className="font-extralight text-sm hover:text-white duration-100">privacy policy</Link>
+                        <Link href="site-guidelines" className="font-extralight text-sm hover:text-white duration-100">site guidelines</Link>
                     </div>
                     <div className="text-primary flex flex-col mx-8">
                         <span className="font-black my-2">FOLLOW US</span>
-                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">LinkedIn</a>
-                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">GitHub</a>
-                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">Instagram</a>
-                        <a href="#" className="font-extralight text-sm hover:text-white duration-100">Twitter</a>
+                        <Link href="#" className="font-extralight text-sm hover:text-white duration-100">LinkedIn</Link>
+                        <Link href="#" className="font-extralight text-sm hover:text-white duration-100">GitHub</Link>
+                        <Link href="#" className="font-extralight text-sm hover:text-white duration-100">Instagram</Link>
+                        <Link href="#" className="font-extralight text-sm hover:text-white duration-100">Twitter</Link>
                     </div>
                 </div>
                 <div className="flex flex-row items-center my-4">
