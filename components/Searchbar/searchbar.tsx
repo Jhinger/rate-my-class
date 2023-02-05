@@ -59,6 +59,7 @@ const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProp
         setFilteredOptions(newFilter);
     }
 
+    // TODO: Remove later.
     useEffect(() => {
         console.log(filteredOptions);
     }, [filteredOptions]);
@@ -68,8 +69,6 @@ const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProp
             setCursor(prevState => 
                 prevState < Math.min(filteredOptions.length, 5) - 1 ? prevState + 1 : prevState   
             );
-
-            console.log(cursor);
         }
     }, [filteredOptions.length, downPress]);
 
