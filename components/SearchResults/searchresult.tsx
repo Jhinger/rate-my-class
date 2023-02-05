@@ -1,4 +1,5 @@
 import type { UntypedObject } from '@/types/'
+import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
 
 interface ISearchResultProps {
@@ -24,7 +25,9 @@ const SearchResult = ({ cursor, results, numResults, setHovered, setSelected, cl
                     className={`${cursorClass} duration-100 px-2 py-3 indent-2 text-gray-500 hover:text-black hover:cursor-pointer hover:bg-gray-200 hover:rounded-md text-sm`}
                     {...rest} 
                 >
-                    { result.name }
+                    <Link href={`/${result.short}`}>
+                        { result.name }
+                    </Link>
                 </div>
             )
         }
