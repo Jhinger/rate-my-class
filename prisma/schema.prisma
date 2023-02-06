@@ -101,7 +101,7 @@ model Comment {
   difficulty      Int       
   upvoteCount     Int       @default(0)       @map("upvote_count")
   gradeRecieved   GRADE     @default(UNKNOWN) @map("grade_recieved")
-  workloadHours   Int?                        @map("workload_hours")
+  workload        Int?                    
   isGPABooster    Boolean?                    @map("gpa_booster")
   isRecommended   Boolean?                    @map("is_recommended")
 
