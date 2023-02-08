@@ -1,5 +1,9 @@
+interface Option {
+    name: string;
+    short: string;
+}
 
-const defaultOptions = [
+const defaultOptions: Option[] = [
     {
         name: "Simon Fraser University",
         short: "SFU",
@@ -11,6 +15,10 @@ const defaultOptions = [
     {
         name: "University of the Fraser Valley",
         short: "UFV"
+    },
+    {
+        name: "University of Toronto",
+        short: "UofT"
     }
 ];
 
