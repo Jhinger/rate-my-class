@@ -3,6 +3,7 @@ import { ARROW_DOWN, ARROW_UP, ENTER } from "@/constants/"
 import useKeyPress from "@/hooks/useKeyPress";
 import { ValueOfType, UntypedObject } from "@/types/"
 import SearchResults from '@/components/SearchResults'
+import { useRouter } from "next/router";
 
 interface ISearchBarProps {
 
@@ -35,6 +36,8 @@ const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProp
     const downPress = useKeyPress(ARROW_DOWN);
     const upPress = useKeyPress(ARROW_UP);
     const enterPress = useKeyPress(ENTER);
+
+    const router = useRouter();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>): undefined => {
         const input = e.target.value;
@@ -83,8 +86,9 @@ const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProp
     useEffect(() => {
         if (filteredOptions.length && enterPress) {
             setSelected(filteredOptions[cursor]);
+            router.push(`/${filteredOptions[cursor].short}`)
         }
-    }, [filteredOptions, cursor, enterPress]);
+    }, [filteredOptions, cursor, router, enterPress]);
 
     useEffect(() => {
         if (filteredOptions.length && hovered) {
