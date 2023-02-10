@@ -16,7 +16,7 @@ export default function Home({ schools }: InferGetStaticPropsType<typeof getStat
 		<>
 			<Head>
 				<title>RateMyClass</title>
-				<meta name="RateMyClass" content="RateMyClass is an informational hub for University/College students looking for historical class data and student-based feedback regarding their classes." />
+				<meta name="description" content="RateMyClass is an informational hub for University/College students looking for historical class data and student-based feedback regarding their classes." />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/static/logo-2.svg" sizes='16x16'/>
 			</Head>
