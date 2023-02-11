@@ -10,3 +10,8 @@ export type ValueOfType<T> = T[keyof T];
 export type UntypedObject = {
     [key: PropertyKey]: any;
 }
+
+export type SchoolClassSelection = {
+    school?: string;
+    class?: string;
+}
