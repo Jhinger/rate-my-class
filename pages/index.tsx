@@ -3,11 +3,11 @@ import Head from 'next/head'
 import Features from '@/components/Features'
 import Overview from '@/components/Overview'
 import SearchBar from '@/components/SearchBar'
-import { defaultOptions } from '@/util/defaults'
 import prisma from '@/lib/prismadb'
+import { defaultOptions } from '@/util/defaults'
 
 import type { School } from '@prisma/client'
-import { InferGetStaticPropsType } from 'next'
+import type { InferGetStaticPropsType } from 'next'
 
 export default function Home({ schools }: InferGetStaticPropsType<typeof getStaticProps>) {
 	console.log(schools);
@@ -20,9 +20,10 @@ export default function Home({ schools }: InferGetStaticPropsType<typeof getStat
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/static/logo-2.svg" sizes='16x16'/>
 			</Head>
-			<Hero>
-				<SearchBar options={schools} className="w-[60rem]" />
-			</Hero>
+			<Hero 
+				primaryChild={<SearchBar options={schools} className="w-[60rem]" />}
+				secondaryChild={<SearchBar options={defaultOptions} className="" />}
+			/>
 			<Features />
 			<Overview />
 		</>

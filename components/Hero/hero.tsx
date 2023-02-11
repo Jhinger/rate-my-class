@@ -1,18 +1,27 @@
 import SearchBar from '../SearchBar';
 import Image from 'next/image';
 import logo from '@/static/logo-hero.svg'
+import { useState } from 'react';
+
+import type { SchoolClassSelection, UntypedObject } from '@/types';
 
 interface IHeroProps {
+    primaryChild: React.ReactNode;
     title?: string;
     subtitle?: string;
+    secondaryChild?: React.ReactNode;
     children?: React.ReactNode;
 }
 
 const Hero = ({ 
         title = "RateMyClass",
-        subtitle = "Search for your School:", 
+        subtitle = "Search for your School:",
+        primaryChild,
+        secondaryChild,
         children
     }: IHeroProps) => {
+        const [userSchoolClass, setUserSchoolClass] = useState<SchoolClassSelection>({});
+
     return (
         <header className="w-full h-[40rem] flex flex-col justify-center items-center">
             <div className="relative -top-10">
@@ -34,7 +43,7 @@ const Hero = ({
                     <h4 className="text-white font-light mt-4"> { subtitle } </h4>
                 </div>
                 <div className="m-4">
-                    { children }
+                    { primaryChild }
                 </div>
                 <div className="text-white text-sm font-extralight text-center">
                     Can&lsquo;t find your school? Request it to be <a href='#request' className='text-blue-400 hover:text-tertiary hover:cursor-pointer'>added here</a>.
