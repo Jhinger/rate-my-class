@@ -1,9 +1,5 @@
-import SearchBar from '../SearchBar';
 import Image from 'next/image';
 import logo from '@/static/logo-hero.svg'
-import { useState } from 'react';
-
-import type { SchoolClassSelection, UntypedObject } from '@/types';
 
 interface IHeroProps {
     primaryChild: React.ReactNode;
@@ -20,7 +16,6 @@ const Hero = ({
         secondaryChild,
         children
     }: IHeroProps) => {
-        const [userSchoolClass, setUserSchoolClass] = useState<SchoolClassSelection>({});
 
     return (
         <header className="w-full h-[40rem] flex flex-col justify-center items-center">
