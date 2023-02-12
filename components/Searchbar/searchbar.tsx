@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
 import { ARROW_DOWN, ARROW_UP, ENTER } from "@/constants/"
 import useKeyPress from "@/hooks/useKeyPress";
 import { ValueOfType, UntypedObject } from "@/types/"
@@ -11,6 +11,11 @@ interface ISearchBarProps {
      * Options that we are searching through, for example schools or classes.
      */
     options: UntypedObject[];
+
+    /**
+     * Set selected option to passed in useState variable.
+     */
+    setUserSelected: Dispatch<SetStateAction<UntypedObject>>
 
     /**
      * Classes to append to search bar - width required.
@@ -26,7 +31,7 @@ interface ISearchBarProps {
 
 type OptionKeys = keyof ValueOfType<Pick<ISearchBarProps, "options">>[number];
 
-const SearchBar = ({ options, numVisibleOptions = 5, className }: ISearchBarProps) => {
+const SearchBar = ({ options, numVisibleOptions = 5, setUserSelected, className }: ISearchBarProps) => {
     const [filteredOptions, setFilteredOptions] = useState<UntypedObject[]>([]);
     const [userInput, setUserInput] = useState("");
     const [selected, setSelected] = useState<UntypedObject>();

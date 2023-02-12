@@ -4,12 +4,17 @@ import Features from '@/components/Features'
 import Overview from '@/components/Overview'
 import SearchBar from '@/components/SearchBar'
 import prisma from '@/lib/prismadb'
+import { useState } from 'react'
 import { defaultOptions } from '@/util/defaults'
 
 import type { School } from '@prisma/client'
 import type { InferGetStaticPropsType } from 'next'
 
 export default function Home({ schools }: InferGetStaticPropsType<typeof getStaticProps>) {
+
+	const [userSchool, setUserSchool] = useState<string>();
+    const [userClass, setUserClass] = useState<string>();
+
 	console.log(schools);
 
 	return (
@@ -21,8 +26,8 @@ export default function Home({ schools }: InferGetStaticPropsType<typeof getStat
 				<link rel="icon" href="/static/logo-2.svg" sizes='16x16'/>
 			</Head>
 			<Hero 
-				primaryChild={<SearchBar options={schools} className="w-[60rem]" />}
-				secondaryChild={<SearchBar options={defaultOptions} className="" />}
+				primaryChild={<SearchBar options={schools} setUserSelected={setUserSchool} className="w-[60rem]" />}
+				secondaryChild={<SearchBar options={defaultOptions} setUserSelected={setUserClass} className="" />}
 			/>
 			<Features />
 			<Overview />
