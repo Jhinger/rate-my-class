@@ -12,8 +12,8 @@ import type { InferGetStaticPropsType } from 'next'
 
 export default function Home({ schools }: InferGetStaticPropsType<typeof getStaticProps>) {
 
-	const [userSchool, setUserSchool] = useState<string>();
-    const [userClass, setUserClass] = useState<string>();
+	const [userSchool, setUserSchool] = useState("");
+    const [userClass, setUserClass] = useState("");
 
 	console.log(schools);
 
