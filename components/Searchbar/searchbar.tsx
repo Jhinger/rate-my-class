@@ -1,9 +1,10 @@
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
 import { ARROW_DOWN, ARROW_UP, ENTER } from "@/constants/"
 import useKeyPress from "@/hooks/useKeyPress";
-import { ValueOfType, UntypedObject } from "@/types/"
 import SearchResults from '@/components/SearchResults'
 import { useRouter } from "next/router";
+
+import type { ValueOfType, UntypedObject, Maybe } from "@/types/"
 
 interface ISearchBarProps {
 
@@ -15,7 +16,7 @@ interface ISearchBarProps {
     /**
      * Set selected option to passed in useState variable.
      */
-    setUserSelected: Dispatch<SetStateAction<UntypedObject>>
+    setUserSelected: Dispatch<SetStateAction<string>>
 
     /**
      * Classes to append to search bar - width required.
