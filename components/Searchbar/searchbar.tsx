@@ -16,7 +16,7 @@ interface ISearchBarProps {
     /**
      * Set selected option to passed in useState variable.
      */
-    setUserSelected: Dispatch<SetStateAction<string>>
+    setUserSelected: Dispatch<SetStateAction<UntypedObject>>
 
     /**
      * Classes to append to search bar - width required.
@@ -35,7 +35,6 @@ type OptionKeys = keyof ValueOfType<Pick<ISearchBarProps, "options">>[number];
 const SearchBar = ({ options, numVisibleOptions = 5, setUserSelected, className }: ISearchBarProps) => {
     const [filteredOptions, setFilteredOptions] = useState<UntypedObject[]>([]);
     const [userInput, setUserInput] = useState("");
-    const [selected, setSelected] = useState<UntypedObject>();
     const [cursor, setCursor] = useState(0);
     const [hovered, setHovered] = useState<UntypedObject>();
 
@@ -68,7 +67,7 @@ const SearchBar = ({ options, numVisibleOptions = 5, setUserSelected, className 
         setFilteredOptions(newFilter);
     }
 
-    // TODO: Remove later.
+    // TODO: Remove later and remove unneccesary dependency array variables.
     useEffect(() => {
         console.log(filteredOptions);
     }, [filteredOptions]);
@@ -91,10 +90,10 @@ const SearchBar = ({ options, numVisibleOptions = 5, setUserSelected, className 
 
     useEffect(() => {
         if (filteredOptions.length && enterPress) {
-            setSelected(filteredOptions[cursor]);
+            setUserSelected(filteredOptions[cursor]);
             router.push(`/${filteredOptions[cursor].short}`)
         }
-    }, [filteredOptions, cursor, router, enterPress]);
+    }, [filteredOptions, cursor, router, enterPress, setUserSelected]);
 
     useEffect(() => {
         if (filteredOptions.length && hovered) {
@@ -119,7 +118,7 @@ const SearchBar = ({ options, numVisibleOptions = 5, setUserSelected, className 
                     results={filteredOptions} 
                     numResults={numVisibleOptions} 
                     setHovered={setHovered}
-                    setSelected={setSelected}
+                    setSelected={setUserSelected}
                 />
             </div>
         </div>
