@@ -12,9 +12,6 @@ import type { InferGetStaticPropsType } from 'next'
 
 export default function Home({ schools }: InferGetStaticPropsType<typeof getStaticProps>) {
 
-	const [userSchool, setUserSchool] = useState("");
-    const [userClass, setUserClass] = useState("");
-
 	console.log(schools);
 
 	return (
@@ -25,10 +22,7 @@ export default function Home({ schools }: InferGetStaticPropsType<typeof getStat
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/static/logo-2.svg" sizes='16x16'/>
 			</Head>
-			<Hero 
-				primaryChild={<SearchBar options={schools} setUserSelected={setUserSchool} className="w-[60rem]" />}
-				secondaryChild={<SearchBar options={defaultOptions} setUserSelected={setUserClass} className="" />}
-			/>
+			<Hero schools={schools} />
 			<Features />
 			<Overview />
 		</>
