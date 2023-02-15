@@ -13,7 +13,7 @@ const Layout = ({ children }: ILayoutProps) => {
 
     return (
         <>
-            { current.route === '/' ? <PrimaryNavbar /> : <SecondaryNavbar />}
+            <PrimaryNavbar />
             <main>
                 { children }    
             </main>
