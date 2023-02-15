@@ -12,7 +12,9 @@ export default async function handler(
     async function getClasses(): Promise<Class[]> {
         const classes = await prisma.class.findMany({
             where: {
-                school: school
+                school: {
+                    name: school
+                }
             }
         });
 
