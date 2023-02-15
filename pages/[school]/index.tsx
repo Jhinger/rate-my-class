@@ -1,11 +1,21 @@
+import Head from "next/head";
 import { GetServerSidePropsContext, InferGetServerSidePropsType, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
 
 const SchoolIndex = ({ school }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
-        <div>
-            { school } 
-        </div>
+        <>
+            <Head>
+				<title>RateMyClass - { school }</title>
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta name="keywords" content={`${school}`}/>
+				<link rel="icon" href="/static/logo-2.svg" sizes='16x16'/>
+			</Head>
+
+            <div>
+                { school } 
+            </div>
+        </>
     )
 }
 
