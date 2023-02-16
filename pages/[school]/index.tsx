@@ -16,7 +16,7 @@ const SchoolIndex = ({ school }: ISchoolIndexProps) => {
     return (
         <>
             <Head>
-				<title>RateMyClass - { school.short }</title>
+				<title>{`RateMyClass - ${ school.short }`}</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="keywords" content={`${school}`}/>
 				<link rel="icon" href="/static/logo-2.svg" sizes='16x16'/>
