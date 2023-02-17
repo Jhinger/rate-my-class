@@ -1,6 +1,7 @@
-import type { UntypedObject } from '@/types/'
 import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
+
+import type { UntypedObject } from '@/types/'
 
 interface ISearchResultProps {
     results: UntypedObject[];
