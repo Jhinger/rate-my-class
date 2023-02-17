@@ -89,11 +89,12 @@ model Comment {
   class           Class     @relation(fields: [classId], references: [id])
   classId         Int
   createdAt       DateTime  @default(now())   @map("created_at")
-  overview        String
-  tips            String
+  overview        String    @db.VarChar(350)
+  tips            String    @db.VarChar(350)
   difficulty      Int       
   upvoteCount     Int       @default(0)       @map("upvote_count")
   gradeRecieved   GRADE     @default(UNKNOWN) @map("grade_recieved")
+  teacher         String?
   workload        Int?                    
   isGPABooster    Boolean?                    @map("gpa_booster")
   isRecommended   Boolean?                    @map("is_recommended")

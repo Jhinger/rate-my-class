@@ -10,3 +10,5 @@ export type ValueOfType<T> = T[keyof T];
 export type UntypedObject = {
     [key: PropertyKey]: any;
 }
+
+export type ChartType = "barchart" | "piechar";
