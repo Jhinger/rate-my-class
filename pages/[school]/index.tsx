@@ -24,8 +24,8 @@ const SchoolIndex = ({ school }: ISchoolIndexProps) => {
 
             <div className="flex justify-center h-[60rem] border-2 border-solid border-blue-500">
                 <div className="min-w-[70rem] border-2 border-solid border-red-500 flex flex-col">
-                    <h4 className="w-full p-4 mt-20 font-extrabold text-5xl tracking-tightest text-primary border-2 border-solid border-green-500"> { school.name } ({ school.short }) </h4>
-                    <div>
+                    <h4 className="w-full p-4 mt-20 font-extrabold text-5xl tracking-tightest text-primary"> { school.name } ({ school.short }) </h4>
+                    <div className="flex flex-row min-w-max">
                         <Chart type="barchart" />
                         <Chart type="barchart" />
                     </div>
