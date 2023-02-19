@@ -1,17 +1,24 @@
 import Head from "next/head";
+import { useState } from "react"
 import prisma from '@/lib/prismadb'
 import { GetServerSidePropsContext, InferGetServerSidePropsType, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
 import Chart from "@/components/Chart";
+import SearchBar from "@/components/SearchBar";
 
-import type { School } from "@prisma/client";
+import type { Class, School } from "@prisma/client";
+import type { UntypedObject } from "@/types";
 
 interface ISchoolIndexProps {
     school: School;
+    classes: Class[];
 }
 
-const SchoolIndex = ({ school }: ISchoolIndexProps) => {
+const SchoolIndex = ({ school, classes }: ISchoolIndexProps) => {
+    const [userSelected, setUserSelected] = useState<UntypedObject>();
+
     console.log(school);
+    console.log(classes);
 
     return (
         <>
@@ -28,6 +35,9 @@ const SchoolIndex = ({ school }: ISchoolIndexProps) => {
                     <div className="flex flex-row min-w-max">
                         <Chart type="barchart" />
                         <Chart type="barchart" />
+                    </div>
+                    <div className="flex justify-center mt-8">
+                        <SearchBar options={classes} setUserSelected={setUserSelected} className="w-[50rem]" />
                     </div>
                 </div>
             </div>
@@ -47,7 +57,20 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         }
     });
 
+    const classes = await prisma.class.findMany({
+        where: {
+            schoolId: school!.id
+        },
+        select: {
+            name: true,
+            department: true
+        }
+    })
+
     return {
-        props: { school }
+        props: { 
+            school,
+            classes
+        }
     }
 }
