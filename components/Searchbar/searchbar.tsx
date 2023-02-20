@@ -107,7 +107,7 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
 
     useEffect(() => {
         if (filteredOptions.length && hovered) {
-            setCursor(filteredOptions.indexOf(hovered));
+            setCursor(filteredOptions.indexOf(hovered) || 0);
         }
     }, [filteredOptions, hovered]);
 
