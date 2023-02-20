@@ -10,7 +10,7 @@ const Carousel = ({ schools }: ICarouselProps) => {
 
     const renderImages = schools.map((school, i) => (
         <div key={i} className="slide flex justify-center align-center">
-            <Image src={school} width={50} height={75} alt={''} quality={100} className="unselectable" loading="lazy" />
+            <Image src={school} style={{height: "auto", width:"60%"}} alt={''} quality={100} className="unselectable" loading="lazy" />
         </div>
     ))
 
