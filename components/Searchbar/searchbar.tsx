@@ -19,6 +19,11 @@ interface ISearchBarProps {
     setUserSelected: Dispatch<SetStateAction<UntypedObject>>
 
     /**
+     * Set input placeholder.
+     */
+    placeholder: string;
+
+    /**
      * Classes to append to search bar - width required.
      */
     className: string;
@@ -32,7 +37,7 @@ interface ISearchBarProps {
 
 type OptionKeys = keyof ValueOfType<Pick<ISearchBarProps, "options">>[number];
 
-const SearchBar = ({ options, numVisibleOptions = 5, setUserSelected, className }: ISearchBarProps) => {
+const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelected, className }: ISearchBarProps) => {
     const [filteredOptions, setFilteredOptions] = useState<UntypedObject[]>([]);
     const [userInput, setUserInput] = useState("");
     const [cursor, setCursor] = useState(0);
@@ -107,7 +112,7 @@ const SearchBar = ({ options, numVisibleOptions = 5, setUserSelected, className 
                 autoFocus
                 type="text" 
                 className={`${className} px-4 py-2 bg-white rounded-md ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-tertiary duration-100 focus:outline-none`} 
-                placeholder={`ex. 'Simon Fraser University' or 'SFU'`}
+                placeholder={placeholder}
                 value={userInput}
                 onChange={handleChange}
             />

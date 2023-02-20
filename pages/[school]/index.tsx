@@ -5,6 +5,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType, PreviewData } f
 import { ParsedUrlQuery } from "querystring";
 import Chart from "@/components/Chart";
 import SearchBar from "@/components/SearchBar";
+import getPlaceholder from "@/util/getPlaceholder";
 
 import type { Class, School } from "@prisma/client";
 import type { UntypedObject } from "@/types";
@@ -16,6 +17,8 @@ interface ISchoolIndexProps {
 
 const SchoolIndex = ({ school, classes }: ISchoolIndexProps) => {
     const [userSelected, setUserSelected] = useState<UntypedObject>();
+
+    const placeholder = getPlaceholder([classes[0], classes[classes.length - 1]]);
 
     console.log(school);
     console.log(classes);
@@ -37,7 +40,7 @@ const SchoolIndex = ({ school, classes }: ISchoolIndexProps) => {
                         <Chart type="barchart" />
                     </div>
                     <div className="flex justify-center mt-8">
-                        <SearchBar options={classes} setUserSelected={setUserSelected} className="w-[50rem]" />
+                        <SearchBar options={classes} setUserSelected={setUserSelected} placeholder={placeholder} className="w-[50rem]" />
                     </div>
                 </div>
             </div>
