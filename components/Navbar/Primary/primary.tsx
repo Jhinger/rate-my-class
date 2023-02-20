@@ -7,6 +7,7 @@ import SignIn from '@/components/Button/SignIn';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 import type { StatusOptions } from '@/types';
+import Router from 'next/router';
 
 const PrimaryNavbar = () => {
     const { data: session, status } = useSession();
@@ -25,6 +26,10 @@ const PrimaryNavbar = () => {
         }
     }
 
+    const goHome = () => {
+        Router.push('/');
+    }
+
     const baseSocialURL = '/static/socials/';
 
     return (
@@ -32,6 +37,7 @@ const PrimaryNavbar = () => {
             <nav className="max-w-[2100px] flex justify-between center items-center">
                 <Image 
                     className="unselectable cursor-pointer"
+                    onClick={goHome}
                     src={logo}
                     width={55}
                     height={55}
