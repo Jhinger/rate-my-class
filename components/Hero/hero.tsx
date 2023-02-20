@@ -66,7 +66,7 @@ const Hero = ({
                     <h4 className="text-white font-light mt-4"> { subtitle } </h4>
                 </div>
                 <div className="m-4 relative">
-                    <SearchBar options={schools} setUserSelected={setUserSchool} className="w-[60rem]" />
+                    <SearchBar options={schools} setUserSelected={setUserSchool} placeholder={`ex. 'Simon Fraser University' or 'SFU'`} className="w-[60rem]" />
                 </div>
                 <div className="text-white text-sm font-extralight text-center">
                     Can&lsquo;t find your school? Request it to be <a href='#request' className='text-blue-400 hover:text-tertiary hover:cursor-pointer'>added here</a>.
