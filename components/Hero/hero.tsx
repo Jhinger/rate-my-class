@@ -23,27 +23,6 @@ const Hero = ({
     }: IHeroProps) => {
     
     const [userSchool, setUserSchool] = useState<UntypedObject>({});
-    const [userClass, setUserClass] = useState<UntypedObject>({});
-    const [userClassOptions, setUserClassOptions] = useState<Class[]>([]);
-
-    /* useEffect(() => {
-        async function getUserClasses(): Promise<void> {
-            const res = await fetch('/api/classes', {
-                method: "POST",
-                body: JSON.stringify({ school: userSchool })
-            })
-    
-            if (res.ok) {
-                const json = await res.json();
-                console.log(json);
-                setUserClassOptions(json);
-            } else {
-                console.error("Failed to fetch user's school classes: " + res.statusText);
-            }
-        }
-
-        getUserClasses();
-    }, [userSchool]); */
     
     return (
         <header className="w-full h-[40rem] flex flex-col justify-center items-center">

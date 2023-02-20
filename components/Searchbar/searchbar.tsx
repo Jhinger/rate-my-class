@@ -78,6 +78,10 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
     }, [filteredOptions]);
 
     useEffect(() => {
+        console.log('Cursor Index: ' + cursor);
+    }, [cursor]);
+
+    useEffect(() => {
         if (filteredOptions.length && downPress) {
             setCursor(prevState => 
                 prevState < Math.min(filteredOptions.length, 5) - 1 ? prevState + 1 : prevState   
@@ -96,7 +100,8 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
     useEffect(() => {
         if (filteredOptions.length && enterPress) {
             setUserSelected(filteredOptions[cursor]);
-            router.push(`/${filteredOptions[cursor].short}`)
+            const nextRoute = filteredOptions[cursor].short ?? filteredOptions[cursor].name;
+            router.push(`${router.asPath}/${nextRoute}`)
         }
     }, [filteredOptions, cursor, router, enterPress, setUserSelected]);
 

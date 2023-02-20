@@ -20,9 +20,6 @@ const SchoolIndex = ({ school, classes }: ISchoolIndexProps) => {
 
     const placeholder = getPlaceholder([classes[0], classes[classes.length - 1]]);
 
-    console.log(school);
-    console.log(classes);
-
     return (
         <>
             <Head>

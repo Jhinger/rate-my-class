@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
 
 import type { UntypedObject } from '@/types/'
+import { useRouter } from 'next/router';
 
 interface ISearchResultProps {
     results: UntypedObject[];
@@ -13,9 +14,11 @@ interface ISearchResultProps {
 }
 
 const SearchResult = ({ cursor, results, numResults, setHovered, setSelected, className, ...rest }: ISearchResultProps) => {
+    const router = useRouter();
 
     const renderResults = results.slice(0, numResults).map((result, index) => {
             const cursorClass = cursor === index ? "bg-gray-200 text-black rounded-md" : "";
+            const nextRoute = result.short ?? result.name;
 
             return (
                 <div 
@@ -26,7 +29,7 @@ const SearchResult = ({ cursor, results, numResults, setHovered, setSelected, cl
                     className={`${cursorClass} duration-100 px-2 py-3 indent-2 text-gray-500 hover:text-black hover:cursor-pointer hover:bg-gray-200 hover:rounded-md text-sm`}
                     {...rest} 
                 >
-                    <Link href={`/${result.short}`}>
+                    <Link href={`${router.asPath}/${nextRoute}`}>
                         { result.name }
                     </Link>
                 </div>
