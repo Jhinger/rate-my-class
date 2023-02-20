@@ -48,7 +48,7 @@
   }
 
   .slider .slide {
-    height: 80px;
+    height: auto;
     width: 100px;
   }
 

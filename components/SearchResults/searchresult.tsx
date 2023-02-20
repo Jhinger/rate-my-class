@@ -18,18 +18,17 @@ const SearchResult = ({ cursor, results, numResults, setHovered, setSelected, cl
 
     const renderResults = results.slice(0, numResults).map((result, index) => {
             const cursorClass = cursor === index ? "bg-gray-200 text-black rounded-md" : "";
-            const nextRoute = result.short ?? result.name;
+            const nextRoute = `${router.asPath}/` + (result.short ?? result.name);
 
             return (
                 <div 
                     key={index} 
                     onMouseEnter={() => setHovered(result)} 
-                    onMouseLeave={() => setHovered({})} 
                     onClick={() => setSelected(result)} 
                     className={`${cursorClass} duration-100 px-2 py-3 indent-2 text-gray-500 hover:text-black hover:cursor-pointer hover:bg-gray-200 hover:rounded-md text-sm`}
                     {...rest} 
                 >
-                    <Link href={`${router.asPath}/${nextRoute}`}>
+                    <Link href={nextRoute}>
                         { result.name }
                     </Link>
                 </div>
