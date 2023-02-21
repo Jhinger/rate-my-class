@@ -29,14 +29,15 @@ const SchoolIndex = ({ school, classes }: ISchoolIndexProps) => {
 				<link rel="icon" href="/static/logo-2.svg" sizes='16x16'/>
 			</Head>
 
-            <div className="flex justify-center h-[60rem] border-2 border-solid border-blue-500">
-                <div className="min-w-[70rem] border-2 border-solid border-red-500 flex flex-col">
+            <div className="flex justify-center h-[60rem]">
+                <div className="min-w-[70rem] flex flex-col">
                     <h4 className="w-full p-4 mt-20 font-extrabold text-5xl tracking-tightest text-primary"> { school.name } ({ school.short }) </h4>
                     <div className="flex flex-row min-w-max">
                         <Chart type="barchart" />
                         <Chart type="barchart" />
                     </div>
-                    <div className="flex justify-center mt-8">
+                    <h4 className="center text-white font-light mt-4 pt-4">Search for a Class:</h4>
+                    <div className="flex justify-center mt-4">
                         <SearchBar options={classes} setUserSelected={setUserSelected} placeholder={placeholder} className="w-[50rem]" />
                     </div>
                 </div>
