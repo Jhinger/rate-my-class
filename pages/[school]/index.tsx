@@ -13,12 +13,15 @@ import type { UntypedObject } from "@/types";
 interface ISchoolIndexProps {
     school: School;
     classes: Class[];
+    departmentGPA: UntypedObject;
 }
 
-const SchoolIndex = ({ school, classes }: ISchoolIndexProps) => {
+const SchoolIndex = ({ school, classes, departmentGPA }: ISchoolIndexProps) => {
     const [userSelected, setUserSelected] = useState<UntypedObject>();
 
     const placeholder = getPlaceholder([classes[0], classes[classes.length - 1]]);
+
+    console.log(departmentGPA);
 
     return (
         <>
@@ -38,7 +41,7 @@ const SchoolIndex = ({ school, classes }: ISchoolIndexProps) => {
                     </div>
                     <h4 className="center text-white font-light mt-4 pt-4">Search for a Class:</h4>
                     <div className="flex justify-center mt-4">
-                        <SearchBar options={classes} setUserSelected={setUserSelected} placeholder={placeholder} className="w-[50rem]" />
+                        <SearchBar options={classes} setUserSelected={setUserSelected} placeholder={placeholder} className="w-[60rem]" />
                     </div>
                 </div>
             </div>
@@ -60,7 +63,9 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
 
     const classes = await prisma.class.findMany({
         where: {
-            schoolId: school!.id
+            school: {
+                id: school!.id
+            }
         },
         select: {
             name: true,
@@ -68,10 +73,19 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         }
     })
 
+    const departmentGPA = await prisma.comment.groupBy({
+        by: ['department'],
+        _avg: {
+            gradeRecieved: true
+        },
+        _count: true
+    })
+
     return {
         props: { 
             school,
-            classes
+            classes,
+            departmentGPA
         }
     }
 }
