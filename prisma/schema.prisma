@@ -73,10 +73,11 @@ model School {
 
 model Class {
   id          Int       @id @default(autoincrement())
-  name        String
-  department  String?
   school      School?   @relation(fields: [schoolId], references: [id])
   schoolId    Int?
+
+  name        String
+  department  String?
   comments    Comment[]
 
   @@index([name])
@@ -89,33 +90,36 @@ model Comment {
   userId              String
   class               Class                   @relation(fields: [classId], references: [id])
   classId             Int
+  
+  department          String?
   createdAt           DateTime                @default(now())   @map("created_at")
   overview            String                  @db.VarChar(350)
   tips                String                  @db.VarChar(350)
   difficulty          Int       
   upvoteCount         Int                     @default(0)       @map("upvote_count")
   commentInteraction  COMMENT_INTERACTION     @default(NONE)
-  gradeRecieved       GRADE                   @default(UNKNOWN) @map("grade_recieved")
+  gradeRecieved       Int?                  
   teacher             String?
   workload            Int?                    
   isGPABooster        Boolean?                @map("gpa_booster")
   isRecommended       Boolean?                @map("is_recommended")
 
+  @@index([classId])
   @@map("comments")
 }
 
 enum GRADE {
-  APLUS 
-  A
-  AMINUS
-  BPLUS
-  B
-  BMINUS
-  CPLUS
-  C
-  CMINUS
-  D
-  F
+  APLUS     // 1
+  A         // 2
+  AMINUS    // 3
+  BPLUS     // 4
+  B         // 4
+  BMINUS    // 5
+  CPLUS     // 5
+  C         // 6
+  CMINUS    // 7
+  D         // 8
+  F         // 9
   UNKNOWN
 }
 
