@@ -1,27 +1,29 @@
 import Head from "next/head";
 import { useState } from "react"
 import prisma from '@/lib/prismadb'
-import { GetServerSidePropsContext, InferGetServerSidePropsType, PreviewData } from "next";
+import { GetServerSidePropsContext, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
 import Chart from "@/components/Chart";
 import SearchBar from "@/components/SearchBar";
 import getPlaceholder from "@/util/getPlaceholder";
+import EmptyState from "@/components/EmptyState";
+import Directory from "@/components/Directory";
 
 import type { Class, School } from "@prisma/client";
-import type { UntypedObject } from "@/types";
+import type { DepartmentSummary, UntypedObject } from "@/types";
 
 interface ISchoolIndexProps {
     school: School;
     classes: Class[];
-    departmentGPA: UntypedObject;
+    departmentSummary: DepartmentSummary[];
 }
 
-const SchoolIndex = ({ school, classes, departmentGPA }: ISchoolIndexProps) => {
+const SchoolIndex = ({ school, classes, departmentSummary }: ISchoolIndexProps) => {
     const [userSelected, setUserSelected] = useState<UntypedObject>();
 
     const placeholder = getPlaceholder([classes[0], classes[classes.length - 1]]);
 
-    console.log(departmentGPA);
+    console.log(departmentSummary);
 
     return (
         <>
@@ -32,9 +34,9 @@ const SchoolIndex = ({ school, classes, departmentGPA }: ISchoolIndexProps) => {
 				<link rel="icon" href="/static/logo-2.svg" sizes='16x16'/>
 			</Head>
 
-            <div className="flex justify-center h-[60rem]">
+            <div className="center flex flex-col max-w-[70rem] justify-start h-[60rem] border-2 border-solid border-red-500">
                 <div className="min-w-[70rem] flex flex-col">
-                    <h4 className="w-full p-4 mt-20 font-extrabold text-5xl tracking-tightest text-primary"> { school.name } ({ school.short }) </h4>
+                    <h4 className="w-full p-4 mt-12 font-extrabold text-5xl tracking-tightest text-primary"> { school.name } ({ school.short }) </h4>
                     <div className="flex flex-row min-w-max">
                         <Chart type="barchart" />
                         <Chart type="barchart" />
@@ -43,6 +45,12 @@ const SchoolIndex = ({ school, classes, departmentGPA }: ISchoolIndexProps) => {
                     <div className="flex justify-center mt-4">
                         <SearchBar options={classes} setUserSelected={setUserSelected} placeholder={placeholder} className="w-[60rem]" />
                     </div>
+                </div>
+                <div className="min-w-full flex flex-col border-2 border-solid border-blue-400">
+                    {departmentSummary.length 
+                        ? <Directory summary={departmentSummary} />
+                        : <EmptyState title="" subtitle="" callToAction={() => ""} />
+                    }
                 </div>
             </div>
         </>
@@ -73,7 +81,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         }
     })
 
-    const departmentGPA = await prisma.comment.groupBy({
+    const departmentSummary = await prisma.comment.groupBy({
         by: ['department'],
         _avg: {
             gradeRecieved: true
@@ -85,7 +93,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         props: { 
             school,
             classes,
-            departmentGPA
+            departmentSummary
         }
     }
 }
