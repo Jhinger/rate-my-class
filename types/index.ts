@@ -12,3 +12,11 @@ export type UntypedObject = {
 }
 
 export type ChartType = "barchart" | "piechar";
+
+export interface DepartmentSummary {
+    department: string;
+    _count: number;
+    _avg: {
+        gradeRecieved: number;
+    };
+}
