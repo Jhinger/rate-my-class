@@ -34,7 +34,7 @@ const SchoolIndex = ({ school, classes, departmentSummary }: ISchoolIndexProps) 
 				<link rel="icon" href="/static/logo-2.svg" sizes='16x16'/>
 			</Head>
 
-            <div className="center flex flex-col max-w-[70rem] justify-start h-[60rem] border-2 border-solid border-red-500">
+            <div className="center flex flex-col max-w-[70rem] justify-start border-2 border-solid border-red-500">
                 <div className="min-w-[70rem] flex flex-col">
                     <h4 className="w-full p-4 mt-12 font-extrabold text-5xl tracking-tightest text-primary"> { school.name } ({ school.short }) </h4>
                     <div className="flex flex-row min-w-max">
@@ -46,8 +46,8 @@ const SchoolIndex = ({ school, classes, departmentSummary }: ISchoolIndexProps) 
                         <SearchBar options={classes} setUserSelected={setUserSelected} placeholder={placeholder} className="w-[60rem]" />
                     </div>
                 </div>
-                <div className="min-w-full flex flex-col border-2 border-solid border-blue-400">
-                    {departmentSummary.length 
+                <div className="w-full h-[30rem] border-2 border-solid border-green-500">
+                    {departmentSummary.length
                         ? <Directory summary={departmentSummary} />
                         : <EmptyState title="" subtitle="" callToAction={() => ""} />
                     }
