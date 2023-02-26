@@ -39,7 +39,7 @@ const SearchResult = ({ cursor, results, numResults, setHovered, setSelected, cl
     return (
         <>
             {results.length !== 0 && 
-                <div className={`${className} z-10 w-full bg-white mt-4 rounded-md ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-tertiary`}>
+                <div className={`${className} z-10 w-full backdrop-blur-lg bg-white mt-4 rounded-md ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-tertiary`}>
                     { renderResults } 
                 </div>
             }
