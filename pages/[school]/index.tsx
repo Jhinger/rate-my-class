@@ -82,6 +82,11 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
     })
 
     const departmentSummary = await prisma.comment.groupBy({
+        where: {
+            class: {
+                schoolId: school!.id
+            }
+        },
         by: ['department'],
         _avg: {
             gradeRecieved: true
