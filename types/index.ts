@@ -11,7 +11,7 @@ export type UntypedObject = {
     [key: PropertyKey]: any;
 }
 
-export type ChartType = "barchart" | "piechar";
+export type ChartType = "barchart" | "piechart";
 
 export interface DepartmentSummary {
     department: string;

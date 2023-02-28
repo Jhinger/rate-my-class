@@ -39,7 +39,7 @@ const SchoolIndex = ({ school, classes, departmentSummary }: ISchoolIndexProps) 
                     <h4 className="w-full p-4 mt-12 font-extrabold text-5xl tracking-tightest text-primary"> { school.name } ({ school.short }) </h4>
                     <div className="flex flex-row min-w-max">
                         <Chart type="barchart" />
-                        <Chart type="barchart" />
+                        <Chart type="piechart" />
                     </div>
                     <h4 className="center text-white font-light mt-4 pt-4">Search for a Class:</h4>
                     <div className="flex justify-center mt-4">

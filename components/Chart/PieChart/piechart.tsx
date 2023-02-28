@@ -1,7 +1,7 @@
 
 const PieChart = () => {
     return (
-        <div>
+        <div className="w-full h-full rounded-md border-2 border-solid border-red-500">
 
         </div>
     )
