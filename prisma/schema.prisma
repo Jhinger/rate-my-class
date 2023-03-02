@@ -101,11 +101,10 @@ model Comment {
   gradeRecieved       Int?                  
   teacher             String?
   workload            Int?                    
-  isGPABooster        Boolean?                @map("gpa_booster")
+  isGPABooster        Int?                    @map("gpa_booster")
   isRecommended       Boolean?                @map("is_recommended")
 
-  @@unique([department, classId])
-  @@index([department, classId])
+  @@index([classId])
   @@map("comments")
 }
 
