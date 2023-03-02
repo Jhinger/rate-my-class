@@ -95,7 +95,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         _count: true
     }) 
 
-    const OriginalBoosters = await prisma.$queryRaw
+    const originalBoosters = await prisma.$queryRaw
     `
     SELECT classes.name, AVG(comments."gpa_booster") as boost_average
     FROM classes INNER JOIN comments on classes.id = comments."classId"
@@ -104,7 +104,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
     ORDER BY boost_average desc
     LIMIT 10
     `
-    const boosters = JSON.parse(JSON.stringify(OriginalBoosters));
+    const boosters = JSON.parse(JSON.stringify(originalBoosters));
 
     return {
         props: { 
