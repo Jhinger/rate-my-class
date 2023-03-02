@@ -16,14 +16,16 @@ interface ISchoolIndexProps {
     school: School;
     classes: Class[];
     departmentSummary: DepartmentSummary[];
+    boosters: UntypedObject[];
 }
 
-const SchoolIndex = ({ school, classes, departmentSummary }: ISchoolIndexProps) => {
+const SchoolIndex = ({ school, classes, departmentSummary, boosters }: ISchoolIndexProps) => {
     const [userSelected, setUserSelected] = useState<UntypedObject>();
 
     const placeholder = getPlaceholder([classes[0], classes[classes.length - 1]]);
 
     console.log(departmentSummary);
+    console.log(boosters);
 
     return (
         <>
@@ -76,8 +78,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
             }
         },
         select: {
-            name: true,
-            department: true
+            name: true
         }
     })
 
@@ -92,13 +93,25 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
             gradeRecieved: true
         },
         _count: true
-    })
+    }) 
+
+    const OriginalBoosters = await prisma.$queryRaw
+    `
+    SELECT classes.name, AVG(comments."gpa_booster") as boost_average
+    FROM classes INNER JOIN comments on classes.id = comments."classId"
+    WHERE classes."schoolId" = ${school!.id}
+    GROUP BY classes.name
+    ORDER BY boost_average desc
+    LIMIT 10
+    `
+    const boosters = JSON.parse(JSON.stringify(OriginalBoosters));
 
     return {
         props: { 
             school,
             classes,
-            departmentSummary
+            departmentSummary,
+            boosters
         }
     }
 }
