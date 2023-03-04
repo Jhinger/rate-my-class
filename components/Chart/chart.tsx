@@ -10,7 +10,7 @@ interface IChartProps {
 
 const Chart = ({ type, data, classes }: IChartProps) => {
     return (
-        <div className={`${classes} flex justify-center items-center m-4 w-1/2 h-[20rem] bg-primary rounded-md`}>
+        <div className={`${classes} flex justify-center items-center m-4 w-1/2 bg-primary rounded-md`}>
             {type==="barchart" && <BarChart label={"Highest Rated GPA Boosters"} barData={data} />}
             {type==="piechart" && <PieChart />}
         </div>
