@@ -22,7 +22,7 @@ const BarChart = ({ barData, label }: IBarChartProps) => {
         labels: barData.map(data => data.name),
         datasets: [{
             label: label,
-            data: barData.map(data => data.boost_average),
+            data: barData.map(data => data.average),
             backgroundColor: '#353242',
             borderColor: '#B5C2F5',
             borderWidth: 2,

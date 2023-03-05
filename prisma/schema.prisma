@@ -80,7 +80,7 @@ model Class {
   department  String?
   comments    Comment[]
 
-  @@index([name])
+  @@index([schoolId])
   @@map("classes")
 }
 
