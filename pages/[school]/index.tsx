@@ -42,8 +42,8 @@ const SchoolIndex = ({ school, classes, departmentSummary, boosters, difficulty 
                 <div className="min-w-[70rem] flex flex-col">
                     <h4 className="w-full p-4 mt-12 font-extrabold text-5xl tracking-tightest text-primary"> { school.name } ({ school.short }) </h4>
                     <div className="flex flex-row min-w-max">
-                        <Chart type="barchart" data={boosters}/>
-                        <Chart type="piechart" data={boosters}/>
+                        <Chart type="barchart" data={boosters} label={'Highest Rated GPA Boosters'}/>
+                        <Chart type="barchart" data={difficulty} label={'Highest Difficulty Classes'} />
                     </div>
                     <h4 className="center text-white font-light mt-4 pt-4">Search for a Class:</h4>
                     <div className="flex justify-center mt-4">
