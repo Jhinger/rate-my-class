@@ -11,7 +11,7 @@ const Directory = ({ summary }: IDirectoryProps) => {
             <div key={index} className='w-full m-4 p-4 rounded-md bg-primary flex flex-row justify-between items-center ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-white hover:duration-150'>
                 <span className='font-extrabold ml-8'>{ department.department }</span>
                 <div className='flex flex-row justify-between w-[8rem] mr-16'>
-                    <span>{ getGrade(department._avg.gradeRecieved) ?? '-'}</span>
+                    <span>{ getGrade(Math.floor(department._avg.gradeRecieved)) ?? '-'}</span>
                     <span>{ department._count ?? '-'}</span>
                 </div>
             </div>
