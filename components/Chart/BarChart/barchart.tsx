@@ -26,7 +26,7 @@ const BarChart = ({ barData, label }: IBarChartProps) => {
             backgroundColor: '#353242',
             borderColor: '#B5C2F5',
             borderWidth: 2,
-        }]
+        }],
     }
 
     return (
