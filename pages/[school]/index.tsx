@@ -17,15 +17,17 @@ interface ISchoolIndexProps {
     classes: Class[];
     departmentSummary: DepartmentSummary[];
     boosters: UntypedObject[];
+    difficulty: UntypedObject[];
 }
 
-const SchoolIndex = ({ school, classes, departmentSummary, boosters }: ISchoolIndexProps) => {
+const SchoolIndex = ({ school, classes, departmentSummary, boosters, difficulty }: ISchoolIndexProps) => {
     const [userSelected, setUserSelected] = useState<UntypedObject>();
 
     const placeholder = getPlaceholder([classes[0], classes[classes.length - 1]]);
 
     console.log(departmentSummary);
     console.log(boosters);
+    console.log(difficulty);
 
     return (
         <>
@@ -97,21 +99,34 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
 
     const originalBoosters = await prisma.$queryRaw
     `
-    SELECT classes.name, AVG(comments."gpa_booster") as boost_average
+    SELECT classes.name, AVG(comments."gpa_booster") as average
     FROM classes INNER JOIN comments on classes.id = comments."classId"
     WHERE classes."schoolId" = ${school!.id}
     GROUP BY classes.name
-    ORDER BY boost_average desc
+    ORDER BY average desc
     LIMIT 10
     `
     const boosters = JSON.parse(JSON.stringify(originalBoosters));
+
+    const originalDifficulty = await prisma.$queryRaw
+    `
+    SELECT classes.name, AVG(comments."difficulty") as average
+    FROM classes INNER JOIN comments on classes.id = comments."classId"
+    WHERE classes."schoolId" = ${school!.id}
+    GROUP BY classes.name
+    ORDER BY average desc
+    LIMIT 10
+    `
+
+    const difficulty = JSON.parse(JSON.stringify(originalDifficulty));
 
     return {
         props: { 
             school,
             classes,
             departmentSummary,
-            boosters
+            boosters,
+            difficulty
         }
     }
 }
