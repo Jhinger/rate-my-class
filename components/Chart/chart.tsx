@@ -6,14 +6,15 @@ interface IChartProps {
     type: ChartType;
     data: UntypedObject[];
     label: string;
+    colors: string[];
     classes?: string;
 }
 
-const Chart = ({ type, data, label, classes }: IChartProps) => {
+const Chart = ({ type, data, label, colors, classes }: IChartProps) => {
     return (
         <div className={`${classes} flex justify-center items-center m-4 w-1/2 bg-primary rounded-md`}>
-            {type==="barchart" && <BarChart label={label} barData={data} />}
-            {type==="piechart" && <PieChart label={label} pieData={data}/>}
+            {type==="barchart" && <BarChart label={label} barData={data} barColors={colors} />}
+            {type==="piechart" && <PieChart label={label} pieData={data} />}
         </div>
     )
 }
