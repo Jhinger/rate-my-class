@@ -12,6 +12,7 @@ import { colors_blue, colors_mauve } from '@/constants/boosterColors';
 
 import type { Class, School } from "@prisma/client";
 import type { DepartmentSummary, UntypedObject } from "@/types";
+import Footer from "@/components/Footer";
 
 interface ISchoolIndexProps {
     school: School;
@@ -39,8 +40,8 @@ const SchoolIndex = ({ school, classes, departmentSummary, boosters, difficulty 
 				<link rel="icon" href="/static/logo-2.svg" sizes='16x16'/>
 			</Head>
 
-            <div className="center flex flex-col max-w-[70rem] justify-start">
-                <div className="min-w-[70rem] flex flex-col">
+            <div className="center flex flex-col items-center max-w-[80rem] justify-start">
+                <div className="min-w-[80rem] flex flex-col">
                     <h4 className="w-full p-4 mt-12 font-extrabold text-5xl tracking-tightest text-primary"> { school.name } ({ school.short }) </h4>
                     <div className="flex flex-row min-w-max">
                         <Chart type="barchart" data={boosters} label={'Highest Rated GPA Boosters'} colors={colors_blue} />
@@ -51,7 +52,7 @@ const SchoolIndex = ({ school, classes, departmentSummary, boosters, difficulty 
                         <SearchBar options={classes} setUserSelected={setUserSelected} placeholder={placeholder} className="w-[60rem]" />
                     </div>
                 </div>
-                <div className="w-full mt-12 h-[30rem]">
+                <div className="w-11/12 mt-12 h-[30rem]">
                     {departmentSummary.length
                         ? <Directory summary={departmentSummary} />
                         : <EmptyState title="" subtitle="" callToAction={() => ""} />
