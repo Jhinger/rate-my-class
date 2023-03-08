@@ -2,11 +2,15 @@ import Image from "next/image";
 import logo from '@/static/logo-hero.svg'
 import Link from "next/link";
 
-const Footer = () => {
+interface IFooterProps {
+    backgroundColor: string;
+}
+
+const Footer = ({ backgroundColor }: IFooterProps ) => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <div className="bg-secondary text-white h-[25rem] flex flex-col justify-end items-center">
+        <div className={`${backgroundColor} text-white h-[25rem] flex flex-col justify-end items-center`}>
             <div className="w-max flex flex-col justify-center items-center border-b-2 border-solid border-primary">
                 <div className="flex flex-row">
                     <div className="text-primary flex flex-col mx-8">
