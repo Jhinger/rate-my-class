@@ -18,8 +18,8 @@ const Layout = ({ children }: ILayoutProps) => {
                 { children }    
             </main>
             { current.route === '/' 
-                ? <Footer backgroundColor='bg-secondary'/> 
-                : <Footer backgroundColor="bg-secondaryAccent" /> 
+                ? <Footer className='bg-secondary h-[25rem]'/> 
+                : <Footer className='bg-secondary p-8' /> 
             }
         </>
     )
