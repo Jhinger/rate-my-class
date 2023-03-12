@@ -92,6 +92,7 @@ model Comment {
   classId             Int
   
   department          String?
+  deleted             Boolean                 @default(false)
   createdAt           DateTime                @default(now())   @map("created_at")
   overview            String                  @db.VarChar(350)
   tips                String                  @db.VarChar(350)
