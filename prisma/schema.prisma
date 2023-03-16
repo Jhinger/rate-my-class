@@ -72,13 +72,18 @@ model School {
 }
 
 model Class {
-  id          Int       @id @default(autoincrement())
-  school      School?   @relation(fields: [schoolId], references: [id])
-  schoolId    Int?
+  id                Int         @id @default(autoincrement())
+  school            School?     @relation(fields: [schoolId], references: [id])
+  schoolId          Int?
 
-  name        String
-  department  String?
-  comments    Comment[]
+  name              String
+  department        String?
+
+  avgGrade          Int?        @map("avg_grade")
+  avgDifficulty     Int?        @map("avg_difficulty")
+  numComments       Int         @default(0) @map("num_comments")
+
+  comments          Comment[]
 
   @@index([schoolId])
   @@map("classes")
