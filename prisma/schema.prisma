@@ -1,27 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -36,21 +35,15 @@ model Session {
 
 model User {
   id            String    @id @default(cuid())
-  name          String?
   email         String?   @unique
-  canEmail      Boolean   @default(true)
+  name          String?
   emailVerified DateTime?
   image         String?
-
   role          ROLE      @default(USER)
-  comments      Comment[]
+  canEmail      Boolean   @default(true)
   accounts      Account[]
   sessions      Session[]
-}
-
-enum ROLE {
-  USER
-  ADMIN
+  comments      Comment[]
 }
 
 model VerificationToken {
@@ -62,9 +55,9 @@ model VerificationToken {
 }
 
 model School {
-  id        Int       @id @default(autoincrement())
-  name      String
-  short     String
+  id      Int     @id @default(autoincrement())
+  name    String
+  short   String
   classes Class[]
 
   @@index([name, short])
@@ -72,61 +65,47 @@ model School {
 }
 
 model Class {
-  id                Int         @id @default(autoincrement())
-  school            School?     @relation(fields: [schoolId], references: [id])
-  schoolId          Int?
-
-  name              String
-  department        String?
-
-  avgGrade          Int?        @map("avg_grade")
-  avgDifficulty     Int?        @map("avg_difficulty")
-  numComments       Int         @default(0) @map("num_comments")
-
-  comments          Comment[]
+  id            Int       @id @default(autoincrement())
+  schoolId      Int?
+  name          String
+  department    String?
+  avgDifficulty Int?      @map("avg_difficulty")
+  avgGrade      Int?      @map("avg_grade")
+  numComments   Int       @default(0) @map("num_comments")
+  school        School?   @relation(fields: [schoolId], references: [id])
+  comments      Comment[]
 
   @@index([schoolId])
   @@map("classes")
 }
 
 model Comment {
-  id                  Int                     @id @default(autoincrement())
-  User                User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId              String
-  class               Class                   @relation(fields: [classId], references: [id])
-  classId             Int
-  
-  department          String?
-  deleted             Boolean                 @default(false)
-  createdAt           DateTime                @default(now())   @map("created_at")
-  overview            String                  @db.VarChar(350)
-  tips                String                  @db.VarChar(350)
-  difficulty          Int       
-  upvoteCount         Int                     @default(0)       @map("upvote_count")
-  commentInteraction  COMMENT_INTERACTION     @default(NONE)
-  gradeRecieved       Int?                  
-  teacher             String?
-  workload            Int?                    
-  isGPABooster        Int?                    @map("gpa_booster")
-  isRecommended       Boolean?                @map("is_recommended")
+  id                 Int                 @id @default(autoincrement())
+  userId             String
+  classId            Int
+  createdAt          DateTime            @default(now()) @map("created_at")
+  difficulty         Int
+  isRecommended      Boolean?            @map("is_recommended")
+  upvoteCount        Int                 @default(0) @map("upvote_count")
+  workload           Int?
+  teacher            String?
+  department         String?
+  isGPABooster       Int?                @map("gpa_booster")
+  deleted            Boolean             @default(false)
+  commentInteraction COMMENT_INTERACTION @default(NONE) @map("comment_interaction")
+  gradeRecieved      Int?                @map("grade_recieved")
+  primaryText        String?             @default("") @map("primary_text") @db.VarChar(350)
+  secondaryText      String?             @default("") @map("secondary_text") @db.VarChar(350)
+  class              Class               @relation(fields: [classId], references: [id])
+  User               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([classId])
   @@map("comments")
 }
 
-enum GRADE {
-  APLUS     // 1
-  A         // 2
-  AMINUS    // 3
-  BPLUS     // 4
-  B         // 4
-  BMINUS    // 5
-  CPLUS     // 5
-  C         // 6
-  CMINUS    // 7
-  D         // 8
-  F         // 9
-  UNKNOWN
+enum ROLE {
+  USER
+  ADMIN
 }
 
 enum COMMENT_INTERACTION {
