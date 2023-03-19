@@ -1,12 +1,5 @@
 import prisma from '@/lib/prismadb'
 
-import type { Maybe } from '@/types/'
-
-interface CountDifficultyResponse {
-    avgDifficulty: Maybe<number>;
-    numComments: Maybe<number>;
-}
-
 prisma.$use(async (params, next) => {
     const ret = await next(params);
 
