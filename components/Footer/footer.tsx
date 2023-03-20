@@ -10,7 +10,7 @@ const Footer = ({ className }: IFooterProps ) => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <div className={`${className} text-white flex flex-col justify-center items-center`}>
+        <div className={`${className} text-white flex flex-col justify-end items-center`}>
             <div className="w-max flex flex-col justify-center items-center border-b-2 border-solid border-primary">
                 <div className="flex flex-row">
                     <div className="text-primary flex flex-col mx-8">

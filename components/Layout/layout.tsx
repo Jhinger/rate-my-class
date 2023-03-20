@@ -18,7 +18,7 @@ const Layout = ({ children }: ILayoutProps) => {
                 { children }    
             </main>
             { current.route === '/' 
-                ? <Footer className='bg-secondary h-[25rem]'/> 
+                ? <Footer className='bg-secondary h-[25rem] pb-10'/> 
                 : <Footer className='bg-secondary p-10' /> 
             }
         </>
