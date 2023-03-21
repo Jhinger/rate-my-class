@@ -69,8 +69,8 @@ model Class {
   schoolId      Int?
   name          String
   department    String?
-  avgDifficulty Int?      @map("avg_difficulty")
-  avgGrade      Int?      @map("avg_grade")
+  avgDifficulty Int?      @default(0) @map("avg_difficulty")
+  avgGrade      Int?      @default(0) @map("avg_grade")
   numComments   Int       @default(0) @map("num_comments")
   school        School?   @relation(fields: [schoolId], references: [id])
   comments      Comment[]
