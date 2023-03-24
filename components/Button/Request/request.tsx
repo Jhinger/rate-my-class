@@ -18,7 +18,7 @@ const Request = () => {
 
     return (
         <div className="flex flex-col justify-center items-center absolute top-0" onClick={updateFormVisibility}>
-            <button id="request" className="font-semibold bg-primary rounded-md px-24 py-4 hover:bg-white duration-150 w-max">
+            <button id="request" className="font-semibold bg-primary rounded-md px-24 py-4 hover:bg-tertiary duration-150 w-max">
                 REQUEST A SCHOOL / CLASS
             </button>
             {isOpen && 
