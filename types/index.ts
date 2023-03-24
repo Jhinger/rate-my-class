@@ -13,6 +13,12 @@ export type UntypedObject = {
 
 export type ChartType = "barchart" | "piechart";
 
+export type Card = {
+    title: string;
+    subtext: string;
+    imgSrc: string;
+}
+
 export interface DepartmentSummary {
     department: string;
     _count: number;
