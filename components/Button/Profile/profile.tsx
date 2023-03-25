@@ -40,7 +40,7 @@ const Profile = ({ session, className = "", onClickTask }: IProfileProps) => {
             className={`${className} flex justify-center w-10`}
         >
             <Image
-                className={`unselectable rounded-md duration-200 cursor-pointer ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-white`}
+                className={`unselectable rounded-md duration-200 cursor-pointer ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-tertiary`}
                 src={session?.user?.image || defaultuser}
                 height={35}
                 width={35}

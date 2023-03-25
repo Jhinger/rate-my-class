@@ -11,6 +11,7 @@ module.exports = {
         primaryAccent: "#82B3FD",
         secondary: "#242131",
         tertiary: "#E2AFF3",
+        tertiaryLight: "#EFD2F9",
         tertiaryAccent: "#B5C2F5",
       },
       letterSpacing: {
