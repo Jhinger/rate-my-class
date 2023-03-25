@@ -51,8 +51,8 @@ const PrimaryNavbar = () => {
                 </div>
 
                 <ul className="flex flex-row space-x-10 text-primary invisible md:visible">
-                    <li className="hover:text-white duration-100 cursor-pointer">contact</li>
-                    <li className="hover:text-white duration-100 cursor-pointer">about</li>
+                    <li className="hover:text-tertiary duration-150 cursor-pointer">contact</li>
+                    <li className="hover:text-tertiary duration-150 cursor-pointer">about</li>
                 </ul>
 
                 { relevantStatusComponent(status) }
