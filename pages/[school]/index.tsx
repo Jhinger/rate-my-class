@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { useState } from "react"
-import prisma from '@/lib/prismadb'
 import { GetServerSidePropsContext, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
+import prisma from '@/lib/prismadb'
 import Chart from "@/components/Chart";
 import SearchBar from "@/components/SearchBar";
 import getPlaceholder from "@/util/getPlaceholder";
@@ -12,7 +12,6 @@ import { colors_blue, colors_mauve } from '@/constants/boosterColors';
 
 import type { Class, School } from "@prisma/client";
 import type { DepartmentSummary, UntypedObject } from "@/types";
-import Footer from "@/components/Footer";
 
 interface ISchoolIndexProps {
     school: School;
@@ -68,6 +67,13 @@ export default SchoolIndex;
 export async function getServerSideProps<Q extends ParsedUrlQuery, D extends PreviewData>(context: GetServerSidePropsContext<Q, D>) {
     const params = context.params!;
     const schoolShort = params.school;
+
+    /** TODO:
+     * Fetch classes for school.
+     * Fetch department average grade and number ratings (20 at a time).
+     * Fetch top rated GPA boosters.
+     * Fetch highest difficulty classes.
+     */
 
     const school = await prisma.school.findFirst({
         where: {
