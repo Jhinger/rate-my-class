@@ -21,6 +21,7 @@ const Card = ({ imgSrc, title, subtext, className }: ICardProps) => {
                         priority={true}
                         unoptimized
                         alt=""
+                        className="unselectable"
                     />
                     <div className="flex flex-col justify-center items-center mt-6">
                         <h5 className="font-bold text-2xl tracking-tight text-secondary">{ title }</h5>
