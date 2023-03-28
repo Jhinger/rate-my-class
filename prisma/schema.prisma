@@ -68,14 +68,15 @@ model Class {
   id            Int       @id @default(autoincrement())
   schoolId      Int?
   name          String
-  department    String?
+  department    String
   avgDifficulty Int?      @default(0) @map("avg_difficulty")
   avgGrade      Int?      @default(0) @map("avg_grade")
+  avgBooster    Int?      @default(0) @map("avg_boost")
   numComments   Int       @default(0) @map("num_comments")
   school        School?   @relation(fields: [schoolId], references: [id])
   comments      Comment[]
 
-  @@index([schoolId])
+  @@index([schoolId, department])
   @@map("classes")
 }
 
