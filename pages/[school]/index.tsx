@@ -69,8 +69,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
     const schoolShort = params.school;
 
     /** TODO:
-     * Fetch classes for school.
-     * Fetch department average grade and number ratings (20 at a time).
+     * Don't fetch and orderby, just use findmany and pagination.
      * Fetch top rated GPA boosters.
      * Fetch highest difficulty classes.
      */
@@ -92,17 +91,21 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         }
     })
 
-    const departmentSummary = await prisma.comment.groupBy({
+    const departmentSummary = await prisma.class.groupBy({
         where: {
-            class: {
-                schoolId: school!.id
-            }
+            schoolId: school!.id
         },
         by: ['department'],
         _avg: {
-            gradeRecieved: true
+            avgGrade: true
         },
-        _count: true
+        orderBy: {
+            _avg: {
+                avgGrade: "desc"
+            }
+        },
+        _count: true,
+        take: 15,
     }) 
 
     const originalBoosters = await prisma.$queryRaw
