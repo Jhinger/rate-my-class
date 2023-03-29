@@ -108,7 +108,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         take: 15,
     }) 
 
-    const originalBoosters = await prisma.$queryRaw
+    /*const originalBoosters = await prisma.$queryRaw
     `
     SELECT classes.name, AVG(comments."gpa_booster") as average
     FROM classes INNER JOIN comments on classes.id = comments."classId"
@@ -117,7 +117,23 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
     ORDER BY average desc
     LIMIT 10
     `
-    const boosters = JSON.parse(JSON.stringify(originalBoosters));
+    const boosters = JSON.parse(JSON.stringify(originalBoosters)); */
+
+    const rawBoosters = await prisma.class.findMany({
+        where: {
+            schoolId: school!.id
+        },
+        orderBy: {
+            avgBooster: "desc"
+        },
+        select: {
+            name: true,
+            avgBooster: true
+        },
+        take: 10
+    });
+    const boosters = rawBoosters.map(({ avgBooster, ...rest }) => ({ average: avgBooster, ...rest }));
+
 
     const originalDifficulty = await prisma.$queryRaw
     `
