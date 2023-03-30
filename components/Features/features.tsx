@@ -6,9 +6,9 @@ const Features = () => {
 
     return (
         <div className="w-full h-[35rem] bg-secondary flex flex-row justify-center items-center">
-            <Card imgSrc={card1.imgSrc} title={card1.title} subtext={card1.subtext} className="bg-gradient-to-br from-tertiaryLight to-primary" />
-            <Card imgSrc={card2.imgSrc} title={card2.title} subtext={card2.subtext} className="bg-gradient-to-b from-tertiaryLight to-primary" />
-            <Card imgSrc={card3.imgSrc} title={card3.title} subtext={card3.subtext} className="bg-gradient-to-bl from-tertiaryLight to-primary" />
+            <Card imgSrc={card1.imgSrc} title={card1.title} subtext={card1.subtext} className="bg-primary" />
+            <Card imgSrc={card2.imgSrc} title={card2.title} subtext={card2.subtext} className="bg-primary" />
+            <Card imgSrc={card3.imgSrc} title={card3.title} subtext={card3.subtext} className="bg-primary" />
         </div>
     )
 }

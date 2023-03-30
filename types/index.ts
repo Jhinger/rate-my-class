@@ -23,6 +23,6 @@ export interface DepartmentSummary {
     department: string;
     _count: number;
     _avg: {
-        gradeRecieved: number;
+        avgGrade: number;
     };
 }
