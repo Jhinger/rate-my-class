@@ -68,12 +68,6 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
     const params = context.params!;
     const schoolShort = params.school;
 
-    /** TODO:
-     * Don't fetch and orderby, just use findmany and pagination.
-     * Fetch top rated GPA boosters.
-     * Fetch highest difficulty classes.
-     */
-
     const school = await prisma.school.findFirst({
         where: {
             short: schoolShort as string
@@ -106,18 +100,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         },
         _count: true,
         take: 15,
-    }) 
-
-    /*const originalBoosters = await prisma.$queryRaw
-    `
-    SELECT classes.name, AVG(comments."gpa_booster") as average
-    FROM classes INNER JOIN comments on classes.id = comments."classId"
-    WHERE classes."schoolId" = ${school!.id}
-    GROUP BY classes.name
-    ORDER BY average desc
-    LIMIT 10
-    `
-    const boosters = JSON.parse(JSON.stringify(originalBoosters)); */
+    });
 
     const rawBoosters = await prisma.class.findMany({
         where: {
@@ -134,26 +117,28 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
     });
     const boosters = rawBoosters.map(({ avgBooster, ...rest }) => ({ average: avgBooster, ...rest }));
 
-
-    const originalDifficulty = await prisma.$queryRaw
-    `
-    SELECT classes.name, AVG(comments."difficulty") as average
-    FROM classes INNER JOIN comments on classes.id = comments."classId"
-    WHERE classes."schoolId" = ${school!.id}
-    GROUP BY classes.name
-    ORDER BY average desc
-    LIMIT 10
-    `
-
-    const difficulty = JSON.parse(JSON.stringify(originalDifficulty));
+    const rawDifficulty = await prisma.class.findMany({
+        where: {
+            schoolId: school!.id
+        },
+        orderBy: {
+            avgDifficulty: "desc"
+        },
+        select: {
+            name: true,
+            avgDifficulty: true
+        },
+        take: 10
+    });
+    const difficulty = rawDifficulty.map(({ avgDifficulty, ...rest }) => ({ average: avgDifficulty, ...rest }));
 
     return {
         props: { 
             school,
             classes,
-            departmentSummary,
             boosters,
-            difficulty
+            difficulty,
+            departmentSummary
         }
     }
 }
