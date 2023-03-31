@@ -21,7 +21,7 @@ export type Card = {
 
 export interface DepartmentSummary {
     department: string;
-    _count: number;
+    numComments: number;
     _avg: {
         avgGrade: number;
     };
