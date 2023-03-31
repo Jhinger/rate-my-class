@@ -89,16 +89,15 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         where: {
             schoolId: school!.id
         },
-        by: ['department'],
+        by: ['department', 'numComments'],
         _avg: {
             avgGrade: true
         },
         orderBy: {
             _avg: {
-                avgGrade: "desc"
+                avgGrade: "asc"
             }
         },
-        _count: true,
         take: 15,
     });
 
