@@ -55,28 +55,40 @@ model VerificationToken {
 }
 
 model School {
-  id      Int     @id @default(autoincrement())
-  name    String
-  short   String
-  classes Class[]
+  id            Int     @id @default(autoincrement())
+  name          String
+  short         String
+  departments   Department[]
+  classes       Class[]
 
   @@index([name, short])
   @@map("schools")
 }
 
+model Department {
+  id          Int       @id @default(autoincrement())
+  name        String
+  numRatings  Int       @default(0)
+  avgGrade    Int       @default(0)
+  schoolId    Int
+  school      School?   @relation(fields: [schoolId], references: [id])
+  classes     Class[]
+}
+
 model Class {
   id            Int       @id @default(autoincrement())
-  schoolId      Int?
+  schoolId      Int
+  departmentId  Int?
   name          String
-  department    String
   avgDifficulty Float?      @default(0) @map("avg_difficulty")
   avgGrade      Float?      @default(0) @map("avg_grade")
   avgBooster    Float?      @default(0) @map("avg_boost")
   numComments   Int         @default(0) @map("num_comments")
   school        School?     @relation(fields: [schoolId], references: [id])
+  department    Department?  @relation(fields: [departmentId], references: [id])
   comments      Comment[]
 
-  @@index([schoolId, department])
+  @@index([schoolId, departmentId])
   @@map("classes")
 }
 
