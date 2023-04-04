@@ -85,21 +85,17 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         }
     })
 
-    const departmentSummary = await prisma.class.groupBy({
+    const departmentSummary = await prisma.department.findMany({
         where: {
             schoolId: school!.id
         },
-        by: ['departmentId', 'numComments'],
-        _avg: {
-            avgGrade: true
+        select: {
+            name: true,
+            avgGrade: true,
+            numComments: true
         },
-        orderBy: {
-            _avg: {
-                avgGrade: "asc"
-            }
-        },
-        take: 15,
-    });
+        take: 15
+    })
 
     const rawBoosters = await prisma.class.findMany({
         where: {
