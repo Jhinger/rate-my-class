@@ -15,10 +15,11 @@ import type { UntypedObject } from "@/types";
 interface IBarChartProps {
     barData: UntypedObject[];
     barColors: string[];
+    options?: UntypedObject;
     label: string;
 }
 
-const BarChart = ({ barData, barColors, label }: IBarChartProps) => {
+const BarChart = ({ barData, barColors, options, label }: IBarChartProps) => {
     const data = {
         labels: barData.map(data => data.name),
         datasets: [{
@@ -33,7 +34,7 @@ const BarChart = ({ barData, barColors, label }: IBarChartProps) => {
 
     return (
         <div className="w-full flex justify-center items-center rounded-md border-4 border-solid border-primaryAccent">
-            <Bar data={data} className="m-4" />
+            <Bar data={data} options={options} className="m-4" />
         </div>
     )
 }

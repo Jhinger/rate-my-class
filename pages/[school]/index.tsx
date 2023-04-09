@@ -30,6 +30,15 @@ const SchoolIndex = ({ school, classes, departmentSummary, boosters, difficulty 
     console.log(boosters);
     console.log(difficulty);
 
+    const options = {
+        scales: {
+            y: {
+                min: 0,
+                max: 1
+            }
+        }
+    }
+
     return (
         <>
             <Head>
@@ -43,7 +52,7 @@ const SchoolIndex = ({ school, classes, departmentSummary, boosters, difficulty 
                 <div className="min-w-[80rem] flex flex-col">
                     <h4 className="w-full p-4 mt-12 font-extrabold text-5xl tracking-tightest text-primary"> { school.name } ({ school.short }) </h4>
                     <div className="flex flex-row min-w-max">
-                        <Chart type="barchart" data={boosters} label={'Highest Rated GPA Boosters'} colors={colors_blue} />
+                        <Chart type="barchart" data={boosters} label={'Highest Rated GPA Boosters'} colors={colors_blue} options={options} />
                         <Chart type="barchart" data={difficulty} label={'Highest Difficulty Classes'} colors={colors_mauve} />
                     </div>
                     <h4 className="center text-white font-light mt-4 pt-4">Search for a Class:</h4>
