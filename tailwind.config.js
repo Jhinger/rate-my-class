@@ -10,7 +10,7 @@ module.exports = {
         primary: "#A8C7F5",
         primaryAccent: "#82B3FD",
         secondary: "#242131",
-        tertiary: "#E2AFF3",
+        tertiary: "#F3B044",
         tertiaryLight: "#EFD2F9",
         tertiaryAccent: "#B5C2F5",
       },
@@ -20,7 +20,7 @@ module.exports = {
       animation: {
         fadeDown: 'fadeDown 0.2s ease-in-out',
         fadeDownDelay: 'fadeDown 0.35s ease-in-out',
-        gradient: 'gradient 10s ease-in-out infinite',
+        gradient: 'gradient 15s ease-in-out infinite',
         scroll: "scroll 40s linear infinite"
       },
       keyframes: {
@@ -37,11 +37,11 @@ module.exports = {
         gradient: {
           '0%, 100%': {
             'background-size':'200% 200%',
-            'background-position': 'left center'
+            'background-position': 'right center'
           },
           '50%': {
             'background-size':'200% 200%',
-            'background-position': 'right center'
+            'background-position': 'left center'
           }
         },
         scroll: {
