@@ -18,7 +18,7 @@ const SearchResult = ({ cursor, results, numResults, setHovered, setSelected, cl
 
     const renderResults = results.slice(0, numResults).map((result, index) => {
             const cursorClass = cursor === index ? "bg-gray-200 text-black rounded-md" : "";
-            const nextRoute = `${router.basePath}/` + (result.short ?? result.name);
+            const nextRoute = `${router.asPath}/` + (result.short ?? result.name);
 
             return (
                 <div 

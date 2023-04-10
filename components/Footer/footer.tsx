@@ -15,22 +15,22 @@ const Footer = ({ className }: IFooterProps ) => {
                 <div className="flex flex-row">
                     <div className="text-primary flex flex-col mx-8">
                         <span className="font-black my-2">SITE</span>
-                        <Link href='/about' className="font-extralight text-sm hover:text-white duration-100">about</Link>
-                        <Link href="/contact" className="font-extralight text-sm hover:text-white duration-100">contact</Link>
-                        <Link href="/faq" className="font-extralight text-sm hover:text-white duration-100">FAQ</Link>
+                        <Link href='/about' className="font-extralight text-sm hover:text-tertiary duration-100">about</Link>
+                        <Link href="/contact" className="font-extralight text-sm hover:text-tertiary duration-100">contact</Link>
+                        <Link href="/faq" className="font-extralight text-sm hover:text-tertiary duration-100">FAQ</Link>
                     </div>
                     <div className="text-primary flex flex-col mx-8">
                         <span className="font-black my-2">LEGAL</span>
-                        <Link href="/terms" className="font-extralight text-sm hover:text-white duration-100">terms & conditions</Link>
-                        <Link href="privacy-policy" className="font-extralight text-sm hover:text-white duration-100">privacy policy</Link>
-                        <Link href="site-guidelines" className="font-extralight text-sm hover:text-white duration-100">site guidelines</Link>
+                        <Link href="/terms" className="font-extralight text-sm hover:text-tertiary duration-100">terms & conditions</Link>
+                        <Link href="privacy-policy" className="font-extralight text-sm hover:text-tertiary duration-100">privacy policy</Link>
+                        <Link href="site-guidelines" className="font-extralight text-sm hover:text-tertiary duration-100">site guidelines</Link>
                     </div>
                     <div className="text-primary flex flex-col mx-8">
                         <span className="font-black my-2">FOLLOW US</span>
-                        <Link href="#" className="font-extralight text-sm hover:text-white duration-100">LinkedIn</Link>
-                        <Link href="#" className="font-extralight text-sm hover:text-white duration-100">GitHub</Link>
-                        <Link href="#" className="font-extralight text-sm hover:text-white duration-100">Instagram</Link>
-                        <Link href="#" className="font-extralight text-sm hover:text-white duration-100">Twitter</Link>
+                        <Link href="#" className="font-extralight text-sm hover:text-tertiary duration-100">LinkedIn</Link>
+                        <Link href="#" className="font-extralight text-sm hover:text-tertiary duration-100">GitHub</Link>
+                        <Link href="#" className="font-extralight text-sm hover:text-tertiary duration-100">Instagram</Link>
+                        <Link href="#" className="font-extralight text-sm hover:text-tertiary duration-100">Twitter</Link>
                     </div>
                 </div>
                 <div className="flex flex-row items-center my-4">
