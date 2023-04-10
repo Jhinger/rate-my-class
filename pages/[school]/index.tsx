@@ -30,11 +30,21 @@ const SchoolIndex = ({ school, classes, departmentSummary, boosters, difficulty 
     console.log(boosters);
     console.log(difficulty);
 
-    const options = {
+    const optionsBoosters = {
         scales: {
             y: {
                 min: 0,
                 max: 1
+            },
+
+        }
+    }
+
+    const optionsDifficulty = {
+        scales: {
+            y: {
+                min: 0,
+                max: 5
             }
         }
     }
@@ -52,8 +62,8 @@ const SchoolIndex = ({ school, classes, departmentSummary, boosters, difficulty 
                 <div className="min-w-[80rem] flex flex-col">
                     <h4 className="w-full p-4 mt-12 font-extrabold text-5xl tracking-tightest text-primary"> { school.name } ({ school.short }) </h4>
                     <div className="flex flex-row min-w-max">
-                        <Chart type="barchart" data={boosters} label={'Highest Rated GPA Boosters'} colors={colors_blue} options={options} />
-                        <Chart type="barchart" data={difficulty} label={'Highest Difficulty Classes'} colors={colors_mauve} />
+                        <Chart type="barchart" data={boosters} label={'Highest Rated GPA Boosters'} colors={colors_blue} options={optionsBoosters} />
+                        <Chart type="barchart" data={difficulty} label={'Highest Difficulty Classes'} colors={colors_mauve} options={optionsDifficulty} />
                     </div>
                     <h4 className="center text-white font-light mt-4 pt-4">Search for a Class:</h4>
                     <div className="flex justify-center mt-4">
@@ -106,7 +116,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         take: 15
     })
 
-    const rawBoosters = await prisma.class.findMany({
+    const boosters = await prisma.class.findMany({
         where: {
             schoolId: school!.id
         },
@@ -119,9 +129,8 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         },
         take: 10
     });
-    const boosters = rawBoosters.map(({ avgBooster, ...rest }) => ({ average: avgBooster, ...rest }));
 
-    const rawDifficulty = await prisma.class.findMany({
+    const difficulty = await prisma.class.findMany({
         where: {
             schoolId: school!.id
         },
@@ -134,7 +143,6 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         },
         take: 10
     });
-    const difficulty = rawDifficulty.map(({ avgDifficulty, ...rest }) => ({ average: avgDifficulty, ...rest }));
 
     return {
         props: { 
