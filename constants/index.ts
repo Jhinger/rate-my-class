@@ -5,7 +5,7 @@ const ARROW_UP = "ArrowUp";
 const ARROW_DOWN = "ArrowDown";
 const ENTER = "Enter";
 
-const DEBOUNCE_DELAY = 1000;
+const DEBOUNCE_DELAY = 500;
 
 const NUM_SCHOOLS_PLACEHOLDER = 240;
 const NUM_RATINGS_PLACEHOLDER = 34890;

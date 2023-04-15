@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
+import { useRouter } from 'next/router';
 
 import type { UntypedObject } from '@/types/'
-import { useRouter } from 'next/router';
 
 interface ISearchResultProps {
     results: UntypedObject[];
