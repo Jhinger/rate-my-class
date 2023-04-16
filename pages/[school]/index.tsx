@@ -95,9 +95,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
 
     const classes = await prisma.class.findMany({
         where: {
-            school: {
-                id: school!.id
-            }
+            schoolId: school!.id
         },
         select: {
             name: true
