@@ -99,7 +99,7 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
 
     useEffect(() => {
         if (filteredOptions.length && enterPress) {
-            setUserSelected(filteredOptions[cursor]);
+            cursor >= 0 ? setUserSelected(filteredOptions[cursor]) : setUserSelected(filteredOptions[0]);
             const nextRoute = filteredOptions[cursor].short ?? filteredOptions[cursor].name;
             router.push(`${router.asPath}/${nextRoute}`)
         }
