@@ -61,7 +61,7 @@ model School {
   departments   Department[]
   classes       Class[]
 
-  @@index([name, short])
+  @@index([short])
   @@map("schools")
 }
 
@@ -71,26 +71,26 @@ model Department {
   numComments Int       @default(0)
   avgGrade    Int       @default(0)
   schoolId    Int
-  school      School?   @relation(fields: [schoolId], references: [id])
+  school      School    @relation(fields: [schoolId], references: [id])
   classes     Class[]
 
-  @@index([schoolId, id])
+  @@index([schoolId])
 }
 
 model Class {
   id            Int       @id @default(autoincrement())
   schoolId      Int
-  departmentId  Int?
+  departmentId  Int
   name          String
   avgDifficulty Float?      @default(0) @map("avg_difficulty")
   avgGrade      Float?      @default(0) @map("avg_grade")
   avgBooster    Float?      @default(0) @map("avg_boost")
   numComments   Int         @default(0) @map("num_comments")
-  school        School?     @relation(fields: [schoolId], references: [id])
-  department    Department? @relation(fields: [departmentId], references: [id])
+  school        School      @relation(fields: [schoolId], references: [id])
+  department    Department   @relation(fields: [departmentId], references: [id])
   comments      Comment[]
 
-  @@index([schoolId, id])
+  @@index([schoolId])
   @@map("classes")
 }
 
