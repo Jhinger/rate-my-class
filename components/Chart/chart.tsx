@@ -2,6 +2,7 @@ import BarChart from '@/components/Chart/BarChart/';
 import PieChart from '@/components/Chart/PieChart/';
 
 import type { ChartType, UntypedObject } from '@/types/'
+
 interface IChartProps {
     type: ChartType;
     data: UntypedObject[];
