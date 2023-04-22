@@ -1,4 +1,3 @@
-import TrayItem from '@/components/TrayItem'
 
 interface ITrayProps {
     isVisible: boolean;
