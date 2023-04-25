@@ -1,9 +1,11 @@
+import SEO from "@/components/SEO";
 import { GetServerSidePropsContext, InferGetServerSidePropsType, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
 
 const Class = ({ classID, schoolID }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <div>
+            <SEO title={`RateMyClass - ${classID} (${schoolID})`} />
             { classID }
             { schoolID }
         </div>

@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { useState } from "react"
 import { GetServerSidePropsContext, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
@@ -8,6 +7,7 @@ import SearchBar from "@/components/SearchBar";
 import getPlaceholder from "@/util/getPlaceholder";
 import EmptyState from "@/components/EmptyState";
 import Directory from "@/components/Directory";
+import SEO from "@/components/SEO";
 import { colors_blue, colors_mauve } from '@/constants/boosterColors';
 
 import type { Class, School } from "@prisma/client";
@@ -51,12 +51,7 @@ const SchoolIndex = ({ school, classes, departmentSummary, boosters, difficulty 
 
     return (
         <>
-            <Head>
-				<title>{`RateMyClass - ${ school.short }`}</title>
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta name="keywords" content={`${school}`}/>
-				<link rel="icon" href="/static/logo-2.svg" sizes='16x16'/>
-			</Head>
+            <SEO title={`RateMyClass - ${school.short}`}/>
 
             <div className="center flex flex-col items-center max-w-[80rem] justify-start">
                 <div className="min-w-[80rem] flex flex-col">

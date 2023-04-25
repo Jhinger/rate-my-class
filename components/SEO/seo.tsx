@@ -1,7 +1,7 @@
 import Head from "next/head";
 
-const DOMAIN = "";
-const DEFAULT_OG_IMAGE = "";
+const DOMAIN = "https://www.ratemyclass.io";
+const DEFAULT_OG_IMAGE = "/static/logo-2.svg";
 
 const SEO = ({
     title = "RateMyClass",
@@ -15,7 +15,7 @@ const SEO = ({
     return (
         <div>
             <Head>
-                <title key="title">{`${title} – ${siteName}`}</title>
+                <title key="title">{`${title}`}</title>
                 <meta name="description" content={description} />
                 <meta key="og_type" property="og:type" content={ogType} />
                 <meta key="og_title" property="og:title" content={title} />
@@ -67,7 +67,7 @@ const SEO = ({
 
                 <link rel="canonical" href={canonical ?? DOMAIN} />
 
-                <link rel="shortcut icon" href="/favicon.ico" />
+                <link rel="shortcut icon" href="/static/logo-2.svg" />
             </Head>
         </div>
     )
