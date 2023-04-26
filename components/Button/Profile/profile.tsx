@@ -43,7 +43,7 @@ const Profile = ({ session, className = "", onClickTask }: IProfileProps) => {
         <button 
             ref={ref}
             onClick={updateTrayVisibility}
-            className={`${className} flex justify-center w-10`}
+            className={`${className} flex justify-center w-8`}
         >
             <Image
                 className={`unselectable rounded-md duration-200 cursor-pointer ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-tertiary`}
