@@ -1,4 +1,5 @@
 import SEO from "@/components/SEO";
+import ProgressBar from "@/components/ProgressBar";
 import { GetServerSidePropsContext, InferGetServerSidePropsType, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
 
@@ -8,6 +9,8 @@ const Class = ({ classID, schoolID }: InferGetServerSidePropsType<typeof getServ
             <SEO title={`RateMyClass - ${classID} (${schoolID})`} />
             { classID }
             { schoolID }
+
+            <ProgressBar />
         </div>
     )
 }

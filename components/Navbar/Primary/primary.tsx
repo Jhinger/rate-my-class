@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Router from 'next/router';
-import Link from 'next/link';
 
 import logo from '@/static/logo.svg'
 import { GithubIcon, LinkedinIcon, InstagramIcon } from 'lucide-react';
@@ -40,15 +39,15 @@ const PrimaryNavbar = () => {
                     className="unselectable cursor-pointer"
                     onClick={goHome}
                     src={logo}
-                    width={55}
-                    height={55}
+                    width={50}
+                    height={50}
                     alt="RateMyClass"
                 />
 
                 <div className="flex flex-row space-x-10 invisible md:visible">
-                    <Icon icon={<GithubIcon size={25}/>} href="#" className='unselectable text-primary hover:text-tertiary duration-150' />
-                    <Icon icon={<LinkedinIcon size={25}/>} href="#" className='unselectable text-primary hover:text-tertiary duration-150' />
-                    <Icon icon={<InstagramIcon size={25}/>} href="#" className='unselectable text-primary hover:text-tertiary duration-150' />
+                    <Icon icon={<GithubIcon size={22}/>} href="#" className='unselectable text-primary hover:text-tertiary duration-150' />
+                    <Icon icon={<LinkedinIcon size={22}/>} href="#" className='unselectable text-primary hover:text-tertiary duration-150' />
+                    <Icon icon={<InstagramIcon size={22}/>} href="#" className='unselectable text-primary hover:text-tertiary duration-150' />
                 </div>
 
                 <ul className="flex flex-row space-x-10 text-primary font-medium invisible md:visible">

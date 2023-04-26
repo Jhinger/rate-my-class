@@ -25,7 +25,7 @@ const SearchResult = ({ cursor, results, numResults, setHovered, setSelected, cl
                     key={index} 
                     onMouseEnter={() => setHovered(result)} 
                     onClick={() => setSelected(result)} 
-                    className={`${cursorClass} duration-100 px-2 py-3 indent-2 text-gray-500 hover:text-black hover:cursor-pointer hover:bg-gray-200 hover:rounded-md text-sm`}
+                    className={`${cursorClass} duration-100 px-2 py-2 text-sm indent-2 text-gray-500 hover:text-black hover:cursor-pointer hover:bg-gray-200 hover:rounded-md`}
                     {...rest} 
                 >
                     <Link href={nextRoute}>

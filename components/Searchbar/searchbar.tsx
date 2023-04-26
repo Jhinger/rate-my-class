@@ -116,7 +116,7 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
             <input 
                 autoFocus
                 type="text" 
-                className={`${className} px-4 py-2 bg-white rounded-md ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-tertiary duration-100 focus:outline-none`} 
+                className={`${className} px-4 py-2 text-sm bg-white rounded-md ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-tertiary duration-100 focus:outline-none`} 
                 placeholder={placeholder}
                 value={userInput}
                 onChange={handleChange}
