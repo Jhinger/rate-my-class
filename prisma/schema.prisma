@@ -74,7 +74,7 @@ model Department {
   school      School    @relation(fields: [schoolId], references: [id])
   classes     Class[]
 
-  @@index([schoolId])
+  @@index([schoolId, avgGrade])
 }
 
 model Class {
