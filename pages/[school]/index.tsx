@@ -53,19 +53,19 @@ const SchoolIndex = ({ school, classes, departmentSummary, boosters, difficulty 
         <>
             <SEO title={`RateMyClass - ${school.short}`}/>
 
-            <div className="center flex flex-col items-center max-w-[80rem] justify-start">
-                <div className="min-w-[80rem] flex flex-col">
-                    <h4 className="w-full p-4 mt-12 font-extrabold text-5xl tracking-tightest text-primary"> { school.name } ({ school.short }) </h4>
+            <div className="center flex flex-col items-center max-w-[75rem] justify-start">
+                <div className="min-w-[75em] flex flex-col">
+                    <h4 className="w-full p-4 mt-12 font-extrabold text-[2.75rem] tracking-tightest text-primary"> { school.name } ({ school.short }) </h4>
                     <div className="flex flex-row min-w-max">
                         <Chart type="barchart" data={boosters} label={'Highest Rated GPA Boosters'} colors={colors_blue} options={optionsBoosters} />
                         <Chart type="barchart" data={difficulty} label={'Highest Difficulty Classes'} colors={colors_mauve} options={optionsDifficulty} />
                     </div>
-                    <h4 className="center text-white font-light mt-4 pt-4">Search for a Class:</h4>
+                    <h4 className="center text-white font-base mt-4 pt-4">Search for a Class:</h4>
                     <div className="flex justify-center mt-4">
                         <SearchBar options={classes} setUserSelected={setUserSelected} placeholder={placeholder} className="w-[60rem]" />
                     </div>
                 </div>
-                <div className="w-11/12 mt-12 h-[30rem]">
+                <div className="w-11/12 my-16 min-h-full">
                     {departmentSummary.length
                         ? <Directory summary={departmentSummary} />
                         : <EmptyState title="" subtitle="" callToAction={() => ""} />
@@ -106,7 +106,10 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
             avgGrade: true,
             numComments: true
         },
-        take: 15
+        orderBy: {
+            avgGrade: 'asc'
+        },
+        take: 8
     })
 
     const boosters = await prisma.class.findMany({
