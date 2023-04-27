@@ -1,15 +1,14 @@
 
 interface ICallToActionProps {
-    title: string;
     onClick: () => unknown;
-    color?: string;
+    children: React.ReactNode;
     className?: string;
 }
 
-const CallToAction = ({ title, onClick, color, className }: ICallToActionProps) => {
+const CallToAction = ({ onClick, children, className }: ICallToActionProps) => {
     return (
-        <div>
-            CTA.
+        <div onClick={onClick} className={`${className} flex flex-row text-sm justify-center items-center rounded-lg px-8 py-3 font-normal hover:bg-tertiary duration-200 cursor-pointer`}>
+            { children }
         </div>
     )
 }
