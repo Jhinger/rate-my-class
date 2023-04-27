@@ -12,6 +12,8 @@ import { colors_blue, colors_mauve } from '@/constants/boosterColors';
 
 import type { Class, School } from "@prisma/client";
 import type { DepartmentSummary, UntypedObject } from "@/types";
+import CallToAction from "@/components/Button/CallToAction";
+import { ChevronDown } from "lucide-react";
 
 interface ISchoolIndexProps {
     school: School;
@@ -65,11 +67,17 @@ const SchoolIndex = ({ school, classes, departmentSummary, boosters, difficulty 
                         <SearchBar options={classes} setUserSelected={setUserSelected} placeholder={placeholder} className="w-[60rem]" />
                     </div>
                 </div>
-                <div className="w-11/12 my-16 min-h-full">
+                <div className="w-11/12 mt-16 min-h-full">
                     {departmentSummary.length
                         ? <Directory summary={departmentSummary} />
                         : <EmptyState title="" subtitle="" callToAction={() => ""} />
                     }
+                </div>
+                <div className="my-12">
+                    <CallToAction onClick={() => ""} className="bg-primary">
+                        <ChevronDown size={20} className="relative right-2" />
+                        <span className="unselectable">Load More</span>
+                    </CallToAction>
                 </div>
             </div>
         </>

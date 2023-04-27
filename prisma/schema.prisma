@@ -85,6 +85,7 @@ model Class {
   avgDifficulty Float?      @default(0) @map("avg_difficulty")
   avgGrade      Float?      @default(0) @map("avg_grade")
   avgBooster    Float?      @default(0) @map("avg_boost")
+  avgWorkload   Float?      @default(0) @map("avg_workload")
   numComments   Int         @default(0) @map("num_comments")
   school        School      @relation(fields: [schoolId], references: [id])
   department    Department   @relation(fields: [departmentId], references: [id])
@@ -107,7 +108,6 @@ model Comment {
   department         String?
   isGPABooster       Int?                @map("gpa_booster")
   deleted            Boolean             @default(false)
-  commentInteraction COMMENT_INTERACTION @default(NONE) @map("comment_interaction")
   gradeRecieved      Int?                @map("grade_recieved")
   primaryText        String?             @default("") @map("primary_text") @db.VarChar(350)
   secondaryText      String?             @default("") @map("secondary_text") @db.VarChar(350)
