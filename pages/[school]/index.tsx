@@ -88,6 +88,11 @@ const SchoolIndex = ({ school, classes, departmentSummary, boosters, difficulty 
 export default SchoolIndex;
 
 export async function getServerSideProps<Q extends ParsedUrlQuery, D extends PreviewData>(context: GetServerSidePropsContext<Q, D>) {
+    context.res.setHeader(
+        'Cache-Control',
+        'public, s-maxage=120, stale-while-revalidate=60'
+    )
+    
     const params = context.params!;
     const schoolShort = params.school;
 
