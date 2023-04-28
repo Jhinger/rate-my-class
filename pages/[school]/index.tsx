@@ -115,7 +115,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
             numComments: true
         },
         orderBy: {
-            avgGrade: 'asc'
+            numComments: 'desc'
         },
         take: 8
     })
