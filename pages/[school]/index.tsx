@@ -8,12 +8,13 @@ import getPlaceholder from "@/util/getPlaceholder";
 import EmptyState from "@/components/EmptyState";
 import Directory from "@/components/Directory";
 import SEO from "@/components/SEO";
+import CallToAction from "@/components/Button/CallToAction";
 import { colors_blue, colors_mauve } from '@/constants/boosterColors';
+import { MAX_BOOSTER_CLASSES, MAX_DEPARTMENTS, MAX_DIFFICULTY_CLASSES } from '@/constants/'
+import { ChevronDown } from "lucide-react";
 
 import type { Class, School } from "@prisma/client";
 import type { DepartmentSummary, UntypedObject } from "@/types";
-import CallToAction from "@/components/Button/CallToAction";
-import { ChevronDown } from "lucide-react";
 
 interface ISchoolIndexProps {
     school: School;
@@ -117,7 +118,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         orderBy: {
             numComments: 'desc'
         },
-        take: 8
+        take: MAX_DEPARTMENTS
     })
 
     const boosters = await prisma.class.findMany({
@@ -131,7 +132,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
             name: true,
             avgBooster: true
         },
-        take: 10
+        take: MAX_BOOSTER_CLASSES
     });
 
     const difficulty = await prisma.class.findMany({
@@ -145,7 +146,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
             name: true,
             avgDifficulty: true
         },
-        take: 10
+        take: MAX_DIFFICULTY_CLASSES
     });
 
     return {
