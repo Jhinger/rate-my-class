@@ -32,7 +32,7 @@ const SEO = ({
                 <meta
                     key="og_image:alt"
                     property="og:image:alt"
-                    content={`${title} | ${siteName}`}
+                    content={`${title}`}
                 />
                 <meta key="og_image:width" property="og:image:width" content="1200" />
                 <meta key="og_image:height" property="og:image:height" content="630" />
