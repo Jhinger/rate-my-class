@@ -10,7 +10,7 @@ const Class = ({ classID, schoolID }: InferGetServerSidePropsType<typeof getServ
             { classID }
             { schoolID }
 
-            <ProgressBar />
+            <ProgressBar percent={3.5} maxPercent={5} color="bg-tertiary" textColor="text-tertiary"/>
         </div>
     )
 }

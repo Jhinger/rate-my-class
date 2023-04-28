@@ -55,40 +55,40 @@ model VerificationToken {
 }
 
 model School {
-  id            Int     @id @default(autoincrement())
-  name          String
-  short         String
-  departments   Department[]
-  classes       Class[]
+  id          Int          @id @default(autoincrement())
+  name        String
+  short       String
+  departments Department[]
+  classes     Class[]
 
   @@index([short])
   @@map("schools")
 }
 
 model Department {
-  id          Int       @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String
-  numComments Int       @default(0)
-  avgGrade    Int       @default(0)
+  avgGrade    Int     @default(0)
   schoolId    Int
-  school      School    @relation(fields: [schoolId], references: [id])
+  numComments Int     @default(0)
+  school      School  @relation(fields: [schoolId], references: [id])
   classes     Class[]
 
-  @@index([schoolId, avgGrade])
+  @@index([schoolId, numComments(sort: Desc)])
 }
 
 model Class {
-  id            Int       @id @default(autoincrement())
+  id            Int        @id @default(autoincrement())
   schoolId      Int
-  departmentId  Int
   name          String
-  avgDifficulty Float?      @default(0) @map("avg_difficulty")
-  avgGrade      Float?      @default(0) @map("avg_grade")
-  avgBooster    Float?      @default(0) @map("avg_boost")
-  avgWorkload   Float?      @default(0) @map("avg_workload")
-  numComments   Int         @default(0) @map("num_comments")
-  school        School      @relation(fields: [schoolId], references: [id])
-  department    Department   @relation(fields: [departmentId], references: [id])
+  avgDifficulty Float?     @default(0) @map("avg_difficulty")
+  avgGrade      Float?     @default(0) @map("avg_grade")
+  numComments   Int        @default(0) @map("num_comments")
+  avgBooster    Float?     @default(0) @map("avg_boost")
+  departmentId  Int
+  avgWorkload   Float?     @default(0) @map("avg_workload")
+  department    Department @relation(fields: [departmentId], references: [id])
+  school        School     @relation(fields: [schoolId], references: [id])
   comments      Comment[]
 
   @@index([schoolId])
@@ -96,23 +96,23 @@ model Class {
 }
 
 model Comment {
-  id                 Int                 @id @default(autoincrement())
-  userId             String
-  classId            Int
-  createdAt          DateTime            @default(now()) @map("created_at")
-  difficulty         Int
-  isRecommended      Boolean?            @map("is_recommended")
-  upvoteCount        Int                 @default(0) @map("upvote_count")
-  workload           Int?
-  teacher            String?
-  department         String?
-  isGPABooster       Int?                @map("gpa_booster")
-  deleted            Boolean             @default(false)
-  gradeRecieved      Int?                @map("grade_recieved")
-  primaryText        String?             @default("") @map("primary_text") @db.VarChar(350)
-  secondaryText      String?             @default("") @map("secondary_text") @db.VarChar(350)
-  class              Class               @relation(fields: [classId], references: [id])
-  User               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id            Int      @id @default(autoincrement())
+  userId        String
+  classId       Int
+  createdAt     DateTime @default(now()) @map("created_at")
+  difficulty    Int
+  isRecommended Boolean? @map("is_recommended")
+  upvoteCount   Int      @default(0) @map("upvote_count")
+  workload      Int?
+  teacher       String?
+  department    String?
+  isGPABooster  Int?     @map("gpa_booster")
+  deleted       Boolean  @default(false)
+  gradeRecieved Int?     @map("grade_recieved")
+  primaryText   String?  @default("") @map("primary_text") @db.VarChar(350)
+  secondaryText String?  @default("") @map("secondary_text") @db.VarChar(350)
+  class         Class    @relation(fields: [classId], references: [id])
+  User          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([classId])
   @@map("comments")
