@@ -89,9 +89,9 @@ export default SchoolIndex;
 
 export async function getServerSideProps<Q extends ParsedUrlQuery, D extends PreviewData>(context: GetServerSidePropsContext<Q, D>) {
     context.res.setHeader(
-        'Cache-Control',
-        'public, s-maxage=120, stale-while-revalidate=60'
-    )
+        "Cache-Control",
+        "public, s-maxage=600, stale-while-revalidate=120"
+    );
     
     const params = context.params!;
     const schoolShort = params.school;
