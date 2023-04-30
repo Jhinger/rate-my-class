@@ -1,6 +1,7 @@
 
 export default function getGrade(num: number): string {
     const map = {
+        '-1': 'Unknown',
         1: 'A+',
         2: 'A',
         3: 'A-',
