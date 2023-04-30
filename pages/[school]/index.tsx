@@ -126,7 +126,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         take: MAX_DEPARTMENTS
     })
 
-    const boosters = await prisma.class.findMany({
+    const _boosters = await prisma.class.findMany({
         where: {
             schoolId: school!.id
         },
@@ -139,8 +139,9 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         },
         take: MAX_BOOSTER_CLASSES
     });
+    const boosters = _boosters.map(({avgBooster, ...rest}) => ({ average: avgBooster, ...rest }))
 
-    const difficulty = await prisma.class.findMany({
+    const _difficulty = await prisma.class.findMany({
         where: {
             schoolId: school!.id
         },
@@ -153,6 +154,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         },
         take: MAX_DIFFICULTY_CLASSES
     });
+    const difficulty = _difficulty.map(({ avgDifficulty, ...rest }) => ({ average: avgDifficulty, ...rest }))
 
     return {
         props: { 
