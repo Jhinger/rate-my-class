@@ -12,6 +12,16 @@ import {
 
 import type { UntypedObject } from "@/types";
 
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Colors,
+    Title,
+    Tooltip,
+    Legend
+);
+
 interface IBarChartProps {
     barData: UntypedObject[];
     barColors: string[];
@@ -33,20 +43,10 @@ const BarChart = ({ barData, barColors, options, label }: IBarChartProps) => {
     }
 
     return (
-        <div className="w-full flex justify-center items-center rounded-md border-4 border-solid border-primaryAccent">
+        <div className="w-full h-max flex justify-center items-center rounded-md border-4 border-solid border-primaryAccent">
             <Bar data={data} options={options} className="m-4" />
         </div>
     )
 }
-
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Colors,
-    Title,
-    Tooltip,
-    Legend
-);
 
 export default BarChart;
