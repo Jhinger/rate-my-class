@@ -13,11 +13,11 @@ interface IChartProps {
     classes?: string;
 }
 
-const Chart = ({ type, data, label, colors, options, classes }: IChartProps) => {
+const Chart = ({ type, data, pieData, label, colors, options, classes }: IChartProps) => {
     return (
-        <div className={`${classes} flex justify-center items-center m-4 bg-primary rounded-md`}>
+        <div className={`${classes} flex justify-center items-center bg-primary rounded-md`}>
             {type==="barchart" && <BarChart label={label!} barData={data!} barColors={colors!} options={options} />}
-            {type==="piechart" && <PieChart label={label!} pieData={data!} />}
+            {type==="piechart" && <PieChart label={label!} pieData={pieData!} />}
         </div>
     )
 }

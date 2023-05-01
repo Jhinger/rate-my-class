@@ -20,17 +20,14 @@ const Class = ({ school, _class, averages, numComments, comments, distribution }
     return (
         <div>
             <SEO title={`RateMyClass - ${_class!.name} (${school!.name})`} />
-            { _class!.name }
-            { school!.name }
-
-            <ClassHeader className="w-full h-[35rem] flex flex-row justify-center items-center border-2 border-solid border-red-500">
+            <ClassHeader className="w-full h-full p-12 flex flex-row justify-center items-center border-2 border-solid border-red-500">
                 <>
                     <div className="for summary">
                         <ClassSummary />
                     </div>
-                    <div className="min-w-[75rem] flex flex-row border-solid border-2 border-blue-500">
-                        <Chart type="barchart" classes="w-1/2" data={distribution} label={`${_class!.name} Grade Distribution`} colors={colors_blue} />
-                        <Chart type="piechart" classes="w-1/2" pieData={averages?.avgBooster ?? 0} />
+                    <div className="min-w-min flex gap-12 justify-center items-center flex-row">
+                        <Chart type="barchart" classes="w-[40rem] h-max" data={distribution} label={`${_class!.name} Grade Distribution`} colors={colors_blue} />
+                        <Chart type="piechart" classes="w-[24rem] relative bottom-2 bg-transparent" pieData={averages?.avgBooster ?? 0} />
                     </div>
                 </>
             </ClassHeader>
