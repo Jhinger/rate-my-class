@@ -1,11 +1,24 @@
-import type { UntypedObject } from "@/types";
+import getGrade from "./getGrade";
 
 export default function completeDistribution(incomplete_distribution: any) {
-    for (let i = -1; i < 12; i++) {
-        if (incomplete_distribution[i] === undefined) {
-            incomplete_distribution[i] = 0;
+    let map: {[key: number]: number} = {};
+    for (const grade of incomplete_distribution) {
+        const numberGrade = grade.gradeRecieved as number;
+
+        if (map[numberGrade] === undefined) {
+            map[numberGrade] = grade._count;
         }
     }
 
-    return incomplete_distribution;
+    let res: {[key: number]: { name: string, value: number }} = {};
+    for (let i = 11; i >= 0; i--) {
+        const letterGrade = getGrade(i);
+        if (map[i] === undefined) {
+            res[i] = { name: letterGrade, value: 0 };
+        } else {
+            res[i] = { name: letterGrade, value: map[i] };
+        }
+    }
+
+    return Object.values(res);
 }
