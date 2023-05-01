@@ -60,8 +60,8 @@ const SchoolIndex = ({ school, classes, departmentSummary, boosters, difficulty 
                 <div className="min-w-[75em] flex flex-col">
                     <h4 className="w-full p-4 mt-12 font-extrabold text-[2.75rem] tracking-tightest text-primary"> { school.name } ({ school.short }) </h4>
                     <div className="flex flex-row min-w-max">
-                        <Chart type="barchart" data={boosters} label={'Highest Rated GPA Boosters'} colors={colors_blue} options={optionsBoosters} />
-                        <Chart type="barchart" data={difficulty} label={'Highest Difficulty Classes'} colors={colors_mauve} options={optionsDifficulty} />
+                        <Chart type="barchart" classes="w-1/2" data={boosters} label={'Highest Rated GPA Boosters'} colors={colors_blue} options={optionsBoosters} />
+                        <Chart type="barchart" classes="w-1/2" data={difficulty} label={'Highest Difficulty Classes'} colors={colors_mauve} options={optionsDifficulty} />
                     </div>
                     <h4 className="center text-white font-base mt-4 pt-4">Search for a Class:</h4>
                     <div className="flex justify-center mt-4">
@@ -139,7 +139,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         },
         take: MAX_BOOSTER_CLASSES
     });
-    const boosters = _boosters.map(({avgBooster, ...rest}) => ({ average: avgBooster, ...rest }))
+    const boosters = _boosters.map(({avgBooster, ...rest}) => ({ value: avgBooster, ...rest }))
 
     const _difficulty = await prisma.class.findMany({
         where: {
@@ -154,7 +154,7 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
         },
         take: MAX_DIFFICULTY_CLASSES
     });
-    const difficulty = _difficulty.map(({ avgDifficulty, ...rest }) => ({ average: avgDifficulty, ...rest }))
+    const difficulty = _difficulty.map(({ avgDifficulty, ...rest }) => ({ value: avgDifficulty, ...rest }))
 
     return {
         props: { 

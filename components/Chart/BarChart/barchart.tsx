@@ -24,7 +24,7 @@ const BarChart = ({ barData, barColors, options, label }: IBarChartProps) => {
         labels: barData.map(data => data.name),
         datasets: [{
             label: label,
-            data: barData.map(data => data.average),
+            data: barData.map(data => data.value),
             backgroundColor: barColors,
             hoverBorderColor: 'orange',
             borderColor: '#82B3FD',

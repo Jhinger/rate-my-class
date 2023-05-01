@@ -28,9 +28,9 @@ const Class = ({ school, _class, averages, numComments, comments, distribution }
                     <div className="for summary">
                         <ClassSummary />
                     </div>
-                    <div className="min-w-[75rem] flex flex-row">
-                        <Chart type="barchart" data={distribution} label={`${_class!.name} Grade Distribution`} colors={colors_blue} />
-
+                    <div className="min-w-[75rem] flex flex-row border-solid border-2 border-blue-500">
+                        <Chart type="barchart" classes="w-1/2" data={distribution} label={`${_class!.name} Grade Distribution`} colors={colors_blue} />
+                        <Chart type="piechart" classes="w-1/2" pieData={averages?.avgBooster ?? 0} />
                     </div>
                 </>
             </ClassHeader>
