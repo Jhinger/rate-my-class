@@ -116,6 +116,8 @@ model Comment {
   User          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([classId])
+  @@index([classId, gradeRecieved])
+  @@index([classId, deleted])
   @@map("comments")
 }
 
