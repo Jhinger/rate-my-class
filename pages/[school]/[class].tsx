@@ -7,7 +7,8 @@ import { colors_blue } from "@/constants/boosterColors";
 import { GetServerSidePropsContext, InferGetServerSidePropsType, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
 import prisma from '@/lib/prismadb'
-import completeDistribution from "@/util/completeDistribution";
+import completeDistribution from "@/util/completeDistribution";    
+import CallToAction from "@/components/Button/CallToAction";
 
 const Class = ({ school, _class, averages, numComments, comments, distribution }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     console.log(school);
@@ -20,16 +21,28 @@ const Class = ({ school, _class, averages, numComments, comments, distribution }
     return (
         <div>
             <SEO title={`RateMyClass - ${_class!.name} (${school!.name})`} />
-            <ClassHeader className="w-full h-full p-12 flex flex-row justify-center items-center border-2 border-solid border-red-500">
-                <>
-                    <div className="for summary">
-                        <ClassSummary />
+            <ClassHeader className="w-full h-full flex justify-center p-12 border-2 border-solid border-red-500">
+                <div className="flex flex-row w-max h-full items-start relative left-12">
+                    <div className="relative top-4">
+                        <ClassSummary 
+                            averages={averages}
+                            school={{'name': school!.name, 'short': school!.short}}
+                            className={_class!.name}
+                        />
+                        <div className="mt-8 flex flex-row gap-x-4 justify-center items-start w-max">
+                            <CallToAction onClick={() => ""} className="bg-green-300 h-10">
+                                Rate
+                            </CallToAction>
+                            <CallToAction onClick={() => ""} className="bg-blue-300 h-10">
+                                Share
+                            </CallToAction>
+                        </div>
                     </div>
-                    <div className="min-w-min flex gap-12 justify-center items-center flex-row">
+                    <div className="min-w-min flex gap-8 justify-center items-center flex-row">
                         <Chart type="barchart" classes="w-[40rem] h-max" data={distribution} label={`${_class!.name} Grade Distribution`} colors={colors_blue} />
-                        <Chart type="piechart" classes="w-[24rem] relative bottom-2 bg-transparent" pieData={averages?.avgBooster ?? 0} />
+                        <Chart type="piechart" classes="w-[24rem] relative bottom-4 bg-transparent" pieData={averages?.avgBooster ?? 0} />
                     </div>
-                </>
+                </div>
             </ClassHeader>
 
             <ProgressBar percent={3.5} maxPercent={5} color="bg-tertiary" textColor="text-tertiary"/>
