@@ -14,6 +14,10 @@ module.exports = {
         tertiaryComplement: "#0247F9",
         tertiaryLight: "#EFD2F9",
         tertiaryAccent: "#B5C2F5",
+        lightGray: "#D9D9D9"
+      },
+      fontSize: {
+        xxs: '0.7rem'
       },
       letterSpacing: {
         tightest: '-.075em'

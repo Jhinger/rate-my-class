@@ -19,18 +19,18 @@ interface IPieChartProps {
 
 const data = (avgBooster: number = 0.5) => {
     return {
-        labels: ['Yes', 'No'],
+        labels: ["Yes", "No"],
         datasets: [
             {
                 label: 'Percentage',
-                data: [(1 - avgBooster) * 100, avgBooster * 100],
+                data: [avgBooster * 100, (1 - avgBooster) * 100],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.8)',
                     'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 99, 132, 0.8)',
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
                 ],
                 borderWidth: 1,
             },
@@ -38,21 +38,20 @@ const data = (avgBooster: number = 0.5) => {
     }
 }
 
-const options = (name: string) => {
-    return {
-        options: {
-            plugins: {
-                datalabels: {
-                    formatter: (value: number) => {
-                        if (value < 15) return "";
-                        return value + "%";
-                    }
-                }
+const options = {
+    plugins: {
+        datalabels: {
+            formatter: (value: number) => {
+                if (value < 15) return "";
+                return value + "%";
             },
-            title: {
-                display: true,
-                text: `Is ${name} a GPA Booster?`
-            }
+            anchor: 'end',
+            align: 'end'
+        },
+        title: {
+            display: true,
+            text: `GPA Booster?`,
+            color: "white"
         }
     }
 }
@@ -60,10 +59,7 @@ const options = (name: string) => {
 const PieChart = ({ pieData, label }: IPieChartProps) => {
     return (
         <div className="w-full h-full flex justify-center items-center rounded-md">
-            <Doughnut data={data(pieData)} options={{
-                responsive: true,
-                maintainAspectRatio: true,
-            }} />
+            <Doughnut data={data(pieData)} options={options} />
         </div>
     )
 }
