@@ -19,6 +19,14 @@ export type Card = {
     imgSrc: string;
 }
 
+export type Averages = {
+    avgBooster: number | null;
+    avgDifficulty: number | null;
+    avgGrade: number | null;
+    avgRecommended: number | null;
+    avgWorkload: number | null;
+}
+
 export interface DepartmentSummary {
     name: string;
     numComments: number;
