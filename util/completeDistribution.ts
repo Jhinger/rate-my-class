@@ -1,4 +1,4 @@
-import getGrade from "./getGrade";
+import { getGrade } from "./getGrade";
 
 export default function completeDistribution(incomplete_distribution: any) {
     let map: {[key: number]: number} = {};

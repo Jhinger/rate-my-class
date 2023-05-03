@@ -1,4 +1,4 @@
-import getGrade from '@/util/getGrade';
+import { getGrade } from '@/util/getGrade';
 import type { DepartmentSummary } from '@/types/'
 
 interface IDirectoryProps {

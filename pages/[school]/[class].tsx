@@ -1,5 +1,4 @@
 import SEO from "@/components/SEO";
-import ProgressBar from "@/components/ProgressBar";
 import ClassHeader from "@/components/ClassHeader";
 import ClassSummary from "@/components/ClassSummary";
 import Chart from "@/components/Chart";
@@ -9,6 +8,9 @@ import { ParsedUrlQuery } from "querystring";
 import prisma from '@/lib/prismadb'
 import completeDistribution from "@/util/completeDistribution";    
 import CallToAction from "@/components/Button/CallToAction";
+import CommentsContainer from "@/components/CommentsContainer";
+import CommentOptionsContainer from "@/components/CommentOptionsContainer";
+import Comment from "@/components/Comment";
 
 const Class = ({ school, _class, averages, numComments, comments, distribution }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     console.log(school);
@@ -21,15 +23,16 @@ const Class = ({ school, _class, averages, numComments, comments, distribution }
     return (
         <div>
             <SEO title={`RateMyClass - ${_class!.name} (${school!.name})`} />
-            <ClassHeader className="w-full h-full flex justify-center p-12 border-2 border-solid border-red-500">
+            <ClassHeader className="w-full h-full flex justify-center pt-12 pb-24">
                 <div className="flex flex-row w-max h-full items-start relative left-12">
-                    <div className="relative top-4">
+                    <div className="relative top-2">
                         <ClassSummary 
                             averages={averages}
                             school={{'name': school!.name, 'short': school!.short}}
+                            numComments={numComments._count}
                             className={_class!.name}
                         />
-                        <div className="mt-8 flex flex-row gap-x-4 justify-center items-start w-max">
+                        <div className="flex flex-row gap-x-4 justify-center items-start w-max">
                             <CallToAction onClick={() => ""} className="bg-green-300 h-10">
                                 Rate
                             </CallToAction>
@@ -44,8 +47,17 @@ const Class = ({ school, _class, averages, numComments, comments, distribution }
                     </div>
                 </div>
             </ClassHeader>
+            <CommentsContainer className="bg-secondary p-16 flex flex-col justify-center items-center text-white w-full">
+                <CommentOptionsContainer className="flex flex-row justify-end mb-4 w-[50rem] border-2 border-solid border-blue-500">
+                    <CallToAction onClick={() => ""} className="bg-tertiary text-black">Option</CallToAction>
 
-            <ProgressBar percent={3.5} maxPercent={5} color="bg-tertiary" textColor="text-tertiary"/>
+                </CommentOptionsContainer>
+                {comments.map((comment: Comment, index: number) => 
+                    <div key={index} className="flex flex-col gap-y-12">
+                        <Comment comment={comment} />
+                    </div>
+                )}
+            </CommentsContainer>
         </div>
     )
 }
