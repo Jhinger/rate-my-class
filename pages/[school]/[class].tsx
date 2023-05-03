@@ -49,14 +49,16 @@ const Class = ({ school, _class, averages, numComments, comments, distribution }
             </ClassHeader>
             <CommentsContainer className="bg-secondary p-16 flex flex-col justify-center items-center text-white w-full">
                 <CommentOptionsContainer className="flex flex-row justify-end mb-4 w-[50rem] border-2 border-solid border-blue-500">
-                    <CallToAction onClick={() => ""} className="bg-tertiary text-black">Option</CallToAction>
+                    <CallToAction onClick={() => ""} className="bg-tertiary text-black h-[2.5rem]">Filter</CallToAction>
 
                 </CommentOptionsContainer>
-                {comments.map((comment: Comment, index: number) => 
-                    <div key={index} className="flex flex-col gap-y-12">
-                        <Comment comment={comment} />
-                    </div>
-                )}
+                <div className="flex flex-col gap-y-12">
+                    {comments.map((comment: Comment, index: number) => 
+                        <div key={index}>
+                            <Comment comment={comment} />
+                        </div>
+                    )}
+                </div>
             </CommentsContainer>
         </div>
     )
