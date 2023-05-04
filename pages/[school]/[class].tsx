@@ -22,7 +22,7 @@ const Class = ({ school, _class, averages, numComments, comments, distribution }
 
     return (
         <div>
-            <SEO title={`RateMyClass - ${_class!.name} (${school!.name})`} />
+            <SEO title={`RateMyClass - ${_class!.name} (${school!.short})`} />
             <ClassHeader className="w-full h-full flex justify-center pt-12 pb-24">
                 <div className="flex flex-row w-max h-full items-start relative left-12">
                     <div className="relative top-2">
