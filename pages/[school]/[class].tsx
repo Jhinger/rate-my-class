@@ -11,6 +11,7 @@ import CallToAction from "@/components/Button/CallToAction";
 import CommentsContainer from "@/components/CommentsContainer";
 import CommentOptionsContainer from "@/components/CommentOptionsContainer";
 import Comment from "@/components/Comment";
+import { MAX_COMMENTS } from "@/constants";
 
 const Class = ({ school, _class, averages, numComments, comments, distribution }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     console.log(school);
@@ -76,66 +77,66 @@ export async function getServerSideProps<Q extends ParsedUrlQuery, D extends Pre
     const class_name = params.class;
     const schoolShort = params.school;
 
-    const school = await prisma.school.findFirst({
-        where: {
-            short: schoolShort as string
-        },
-        select: {
-            id: true,
-            name: true,
-            short: true
-        }
-    })
+    const [school, _class] = await Promise.all([
+        prisma.school.findFirst({
+            where: {
+                short: schoolShort as string
+            },
+            select: {
+                id: true,
+                name: true,
+                short: true
+            }
+        }),
+    
+        prisma.class.findFirst({
+            where: {
+                name: class_name as string
+            },
+            select: {
+                id: true,
+                name: true
+            }
+        })
+    ]);
 
-    const _class = await prisma.class.findFirst({
-        where: {
-            name: class_name as string
-        },
-        select: {
-            id: true,
-            name: true
-        }
-    });
-
-    // Fetch class data - avgWorkload, avgDiffifculty, avgRecommend, avgGrade.
-    const averages = await prisma.class.findFirst({
-        where: {
-            schoolId: school!.id
-        },
-        select: {
-            avgWorkload: true,
-            avgDifficulty: true,
-            avgRecommended: true,
-            avgGrade: true,
-            avgBooster: true
-        },
-    });
-
-    // Fetch number of ratings.
-    const numComments = await prisma.comment.aggregate({
-        where: {
-            classId: _class!.id
-        },
-        _count: true
-    })
-
-    // Fetch last 10 comments.
-    const comments = await prisma.comment.findMany({
-        where: {
-            classId: _class!.id,
-            deleted: false
-        },
-        take: 10
-    })
-
-    // Fetch grade distribution - count of comments for each letter grade.
-    const incomplete_distribution = await prisma.comment.groupBy({
-        where: {
-            classId: _class!.id
-        },
-        by: ['gradeRecieved'],
-        _count: true
-    })
+    const [averages, numComments, comments, incomplete_distribution] = await Promise.all([
+        prisma.class.findFirst({
+            where: {
+                schoolId: school!.id
+            },
+            select: {
+                avgWorkload: true,
+                avgDifficulty: true,
+                avgRecommended: true,
+                avgGrade: true,
+                avgBooster: true
+            },
+        }),
+    
+        prisma.comment.aggregate({
+            where: {
+                classId: _class!.id
+            },
+            _count: true
+        }),
+    
+        prisma.comment.findMany({
+            where: {
+                classId: _class!.id,
+                deleted: false
+            },
+            take: MAX_COMMENTS
+        }),
+    
+        prisma.comment.groupBy({
+            where: {
+                classId: _class!.id
+            },
+            by: ['gradeRecieved'],
+            _count: true
+        }),
+    ]);
     const distribution = completeDistribution(incomplete_distribution);
 
     return {
