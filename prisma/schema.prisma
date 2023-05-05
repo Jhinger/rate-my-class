@@ -109,6 +109,7 @@ model Comment {
   department    String?
   isGPABooster  Int?     @map("gpa_booster")
   deleted       Boolean  @default(false)
+  delivery      DELIVERY?
   gradeRecieved Int?     @map("grade_recieved")
   primaryText   String?  @default("") @map("primary_text") @db.VarChar(350)
   secondaryText String?  @default("") @map("secondary_text") @db.VarChar(350)
@@ -119,6 +120,11 @@ model Comment {
   @@index([classId, gradeRecieved])
   @@index([classId, deleted])
   @@map("comments")
+}
+
+enum DELIVERY {
+  INPERSON
+  ONLINE
 }
 
 enum ROLE {
