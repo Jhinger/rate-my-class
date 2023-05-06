@@ -1,25 +1,23 @@
+"use client";
+
 import Image from 'next/image';
 import logo from '@/static/logo-hero.svg'
 import SearchBar from '@/components/SearchBar';
-import isEmpty from '@/util/isEmpty';
-import { useEffect, useState } from 'react';
-import Router from 'next/router';
+import { useState } from 'react';
 
 import type { UntypedObject } from '@/types';
-import type { Class, School } from '@prisma/client';
+import type { School } from '@prisma/client';
 
 interface IHeroProps {
     schools: (Partial<School>)[];
     title?: string;
     subtitle?: string;
-    children?: React.ReactNode;
 }
 
 const Hero = ({ 
         title = "RateMyClass",
         subtitle = "Search for your School:",
         schools,
-        children
     }: IHeroProps) => {
     
     const [userSchool, setUserSchool] = useState<UntypedObject>({});

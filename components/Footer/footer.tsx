@@ -1,13 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import logo from '@/static/logo-hero.svg'
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 
-interface IFooterProps {
-    className?: string;
-}
-
-const Footer = ({ className }: IFooterProps ) => {
+const Footer = () => {
     const currentYear = new Date().getFullYear();
+    const path = usePathname();
+
+    const className = path === '/'
+        ? 'bg-secondary h-[20rem] pb-6'
+        : 'bg-secondary p-10';
 
     return (
         <div className={`${className} text-white flex flex-col justify-end items-center`}>

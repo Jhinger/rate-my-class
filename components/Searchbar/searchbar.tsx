@@ -1,3 +1,5 @@
+"use client";
+
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
 import { ARROW_DOWN, ARROW_UP, ENTER } from "@/constants/"
 import useKeyPress from "@/hooks/useKeyPress";
