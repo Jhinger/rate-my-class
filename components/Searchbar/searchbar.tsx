@@ -1,10 +1,11 @@
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
-import { ARROW_DOWN, ARROW_UP, ENTER } from "@/constants/"
-import useKeyPress from "@/hooks/useKeyPress";
-import SearchResults from '@/components/SearchResults'
-import { useRouter } from "next/router";
+"use client";
 
-import type { ValueOfType, UntypedObject, Maybe } from "@/types/"
+import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
+import { ARROW_DOWN, ARROW_UP, ENTER, KEY_DOWN } from "@/constants/"
+import SearchResults from '@/components/SearchResults'
+import { useRouter } from "next/navigation";
+
+import type { UntypedObject } from "@/types/"
 
 interface ISearchBarProps {
 
@@ -35,17 +36,10 @@ interface ISearchBarProps {
     numVisibleOptions?: number;
 };
 
-type OptionKeys = keyof ValueOfType<Pick<ISearchBarProps, "options">>[number];
-
 const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelected, className }: ISearchBarProps) => {
     const [filteredOptions, setFilteredOptions] = useState<UntypedObject[]>([]);
     const [userInput, setUserInput] = useState("");
     const [cursor, setCursor] = useState(0);
-    const [hovered, setHovered] = useState<UntypedObject>();
-
-    const downPress = useKeyPress(ARROW_DOWN);
-    const upPress = useKeyPress(ARROW_UP);
-    const enterPress = useKeyPress(ENTER);
 
     const router = useRouter();
 
@@ -72,44 +66,44 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
         setFilteredOptions(newFilter);
     }
 
-    // TODO: Remove later and remove unneccesary dependency array variables.
-    useEffect(() => {
-        console.log(filteredOptions);
-    }, [filteredOptions]);
+    function onEnter(event: React.KeyboardEvent<HTMLDivElement>) {
+        console.log("Enter");
+        if (event.key === ENTER && filteredOptions.length) {
+            cursor >= 0 ? setUserSelected(filteredOptions[cursor]) : setUserSelected(filteredOptions[0]);
+            const nextRoute = filteredOptions[cursor].short;
+            router.push(`${nextRoute}`);
+        }
+    }
 
-    useEffect(() => {
-        console.log('Cursor Index: ' + cursor);
-    }, [cursor]);
+    function onArrowUp(event: React.KeyboardEvent<HTMLDivElement>) {
+        console.log("Arrow Up");
+        if (event.key === ARROW_UP && filteredOptions.length) {
+            setCursor(prevState => 
+                prevState > 0 ? prevState - 1 : 0
+            );
+        }
+    }
 
-    useEffect(() => {
-        if (filteredOptions.length && downPress) {
+    function onArrowDown(event: React.KeyboardEvent<HTMLDivElement>) {
+        console.log("Arrow Down");
+        if (event.key === ARROW_DOWN && filteredOptions.length) {
             setCursor(prevState => 
                 prevState < Math.min(filteredOptions.length, 5) - 1 ? prevState + 1 : prevState   
             );
         }
-    }, [filteredOptions.length, downPress]);
+    }
 
-    useEffect(() => {
-        if (filteredOptions.length && upPress) {
-            setCursor(prevState => 
-                prevState > 0 ? prevState - 1 : prevState    
-            );
+    function onHover(result: any) {
+        if (filteredOptions.length) {
+            setCursor(filteredOptions.indexOf(result) || 0)
         }
-    }, [filteredOptions.length, upPress])
+    }
 
-    useEffect(() => {
-        if (filteredOptions.length && enterPress) {
-            cursor >= 0 ? setUserSelected(filteredOptions[cursor]) : setUserSelected(filteredOptions[0]);
-            const nextRoute = filteredOptions[cursor].short ?? filteredOptions[cursor].name;
-            router.push(`${router.asPath}/${nextRoute}`)
-        }
-    }, [filteredOptions, cursor, router, enterPress, setUserSelected]);
-
-    useEffect(() => {
-        if (filteredOptions.length && hovered) {
-            setCursor(filteredOptions.indexOf(hovered) || 0);
-        }
-    }, [filteredOptions, hovered]);
+    function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+        onEnter(event);
+        onArrowDown(event);
+        onArrowUp(event);
+    }
 
     return (
         <div className="relative">
@@ -120,15 +114,16 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
                 placeholder={placeholder}
                 value={userInput}
                 onChange={handleChange}
+                onKeyDown={onKeyDown}
             />
             <div>
                 <SearchResults 
                     className="absolute"
                     cursor={cursor} 
                     results={filteredOptions} 
-                    numResults={numVisibleOptions} 
-                    setHovered={setHovered}
+                    numResults={numVisibleOptions}
                     setSelected={setUserSelected}
+                    onHover={onHover}
                 />
             </div>
         </div>
