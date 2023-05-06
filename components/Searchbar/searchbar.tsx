@@ -1,7 +1,7 @@
 "use client";
 
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
-import { ARROW_DOWN, ARROW_UP, ENTER } from "@/constants/"
+import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
+import { ARROW_DOWN, ARROW_UP, ENTER, KEY_DOWN } from "@/constants/"
 import useKeyPress from "@/hooks/useKeyPress";
 import SearchResults from '@/components/SearchResults'
 import { useRouter, usePathname } from "next/navigation";
@@ -43,14 +43,7 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
     const [cursor, setCursor] = useState(0);
     const [hovered, setHovered] = useState<UntypedObject>();
 
-    const downPress = useKeyPress(ARROW_DOWN);
-    const upPress = useKeyPress(ARROW_UP);
-    const enterPress = useKeyPress(ENTER);
-
     const router = useRouter();
-    const pathname = usePathname();
-
-    console.log(pathname);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>): undefined => {
         const input = e.target.value;
@@ -84,35 +77,46 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
         console.log('Cursor Index: ' + cursor);
     }, [cursor]);
 
-    useEffect(() => {
-        if (filteredOptions.length && downPress) {
+    // Enter Press
+    // Up Press
+    // Down Press
+    // Hover
+
+    function onEnter(event: React.KeyboardEvent<HTMLDivElement>) {
+        if (event.key === ENTER && filteredOptions.length) {
+            cursor >= 0 ? setUserSelected(filteredOptions[cursor]) : setUserSelected(filteredOptions[0]);
+            const nextRoute = filteredOptions[cursor].short;
+            router.push(nextRoute);
+        }
+    }
+
+    function onArrowUp(event: React.KeyboardEvent<HTMLDivElement>) {
+        if (event.key === ARROW_UP && filteredOptions.length) {
+            setCursor(prevState => 
+                prevState > 0 ? prevState - 1 : 0
+            );
+        }
+    }
+
+    function onArrowDown(event: React.KeyboardEvent<HTMLDivElement>) {
+        if (event.key === ARROW_DOWN && filteredOptions.length) {
             setCursor(prevState => 
                 prevState < Math.min(filteredOptions.length, 5) - 1 ? prevState + 1 : prevState   
             );
         }
-    }, [filteredOptions.length, downPress]);
+    }
 
-    useEffect(() => {
-        if (filteredOptions.length && upPress) {
-            setCursor(prevState => 
-                prevState > 0 ? prevState - 1 : prevState    
-            );
+    function onHover(result: any) {
+        if (filteredOptions.length) {
+            setCursor(filteredOptions.indexOf(result) || 0)
         }
-    }, [filteredOptions.length, upPress])
+    }
 
-    useEffect(() => {
-        if (filteredOptions.length && enterPress) {
-            cursor >= 0 ? setUserSelected(filteredOptions[cursor]) : setUserSelected(filteredOptions[0]);
-            const nextRoute = filteredOptions[cursor].short ?? filteredOptions[cursor].name;
-            router.push(`${nextRoute}`)
-        }
-    }, [filteredOptions, cursor, router, pathname, enterPress, setUserSelected]);
-
-    useEffect(() => {
-        if (filteredOptions.length && hovered) {
-            setCursor(filteredOptions.indexOf(hovered) || 0);
-        }
-    }, [filteredOptions, hovered]);
+    function onKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+        onEnter(event);
+        onArrowDown(event);
+        onArrowUp(event);
+    }
 
     return (
         <div className="relative">
@@ -129,8 +133,9 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
                     className="absolute"
                     cursor={cursor} 
                     results={filteredOptions} 
-                    numResults={numVisibleOptions} 
-                    setHovered={setHovered}
+                    numResults={numVisibleOptions}
+                    onKeyDown={onKeyDown}
+                    onHover={onHover}
                     setSelected={setUserSelected}
                 />
             </div>
