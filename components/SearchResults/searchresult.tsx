@@ -1,6 +1,8 @@
+"use client";
+
 import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 
 import type { UntypedObject } from '@/types/'
 
@@ -14,11 +16,11 @@ interface ISearchResultProps {
 }
 
 const SearchResult = ({ cursor, results, numResults, setHovered, setSelected, className, ...rest }: ISearchResultProps) => {
-    const router = useRouter();
+    const pathname = usePathname();
 
     const renderResults = results.slice(0, numResults).map((result, index) => {
             const cursorClass = cursor === index ? "bg-gray-200 text-black rounded-md" : "";
-            const nextRoute = `${router.asPath}/` + (result.short ?? result.name);
+            const nextRoute = `${pathname}/` + (result.short ?? result.name);
 
             return (
                 <div 

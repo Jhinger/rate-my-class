@@ -1,6 +1,5 @@
 import Hero from '@/components/Hero'
 import Features from '@/components/Features'
-import SEO from '@/components/SEO'
 import Overview from '@/components/Overview'
 import prisma from '@/lib/prismadb';
 
@@ -22,9 +21,8 @@ export default async function Page() {
 
     return (
         <>
-            {/**
-             * Problems with Hero, Features components.
-             */}
+            <Hero schools={schools} />
+            <Features />
 			<Overview />   
         </>
     )
