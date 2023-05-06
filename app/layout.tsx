@@ -1,9 +1,7 @@
 import Navbar from "@/components/Navbar/";
 import Footer from "@/components/Footer";
-import { Suspense } from "react";
 import { inter } from "./fonts";
 import './globals.css';
-import LoadingSpinner from "@/components/LoadingSpinner";
 
 export const metadata = {
     title: "RateMyClass",
