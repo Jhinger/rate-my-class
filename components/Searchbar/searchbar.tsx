@@ -4,9 +4,9 @@ import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "reac
 import { ARROW_DOWN, ARROW_UP, ENTER } from "@/constants/"
 import useKeyPress from "@/hooks/useKeyPress";
 import SearchResults from '@/components/SearchResults'
-import { useRouter } from "next/router";
+import { useRouter, usePathname } from "next/navigation";
 
-import type { ValueOfType, UntypedObject, Maybe } from "@/types/"
+import type { UntypedObject } from "@/types/"
 
 interface ISearchBarProps {
 
@@ -37,8 +37,6 @@ interface ISearchBarProps {
     numVisibleOptions?: number;
 };
 
-type OptionKeys = keyof ValueOfType<Pick<ISearchBarProps, "options">>[number];
-
 const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelected, className }: ISearchBarProps) => {
     const [filteredOptions, setFilteredOptions] = useState<UntypedObject[]>([]);
     const [userInput, setUserInput] = useState("");
@@ -50,6 +48,9 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
     const enterPress = useKeyPress(ENTER);
 
     const router = useRouter();
+    const pathname = usePathname();
+
+    console.log(pathname);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>): undefined => {
         const input = e.target.value;
@@ -103,9 +104,9 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
         if (filteredOptions.length && enterPress) {
             cursor >= 0 ? setUserSelected(filteredOptions[cursor]) : setUserSelected(filteredOptions[0]);
             const nextRoute = filteredOptions[cursor].short ?? filteredOptions[cursor].name;
-            router.push(`${router.asPath}/${nextRoute}`)
+            router.push(`${nextRoute}`)
         }
-    }, [filteredOptions, cursor, router, enterPress, setUserSelected]);
+    }, [filteredOptions, cursor, router, pathname, enterPress, setUserSelected]);
 
     useEffect(() => {
         if (filteredOptions.length && hovered) {
