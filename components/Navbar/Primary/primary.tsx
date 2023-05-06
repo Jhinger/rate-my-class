@@ -1,31 +1,28 @@
+"use client";
+
 import Image from 'next/image';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 import Router from 'next/router';
 
 import logo from '@/static/logo.svg'
 import { GithubIcon, LinkedinIcon, InstagramIcon } from 'lucide-react';
 import Profile from '@/components/Button/Profile';
 import SignIn from '@/components/Button/SignIn';
-import LoadingSpinner from '@/components/LoadingSpinner';
 import Icon from '@/components/Icon';
 
-import type { StatusOptions } from '@/types';
+import type { Session } from 'next-auth';
 
-const PrimaryNavbar = () => {
-    const { data: session, status } = useSession();
+interface IPrimaryNavbarProps {
+    session: Session | null;
+}
 
-    const relevantStatusComponent = (status: StatusOptions) => {
-        switch(status) {
-            case "loading": {
-                return <LoadingSpinner className="relative right-7" />
-            }
-            case "authenticated": {
-                return <Profile session={session} onClickTask={() => signOut()} className="relative right-7"/>
-            }
-            case "unauthenticated": {
-                return <SignIn onClickTask={() => signIn()} className="relative right-4" />
-            }
+const PrimaryNavbar = ({ session }: IPrimaryNavbarProps) => {
+
+    const relevantStatusComponent = (session: Session | null) => {
+        if (session?.user !== undefined) {
+            return <Profile session={session} onClickTask={() => signOut()} className="relative right-7"/>
         }
+        return <SignIn onClickTask={() => signIn()} className="relative right-4" />
     }
 
     const goHome = () => {
@@ -55,7 +52,7 @@ const PrimaryNavbar = () => {
                     <li className="hover:text-tertiary duration-150 cursor-pointer">about</li>
                 </ul>
 
-                { relevantStatusComponent(status) }
+                { relevantStatusComponent(session) }
             </nav>
         </div>
     )
