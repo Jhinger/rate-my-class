@@ -11,14 +11,14 @@ import useOnClickOutside from "@/hooks/useOnClickOutside";
 
 import type { Session } from "next-auth";
 import type { Maybe } from "@/types";
+import { signOut } from "next-auth/react";
 
 interface IProfileProps {
     session: Maybe<Session>;
-    onClickTask(): Promise<undefined>;
     className?: string;
 }
 
-const Profile = ({ session, className = "", onClickTask }: IProfileProps) => {
+const Profile = ({ session, className = "" }: IProfileProps) => {
     const [isTrayVisible, setIsTrayVisible] = useState(false);
     const ref = useRef<HTMLButtonElement>(null);
 
@@ -59,7 +59,7 @@ const Profile = ({ session, className = "", onClickTask }: IProfileProps) => {
                 <TrayItem onClick={openProfile} className="animate-fadeDown bg-secondary text-primary text-xs px-4 py-2 my-1.5 font-bold hover:text-white duration-200 ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-white">
                     My Profile
                 </TrayItem>
-                <TrayItem onClick={onClickTask} className="animate-fadeDownDelay bg-secondary text-primary text-xs px-4 py-2 my-1.5 font-bold hover:text-red-300 duration-200 ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-red-300">
+                <TrayItem onClick={() => signOut()} className="animate-fadeDownDelay bg-secondary text-primary text-xs px-4 py-2 my-1.5 font-bold hover:text-red-300 duration-200 ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-red-300">
                     Log Out
                 </TrayItem>
             </Tray>

@@ -12,6 +12,7 @@ import CallToAction from "@/components/Button/CallToAction";
 import { colors_blue, colors_mauve } from '@/constants/boosterColors';
 import { MAX_BOOSTER_CLASSES, MAX_DEPARTMENTS, MAX_DIFFICULTY_CLASSES } from '@/constants/'
 import { ChevronDown } from "lucide-react";
+import { optionsBoosters, optionsDifficulty } from "@/config/chart";
 
 import type { Class, School } from "@prisma/client";
 import type { DepartmentSummary, UntypedObject } from "@/types";
@@ -32,25 +33,6 @@ const SchoolIndex = ({ school, classes, departmentSummary, boosters, difficulty 
     console.log(departmentSummary);
     console.log(boosters);
     console.log(difficulty);
-
-    const optionsBoosters = {
-        scales: {
-            y: {
-                min: 0,
-                max: 1
-            },
-
-        }
-    }
-
-    const optionsDifficulty = {
-        scales: {
-            y: {
-                min: 0,
-                max: 5
-            }
-        }
-    }
 
     return (
         <>
