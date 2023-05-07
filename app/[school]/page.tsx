@@ -1,5 +1,3 @@
-import { School } from "@prisma/client";
-import type { Metadata } from "next";
 import {
     getSchool,
     getClasses,
@@ -7,6 +5,8 @@ import {
     getBoosters,
     getDifficultClasses
 } from './actions'
+import type { Metadata } from "next";
+import { optionsBoosters, optionsDifficulty } from '@/config/chart';
 
 export async function generateMetadata({ params }: { params: { school: string} }): Promise<Metadata | undefined> {
     const { school } = params;
@@ -37,8 +37,7 @@ export default async function SchoolPage({ params }: { params: { school: string 
         getDepartments(_school!),
         getBoosters(_school!),
         getDifficultClasses(_school!)
-    ])
-
+    ]);
 
     return (
         <div>
