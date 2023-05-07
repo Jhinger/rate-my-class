@@ -3,7 +3,7 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
 import { ARROW_DOWN, ARROW_UP, ENTER, KEY_DOWN } from "@/constants/"
 import SearchResults from '@/components/SearchResults'
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import type { UntypedObject } from "@/types/"
 
@@ -42,6 +42,7 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
     const [cursor, setCursor] = useState(0);
 
     const router = useRouter();
+    const pathname = usePathname();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>): undefined => {
         const input = e.target.value;
@@ -70,8 +71,8 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
         console.log("Enter");
         if (event.key === ENTER && filteredOptions.length) {
             cursor >= 0 ? setUserSelected(filteredOptions[cursor]) : setUserSelected(filteredOptions[0]);
-            const nextRoute = filteredOptions[cursor].short;
-            router.push(`${nextRoute}`);
+            const nextRoute = filteredOptions[cursor].short ?? filteredOptions[cursor].name;
+            router.push(`${pathname}/${nextRoute}`);
         }
     }
 
