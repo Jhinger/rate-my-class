@@ -1,11 +1,5 @@
-"use client";
-
-import Image from 'next/image';
-import { signIn, signOut } from 'next-auth/react';
-import Router from 'next/router';
-
-import logo from '@/static/logo.svg'
 import { GithubIcon, LinkedinIcon, InstagramIcon } from 'lucide-react';
+import Home from '@/components/Home';
 import Profile from '@/components/Button/Profile';
 import SignIn from '@/components/Button/SignIn';
 import Icon from '@/components/Icon';
@@ -17,29 +11,17 @@ interface IPrimaryNavbarProps {
 }
 
 const PrimaryNavbar = ({ session }: IPrimaryNavbarProps) => {
-
     const relevantStatusComponent = (session: Session | null) => {
         if (session?.user !== undefined) {
-            return <Profile session={session} onClickTask={() => signOut()} className="relative right-7"/>
+            return <Profile session={session} className="relative right-7"/>
         }
-        return <SignIn onClickTask={() => signIn()} className="relative right-4" />
-    }
-
-    const goHome = () => {
-        Router.push('/');
+        return <SignIn className="relative right-4" />
     }
 
     return (
         <div className="relative w-full mt-2 mb-2">
             <nav className="max-w-[2100px] flex justify-between center items-center">
-                <Image 
-                    className="unselectable cursor-pointer"
-                    onClick={goHome}
-                    src={logo}
-                    width={50}
-                    height={50}
-                    alt="RateMyClass"
-                />
+                <Home />
 
                 <div className="flex flex-row space-x-10 invisible md:visible">
                     <Icon icon={<GithubIcon size={22}/>} href="#" className='unselectable text-primary hover:text-tertiary duration-150' />
