@@ -1,38 +1,17 @@
 "use client";
 
-import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
-import { ARROW_DOWN, ARROW_UP, ENTER, KEY_DOWN } from "@/constants/"
+import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { ARROW_DOWN, ARROW_UP, ENTER } from "@/constants/"
 import SearchResults from '@/components/SearchResults'
 import { usePathname, useRouter } from "next/navigation";
 
 import type { UntypedObject } from "@/types/"
 
 interface ISearchBarProps {
-
-    /**
-     * Options that we are searching through, for example schools or classes.
-     */
     options: UntypedObject[];
-
-    /**
-     * Set selected option to passed in useState variable.
-     */
     setUserSelected: Dispatch<SetStateAction<UntypedObject>>
-
-    /**
-     * Set input placeholder.
-     */
     placeholder: string;
-
-    /**
-     * Classes to append to search bar - width required.
-     */
     className: string;
-
-    /**
-     * The number of visible options displayed to the user in the search results dropdown.
-     * Default number is 5.
-     */
     numVisibleOptions?: number;
 };
 
