@@ -10,25 +10,30 @@ interface ISearchResultProps {
     results: UntypedObject[];
     numResults: number;
     cursor: number;
-    setSelected: Dispatch<SetStateAction<UntypedObject>>;
     onHover: (result: any) => void;
     className?: string;
 }
 
-const SearchResult = ({ cursor, results, numResults, setSelected, onHover, className, ...rest }: ISearchResultProps) => {
+const SearchResult = ({ 
+        cursor, 
+        results, 
+        numResults, 
+        onHover, 
+        className 
+    }: ISearchResultProps) => {
     const pathname = usePathname();
 
     const renderResults = results.slice(0, numResults).map((result, index) => {
             const cursorClass = cursor === index ? "bg-gray-200 text-black rounded-md" : "";
-            const nextRoute = `${pathname}/` + result.short;
+            const nextRoute = `${pathname}/` + (result.short ?? result.name);
+
+            console.log(nextRoute);
 
             return (
                 <div 
                     key={index} 
                     onMouseEnter={() => onHover(result)}
-                    onClick={() => setSelected(result)} 
                     className={`${cursorClass} duration-100 px-2 py-2 text-sm indent-2 text-gray-500 hover:text-black hover:cursor-pointer hover:bg-gray-200 hover:rounded-md`}
-                    {...rest} 
                 >
                     <Link href={nextRoute}>
                         { result.name }
