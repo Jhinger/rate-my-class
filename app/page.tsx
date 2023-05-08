@@ -18,6 +18,7 @@ async function getSchools(): Promise<Partial<School>[]> {
 
 export default async function Page() {
     const schools = await getSchools();
+    console.log(schools);
 
     return (
         <>
