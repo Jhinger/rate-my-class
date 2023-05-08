@@ -26,9 +26,3 @@ export type Averages = {
     avgRecommended: number | null;
     avgWorkload: number | null;
 }
-
-export interface DepartmentSummary {
-    name: string;
-    numComments: number;
-    avgGrade: number;
-}

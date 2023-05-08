@@ -1,5 +1,3 @@
-"use server";
-
 import type { School, Class, Department } from "@prisma/client";
 import { MAX_BOOSTER_CLASSES, MAX_DEPARTMENTS, MAX_DIFFICULTY_CLASSES } from "@/constants";
 import prisma from '@/lib/prismadb'
