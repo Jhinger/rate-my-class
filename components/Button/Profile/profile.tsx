@@ -2,7 +2,8 @@
 
 import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
-import Router from "next/router";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 import defaultuser from "@/static/defaultuser.png"
 import Tray from "@/components/Tray";
@@ -11,7 +12,6 @@ import useOnClickOutside from "@/hooks/useOnClickOutside";
 
 import type { Session } from "next-auth";
 import type { Maybe } from "@/types";
-import { signOut } from "next-auth/react";
 
 interface IProfileProps {
     session: Maybe<Session>;
@@ -21,6 +21,7 @@ interface IProfileProps {
 const Profile = ({ session, className = "" }: IProfileProps) => {
     const [isTrayVisible, setIsTrayVisible] = useState(false);
     const ref = useRef<HTMLButtonElement>(null);
+    const router = useRouter();
 
     const closeTray = useCallback(() => {
         setIsTrayVisible(false);
@@ -35,7 +36,7 @@ const Profile = ({ session, className = "" }: IProfileProps) => {
     }
 
     const openProfile = () => {
-        Router.push(`/user/${session?.user.id}`);
+        router.push(`/user/${session?.user.id}`);
         setIsTrayVisible(false);
     }
 
