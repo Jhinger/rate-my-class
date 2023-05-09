@@ -53,8 +53,8 @@ const SearchBar = ({
     function onEnter(event: React.KeyboardEvent<HTMLDivElement>) {
         if (event.key === ENTER && filteredOptions.length) {
             const nextRoute = filteredOptions[cursor].short ?? filteredOptions[cursor].name;
-            console.log(`${pathname}/${nextRoute}`);
-            router.push(`${pathname}/${nextRoute}`);
+            const path = pathname === '/' ? "" : pathname;
+            router.push(`${path}/${nextRoute}`);
         }
     }
 
