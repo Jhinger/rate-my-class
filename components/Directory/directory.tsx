@@ -1,8 +1,8 @@
 import { getGrade } from '@/util/getGrade';
-import type { DepartmentSummary } from '@/types/'
+import type { Department } from '@prisma/client';
 
 interface IDirectoryProps {
-    summary: DepartmentSummary[];
+    summary: Partial<Department>[];
 }
 
 const Directory = ({ summary }: IDirectoryProps) => {
@@ -11,7 +11,7 @@ const Directory = ({ summary }: IDirectoryProps) => {
             <div key={index} className='w-full m-5 p-4 rounded-md bg-primary flex flex-row justify-between items-center ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-tertiary hover:duration-150'>
                 <span className='font-extrabold ml-8'>{ department.name }</span>
                 <div className='flex flex-row justify-between w-[8rem] mr-16'>
-                    <span>{ getGrade(Math.ceil(department.avgGrade)) ?? '-'}</span>
+                    <span>{ getGrade(Math.ceil(department.avgGrade || 0)) ?? '-'}</span>
                     <span>{ department.numComments ?? '-'}</span>
                 </div>
             </div>

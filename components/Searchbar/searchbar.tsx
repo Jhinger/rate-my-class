@@ -1,47 +1,31 @@
 "use client";
 
-import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
-import { ARROW_DOWN, ARROW_UP, ENTER, KEY_DOWN } from "@/constants/"
+import React, { ChangeEvent, useState } from "react";
+import { ARROW_DOWN, ARROW_UP, ENTER } from "@/constants/"
 import SearchResults from '@/components/SearchResults'
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import type { UntypedObject } from "@/types/"
 
 interface ISearchBarProps {
-
-    /**
-     * Options that we are searching through, for example schools or classes.
-     */
     options: UntypedObject[];
-
-    /**
-     * Set selected option to passed in useState variable.
-     */
-    setUserSelected: Dispatch<SetStateAction<UntypedObject>>
-
-    /**
-     * Set input placeholder.
-     */
     placeholder: string;
-
-    /**
-     * Classes to append to search bar - width required.
-     */
     className: string;
-
-    /**
-     * The number of visible options displayed to the user in the search results dropdown.
-     * Default number is 5.
-     */
     numVisibleOptions?: number;
 };
 
-const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelected, className }: ISearchBarProps) => {
+const SearchBar = ({ 
+        options, 
+        numVisibleOptions = 5, 
+        placeholder,
+        className 
+    }: ISearchBarProps) => {
     const [filteredOptions, setFilteredOptions] = useState<UntypedObject[]>([]);
     const [userInput, setUserInput] = useState("");
     const [cursor, setCursor] = useState(0);
 
     const router = useRouter();
+    const pathname = usePathname();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>): undefined => {
         const input = e.target.value;
@@ -67,16 +51,14 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
     }
 
     function onEnter(event: React.KeyboardEvent<HTMLDivElement>) {
-        console.log("Enter");
         if (event.key === ENTER && filteredOptions.length) {
-            cursor >= 0 ? setUserSelected(filteredOptions[cursor]) : setUserSelected(filteredOptions[0]);
-            const nextRoute = filteredOptions[cursor].short;
-            router.push(`${nextRoute}`);
+            const nextRoute = filteredOptions[cursor].short ?? filteredOptions[cursor].name;
+            const path = pathname === '/' ? "" : pathname;
+            router.push(`${path}/${nextRoute}`);
         }
     }
 
     function onArrowUp(event: React.KeyboardEvent<HTMLDivElement>) {
-        console.log("Arrow Up");
         if (event.key === ARROW_UP && filteredOptions.length) {
             setCursor(prevState => 
                 prevState > 0 ? prevState - 1 : 0
@@ -85,7 +67,6 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
     }
 
     function onArrowDown(event: React.KeyboardEvent<HTMLDivElement>) {
-        console.log("Arrow Down");
         if (event.key === ARROW_DOWN && filteredOptions.length) {
             setCursor(prevState => 
                 prevState < Math.min(filteredOptions.length, 5) - 1 ? prevState + 1 : prevState   
@@ -122,7 +103,6 @@ const SearchBar = ({ options, numVisibleOptions = 5, placeholder, setUserSelecte
                     cursor={cursor} 
                     results={filteredOptions} 
                     numResults={numVisibleOptions}
-                    setSelected={setUserSelected}
                     onHover={onHover}
                 />
             </div>
