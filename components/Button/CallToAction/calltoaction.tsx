@@ -1,6 +1,7 @@
+"use client";
 
 interface ICallToActionProps {
-    onClick: () => unknown;
+    onClick?: () => unknown;
     children: React.ReactNode;
     className?: string;
 }

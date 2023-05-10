@@ -1,28 +1,20 @@
 import Image from 'next/image';
 import logo from '@/static/logo-hero.svg'
 import SearchBar from '@/components/SearchBar';
-import isEmpty from '@/util/isEmpty';
-import { useEffect, useState } from 'react';
-import Router from 'next/router';
 
-import type { UntypedObject } from '@/types';
-import type { Class, School } from '@prisma/client';
+import type { School } from '@prisma/client';
 
 interface IHeroProps {
     schools: (Partial<School>)[];
     title?: string;
     subtitle?: string;
-    children?: React.ReactNode;
 }
 
 const Hero = ({ 
         title = "RateMyClass",
         subtitle = "Search for your School:",
         schools,
-        children
     }: IHeroProps) => {
-    
-    const [userSchool, setUserSchool] = useState<UntypedObject>({});
     
     return (
         <header className="w-full h-[35rem] flex flex-col justify-center items-center">
@@ -45,7 +37,7 @@ const Hero = ({
                     <h5 className="text-white text-sm font-base"> { subtitle } </h5>
                 </div>
                 <div className="m-4 relative">
-                    <SearchBar options={schools} setUserSelected={setUserSchool} placeholder={`ex. 'Simon Fraser University' or 'SFU'`} className="w-[60rem]" />
+                    <SearchBar options={schools} placeholder={`ex. 'Simon Fraser University' or 'SFU'`} className="w-[60rem]" />
                 </div>
                 <div className="text-white text-xs font-extralight text-center">
                     Can&lsquo;t find your school? Request it to be <a href='#request' className='text-blue-400 hover:text-tertiary hover:cursor-pointer'>added here</a>.
