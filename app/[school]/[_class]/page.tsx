@@ -40,6 +40,8 @@ export async function generateMetadata({ params }: { params: { _class: string; s
 export default async function ClassPage({ params }: { params: { _class: string; school: string } }) {
 	const { school, _class } = params;
 
+	console.log(school, _class);
+
 	const [_school, _class_] = await Promise.all([findSchool(school), findClass(_class)]);
 	const [averages, comments, distribution] = await Promise.all([
 		findAverages(_school!),
@@ -47,6 +49,7 @@ export default async function ClassPage({ params }: { params: { _class: string; 
 		getGradeDistribution(_class_!)
 	]);
 
+	console.log(_class_);
 	console.log(averages);
 	console.log(comments);
 	console.log(distribution);
