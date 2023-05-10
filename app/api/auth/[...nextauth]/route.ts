@@ -1,4 +1,4 @@
-import NextAuth, { Session, User } from "next-auth"
+import NextAuth, { NextAuthOptions, Session, User } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import prisma from "@/lib/prismadb"
@@ -8,7 +8,7 @@ interface ISessionProps {
     user: User;
 }
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
@@ -31,4 +31,8 @@ export default NextAuth({
   theme: {
     brandColor: "#A8C7F5"
   }
-})
+};
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };
