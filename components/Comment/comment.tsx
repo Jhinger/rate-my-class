@@ -1,6 +1,7 @@
+import type { Comment as CommentType } from '@prisma/client';
 
 interface ICommentProps {
-    comment: any;
+    comment: CommentType;
 }
 
 const Comment = ({ comment }: ICommentProps) => {
