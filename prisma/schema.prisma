@@ -119,6 +119,7 @@ model Comment {
   @@index([classId])
   @@index([classId, gradeRecieved])
   @@index([classId, deleted])
+  @@index([userId])
   @@map("comments")
 }
 
