@@ -5,7 +5,7 @@ import {
   	getComments,
   	getGradeDistribution
 } from './actions';
-import { Metadata } from "next"
+
 import ClassHeader from '@/components/ClassHeader';
 import ClassSummary from '@/components/ClassSummary';
 import CallToAction from '@/components/Button/CallToAction';
@@ -15,7 +15,9 @@ import CommentsContainer from '@/components/CommentsContainer';
 import CommentOptionsContainer from '@/components/CommentOptionsContainer';
 import { colors_blue } from '@/constants/boosterColors';
 
+import type { Metadata } from "next";
 import type { Comment as CommentType } from '@prisma/client';
+import Dialog from '@/components/Dialog';
 
 export async function generateMetadata({ params }: { params: { _class: string; school: string } }): Promise<Metadata | undefined> {
     const { _class, school } = params;
@@ -54,6 +56,9 @@ export default async function ClassPage({ params }: { params: { _class: string; 
 
     return (
         <div>
+            <Dialog>
+                Yo.
+            </Dialog>
             <ClassHeader className="w-full h-full flex justify-center pt-12 pb-24">
                 <div className="flex flex-row w-max h-full items-start relative left-12">
                     <div className="relative top-2">

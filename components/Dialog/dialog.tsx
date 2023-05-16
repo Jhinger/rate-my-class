@@ -1,8 +1,28 @@
+"use client";
 
-const Dialog = () => {
+import useOnClickOutside from "@/hooks/useOnClickOutside";
+import { useState, useRef } from "react";
+
+interface IDialogProps {
+    children: React.ReactNode;
+}
+
+const Dialog = ({ children }: IDialogProps) => {
+    const [dialogOpen, setIsDialogOpen] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
+
+    const closeDialog = () => {
+        setIsDialogOpen(false);
+    }
+
+    useOnClickOutside(ref, closeDialog);
+
     return (
-        <div>
-
+        <div className="absolute top-0 bottom-0 w-full h-screen z-10 flex justify-center items-center border-solid border-2 border-red-500">
+            <div className="absolute w-full h-full bg-black opacity-50" />
+            <div className="sticky w-[60rem] h-[40rem] bg-tertiary rounded-md">
+                { children }
+            </div>
         </div>
     )
 }
