@@ -5,6 +5,8 @@ import prisma from '@/lib/prismadb';
 
 import type { School } from "@prisma/client";
 
+export const revalidate = 86400;
+
 async function getSchools(): Promise<Partial<School>[]> {
     const schools = await prisma.school.findMany({
         select: {
