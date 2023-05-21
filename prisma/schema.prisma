@@ -93,6 +93,7 @@ model Class {
   comments        Comment[]
 
   @@index([schoolId])
+  @@index([schoolId, name])
   @@map("classes")
 }
 
