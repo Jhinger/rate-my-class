@@ -19,36 +19,25 @@ async function findSchool(short: string): Promise<Partial<School> | null> {
     return _school;
 }
 
-async function findClass(name: string): Promise<Partial<Class> | null> {
+async function findClass(school: Partial<School>, className: string): Promise<Partial<Class> | null> {
     const _class = await prisma.class.findFirst({
         where: {
-            name: name as string
+            schoolId: school!.id,
+            name: className
         },
         select: {
             id: true,
             name: true,
-            numComments: true
-        }
-    });
-
-    return _class;
-}
-
-async function findAverages(school: Partial<School>): Promise<Partial<Class> | null> {
-    const averages = await prisma.class.findFirst({
-        where: {
-            schoolId: school!.id
-        },
-        select: {
+            numComments: true,
             avgWorkload: true,
             avgDifficulty: true,
             avgRecommended: true,
             avgGrade: true,
             avgBooster: true
-        },
+        }
     });
 
-    return averages;
+    return _class;
 }
 
 async function getComments(_class: Partial<Class>): Promise<Comment[]> {
@@ -78,7 +67,6 @@ async function getGradeDistribution(_class: Partial<Class>): Promise<any> {
 export {
     findSchool,
     findClass,
-    findAverages,
     getComments,
     getGradeDistribution
 }
