@@ -1,7 +1,6 @@
 import {
   	findSchool,
   	findClass,
-  	findAverages,
   	getComments,
   	getGradeDistribution
 } from './actions';
@@ -13,11 +12,11 @@ import Chart from '@/components/Chart';
 import Comment from '@/components/Comment';
 import CommentsContainer from '@/components/CommentsContainer';
 import CommentOptionsContainer from '@/components/CommentOptionsContainer';
+import Dialog from '@/components/Dialog';
 import { colors_blue } from '@/constants/boosterColors';
 
 import type { Metadata } from "next";
 import type { Comment as CommentType } from '@prisma/client';
-import Dialog from '@/components/Dialog';
 
 export async function generateMetadata({ params }: { params: { _class: string; school: string } }): Promise<Metadata | undefined> {
     const { _class, school } = params;
@@ -42,15 +41,14 @@ export async function generateMetadata({ params }: { params: { _class: string; s
 export default async function ClassPage({ params }: { params: { _class: string; school: string } }) {
 	const { school, _class } = params;
 
-	const [_school, _class_] = await Promise.all([findSchool(school), findClass(_class)]);
-	const [averages, comments, distribution] = await Promise.all([
-		findAverages(_school!),
+    const _school = await findSchool(school);
+    const _class_ = await findClass(_school!, _class);
+	const [comments, distribution] = await Promise.all([
 		getComments(_class_!),
 		getGradeDistribution(_class_!)
 	]);
 
 	console.log(_class_);
-	console.log(averages);
 	console.log(comments);
 	console.log(distribution);
 
@@ -63,7 +61,7 @@ export default async function ClassPage({ params }: { params: { _class: string; 
                 <div className="flex flex-row w-max h-full items-start relative left-12">
                     <div className="relative top-2">
                         <ClassSummary 
-                            averages={averages}
+                            averages={_class_}
                             school={{'name': _school!.name!, 'short': _school!.short!}}
                             numComments={_class_!.numComments!}
                             className={_class_!.name!}
@@ -79,7 +77,7 @@ export default async function ClassPage({ params }: { params: { _class: string; 
                     </div>
                     <div className="min-w-min flex gap-8 justify-center items-center flex-row">
                         <Chart type="barchart" classes="w-[40rem] h-max" data={distribution} label={`${_class_!.name} Grade Distribution`} colors={colors_blue} />
-                        <Chart type="piechart" classes="w-[24rem] relative bottom-4 bg-transparent" pieData={averages?.avgBooster ?? 0} />
+                        <Chart type="piechart" classes="w-[24rem] relative bottom-4 bg-transparent" pieData={_class_?.avgBooster ?? 0} />
                     </div>
                 </div>
             </ClassHeader>
