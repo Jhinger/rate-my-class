@@ -27,10 +27,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
     return (
         <html lang="en">
-            <body className={inter.variable}>
+            <body className={`${inter.variable} flex min-h-screen flex-col`}>
                 {/* @ts-expect-error Server Component */}
                 <Navbar />
-                <main>
+                <main className="flex-1">
                     { children }
                 </main>
                 <Footer />

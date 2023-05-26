@@ -5,16 +5,20 @@ import logo from '@/static/logo-hero.svg'
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 
-const Footer = () => {
+interface IFooterProps {
+    className?: string;
+}
+
+const Footer = ({ className }: IFooterProps) => {
     const currentYear = new Date().getFullYear();
     const path = usePathname();
 
-    const className = path === '/'
+    const styles = path === '/'
         ? 'bg-secondary h-[20rem] pb-6'
         : 'bg-secondary p-10';
 
     return (
-        <div className={`${className} text-white flex flex-col justify-end items-center`}>
+        <div className={`${styles} ${className} text-white flex flex-col justify-end items-center`}>
             <div className="w-max flex flex-col justify-center items-center border-b-2 border-solid border-primary">
                 <div className="flex flex-row">
                     <div className="text-primary flex flex-col mx-8">
