@@ -22,19 +22,33 @@ const Comment = ({ comment }: ICommentProps) => {
     )
 
     return (
-        <div className="bg-gray-200 text-black flex flex-col text-base font-semibold rounded-md w-[60rem] h-[25rem]">
+        <div className="bg-gray-200 text-black flex flex-col text-base font-semibold rounded-md w-[65rem] h-[26rem]">
             <div className='w-full flex mt-4 justify-between items-center px-8'> 
                 { commentDate }
                 <Icon>
                     <MoreVerticalIcon size={20} />
                 </Icon>
             </div>
-            <div className='w-full h-full border-2 border-solid border-red-500'>
-                <div className='container left box'>
-
+            <div className='w-full h-full flex flex-row justify-center items-center gap-6 relative top-2'>
+                <div className='w-[13rem] h-[17rem] flex flex-col items-center gap-4'>
+                    <div className='w-full text-xs font-normal h-12 bg-white rounded-sm'>
+                        Overall Rating
+                    </div>
+                    <div className='w-full text-xs font-normal h-12 bg-white rounded-sm'>
+                        Difficulty
+                    </div>
+                    <div className='w-full text-xs font-normal h-12 bg-white rounded-sm'>
+                        Workload Hours
+                    </div>
+                    <div className='w-full text-xs font-normal h-24 bg-white rounded-sm'>
+                        Tags
+                    </div>
                 </div>
-                <div className='container right box'>
-                    <div className='flex flex-row'> { renderTags } </div>
+                <div className='flex flex-col items-center relative'>
+                    <div className='flex flex-row absolute -top-8'> { renderTags } </div>
+                    <div className='w-[45rem] h-[17rem] bg-white rounded-md'>
+
+                    </div>
                 </div>
             </div>
         </div>
