@@ -46,7 +46,10 @@ async function getComments(_class: Partial<Class>): Promise<Comment[]> {
             classId: _class!.id,
             deleted: false
         },
-        take: MAX_COMMENTS
+        take: MAX_COMMENTS,
+        orderBy: {
+            createdAt: 'desc'
+        }
     });
 
     return comments;
