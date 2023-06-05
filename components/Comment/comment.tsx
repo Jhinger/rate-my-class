@@ -46,13 +46,13 @@ const Comment = ({ comment }: ICommentProps) => {
                 </div>
                 <div className='flex flex-col items-center relative'>
                     <div className='flex flex-row absolute -top-8'> { renderTags } </div>
-                    <div className='w-[45rem] h-[17rem] bg-white rounded-md flex justify-center items-center'>
-                        <div className='flex flex-col gap-12'>
-                            <div className='flex flex-col gap-4 px-12'>
+                    <div className='w-[45rem] h-[17rem] bg-white rounded-md flex items-center'>
+                        <div className='flex flex-col gap-10 px-12'>
+                            <div className='flex flex-col gap-4'>
                                 <span className='block w-full text-sm'>Overview</span>
                                 <p className='w-full text-xs font-light'>{ comment.primaryText }</p>
                             </div>
-                            <div className='flex flex-col gap-4 px-12'>
+                            <div className='flex flex-col gap-4'>
                                 <span className='block w-full text-sm'>Exam Tips</span>
                                 <p className='w-full text-xs font-light'>{ comment.secondaryText }</p>
                             </div>
