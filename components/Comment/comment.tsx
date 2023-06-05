@@ -5,6 +5,8 @@ import getTagName from '@/util/getTagName';
 import { MoreVerticalIcon } from 'lucide-react';
 
 import type { Comment as CommentType } from '@prisma/client';
+import getDelivery from '@/util/getDelivery';
+import { getGrade } from '@/util/getGrade';
 
 interface ICommentProps {
     comment: CommentType;
@@ -45,7 +47,31 @@ const Comment = ({ comment }: ICommentProps) => {
                     </div>
                 </div>
                 <div className='flex flex-col items-center relative'>
-                    <div className='flex flex-row absolute -top-8'> { renderTags } </div>
+                    <div className='flex flex-row absolute -top-8'> 
+                        <Tag className='bg-white mx-2'>
+                            <div>
+                                <span className='font-extrabold'>Prof: </span> { comment.teacher }
+                            </div>
+                        </Tag>
+                        <Tag className='bg-white mx-2'>
+                            <div>
+                                <span className='font-extrabold'>Grade Recieved: </span> { getGrade(comment.gradeRecieved ?? -1) }
+                            </div>
+                        </Tag>
+                        <Tag className='bg-white mx-2'>
+                            <div>
+                                <span className='font-extrabold'>{ comment.isRecommended ? "" : "Not" }</span> Recommended
+                            </div>
+                        </Tag>
+                        <Tag className='bg-white mx-2'>
+                            <div>
+                                <span className='font-extrabold'>{ comment.isGPABooster ? "" : "Not" }</span> GPA Booster
+                            </div>
+                        </Tag>
+                        <Tag className='bg-white mx-2'>
+                            { getDelivery(comment.delivery ?? "INPERSON") }
+                        </Tag>
+                    </div>
                     <div className='w-[45rem] h-[17rem] bg-white rounded-md flex items-center'>
                         <div className='flex flex-col gap-10 px-12'>
                             <div className='flex flex-col gap-4'>
