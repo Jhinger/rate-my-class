@@ -69,7 +69,9 @@ const Comment = ({ comment }: ICommentProps) => {
                             </div>
                         </Tag>
                         <Tag className='bg-white mx-2'>
-                            { getDelivery(comment.delivery ?? "INPERSON") }
+                            <div>
+                                <span className='font-extrabold'>Delivery: </span>{ getDelivery(comment.delivery ?? "INPERSON") }
+                            </div>
                         </Tag>
                     </div>
                     <div className='w-[45rem] h-[17rem] bg-white rounded-md flex items-center'>
