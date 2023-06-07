@@ -7,6 +7,7 @@ import {
 
 import ClassHeader from '@/components/ClassHeader';
 import ClassSummary from '@/components/ClassSummary';
+import ClassActions from '@/components/ClassActions';
 import CallToAction from '@/components/Button/CallToAction';
 import Chart from '@/components/Chart';
 import Comment from '@/components/Comment';
@@ -54,9 +55,6 @@ export default async function ClassPage({ params }: { params: { _class: string; 
 
     return (
         <div>
-            <Dialog>
-                Yo.
-            </Dialog>
             <ClassHeader className="w-full h-full flex justify-center pt-12 pb-24">
                 <div className="flex flex-row w-max h-full items-start relative left-12">
                     <div className="relative top-2">
@@ -66,13 +64,8 @@ export default async function ClassPage({ params }: { params: { _class: string; 
                             numComments={_class_!.numComments!}
                             className={_class_!.name!}
                         />
-                        <div className="flex flex-row gap-x-4 justify-center items-start w-max">
-                            <CallToAction className="bg-green-300 h-10">
-                                Rate
-                            </CallToAction>
-                            <CallToAction className="bg-blue-300 h-10">
-                                Share
-                            </CallToAction>
+                        <div className="w-max">
+                            <ClassActions />
                         </div>
                     </div>
                     <div className="min-w-min flex gap-8 justify-center items-center flex-row">
