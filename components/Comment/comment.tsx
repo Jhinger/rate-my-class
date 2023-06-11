@@ -1,12 +1,13 @@
 import getDate from '@/util/getDate';
 import Icon from '@/components/Button/Icon';
 import Tag from '@/components/Tag';
+import ProgressBar from '@/components/ProgressBar';
 import getTagName from '@/util/getTagName';
 import { MoreVerticalIcon } from 'lucide-react';
-
-import type { Comment as CommentType } from '@prisma/client';
 import getDelivery from '@/util/getDelivery';
 import { getGrade } from '@/util/getGrade';
+
+import type { Comment as CommentType } from '@prisma/client';
 
 interface ICommentProps {
     comment: CommentType;
@@ -33,16 +34,16 @@ const Comment = ({ comment }: ICommentProps) => {
             </div>
             <div className='w-full h-full flex flex-row justify-center items-center gap-6 relative top-2'>
                 <div className='w-[13rem] h-[17rem] flex flex-col items-center gap-4'>
-                    <div className='w-full text-xs font-normal h-12 bg-white rounded-sm'>
-                        Overall Rating
+                    <div className='w-full flex justify-center items-center text-xs font-normal h-12 bg-white rounded-sm'>
+                        <ProgressBar className='w-11/12' label="Overall Rating" percent={comment.overallRating} maxPercent={5} textColor="#fff" color="bg-[#76CC7E]" percentSize='text-xxs' inRatio={true} />
                     </div>
-                    <div className='w-full text-xs font-normal h-12 bg-white rounded-sm'>
-                        Difficulty
+                    <div className='w-full flex justify-center items-center text-xs font-normal h-12 bg-white rounded-sm'>
+                        <ProgressBar className='w-11/12' label="Difficulty" percent={comment.difficulty} maxPercent={5} textColor="#fff" color="bg-[#EF4B4B]" percentSize='text-xxs' inRatio={true}/>
                     </div>
-                    <div className='w-full text-xs font-normal h-12 bg-white rounded-sm'>
-                        Workload Hours
+                    <div className='w-full flex justify-center items-center text-xs font-normal h-12 bg-white rounded-sm'>
+                        <ProgressBar className='w-11/12' label="Workload Hours" percent={comment.workload ?? 0} maxPercent={5} textColor="#fff" color="bg-[#4BA0EF]" percentSize='text-xxs' inRatio={true}/>
                     </div>
-                    <div className='w-full text-xs font-normal h-24 bg-white rounded-sm'>
+                    <div className='w-full flex justify-center items-center text-xs font-normal h-24 bg-white rounded-sm'>
                         Tags
                     </div>
                 </div>
