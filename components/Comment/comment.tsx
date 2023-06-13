@@ -6,6 +6,7 @@ import getTagName from '@/util/getTagName';
 import { MoreVerticalIcon } from 'lucide-react';
 import getDelivery from '@/util/getDelivery';
 import { getGrade } from '@/util/getGrade';
+import { tagColors } from '@/constants/tagColors';
 
 import type { Comment as CommentType } from '@prisma/client';
 
@@ -18,7 +19,7 @@ const Comment = ({ comment }: ICommentProps) => {
 
     const renderTags = comment.tags.map((tag, index) =>
         <div key={index}>
-            <Tag className='bg-white mx-2'>
+            <Tag className="bg-blue-300 text-xxs">
                 { getTagName(tag) }
             </Tag>
         </div>
@@ -43,8 +44,8 @@ const Comment = ({ comment }: ICommentProps) => {
                     <div className='w-full flex justify-center items-center text-xs font-normal h-12 bg-white rounded-sm'>
                         <ProgressBar className='w-11/12' label="Workload Hours" percent={comment.workload ?? 0} maxPercent={5} textColor="#fff" color="bg-[#4BA0EF]" percentSize='text-xxs' inRatio={true}/>
                     </div>
-                    <div className='w-full flex justify-center items-center text-xs font-normal h-24 bg-white rounded-sm'>
-                        Tags
+                    <div className='w-full overflow-hidden flex gap-x-1 flex-wrap justify-center items-center font-normal h-24 bg-white rounded-sm'>
+                        { renderTags }
                     </div>
                 </div>
                 <div className='flex flex-col items-center relative'>
