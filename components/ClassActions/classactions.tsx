@@ -6,7 +6,7 @@ import CommentForm from "@/components/CommentForm";
 import { useState } from "react";
 
 const ClassActions = () => {
-    const [dialogOpen, setIsDialogOpen] = useState(true);
+    const [dialogOpen, setIsDialogOpen] = useState(false);
 
     const openDialog = () => {
         setIsDialogOpen(true);
