@@ -39,6 +39,15 @@ export async function generateMetadata({ params }: { params: { _class: string; s
     }
 }
 
+const getTest = async () => {
+    const res = await fetch(process.env.URL + '/api/school/class', {
+        method: "GET"
+    })
+
+    if (res.ok) return res.json();
+    return new Error("Error fetching api.");
+}
+
 export default async function ClassPage({ params }: { params: { _class: string; school: string } }) {
 	const { school, _class } = params;
 
@@ -48,6 +57,10 @@ export default async function ClassPage({ params }: { params: { _class: string; 
 		getComments(_class_!),
 		getGradeDistribution(_class_!)
 	]);
+
+    const test = await getTest();
+
+    console.log(test);
 
 	console.log(_class_);
 	console.log(comments);
