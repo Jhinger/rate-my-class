@@ -1,25 +1,9 @@
+import LoadingSpinner from "@/components/LoadingSpinner";
 
-const SchoolLoading = () => {
-
-    // Look into animate-pulse tailwindcss.
-
+const SchoolLoading = () => {  
     return (
-        <div className="text-white">
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            Loading
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+        <div className="absolute top-1/3 left-1/2">
+            <LoadingSpinner />
         </div>
     )
 }

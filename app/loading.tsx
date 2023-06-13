@@ -1,6 +1,6 @@
 import LoadingSpinner from "@/components/LoadingSpinner";
 
-const ClassLoading = () => {
+const IndexLoading = () => {
     return (
         <div className="absolute top-1/3 left-1/2">
             <LoadingSpinner />
@@ -8,4 +8,4 @@ const ClassLoading = () => {
     )
 }
 
-export default ClassLoading;
+export default IndexLoading;
