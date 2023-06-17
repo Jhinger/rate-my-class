@@ -109,7 +109,7 @@ model Comment {
   teacher       String?  @db.VarChar(35)
   department    String?
   isGPABooster  Int?     @map("gpa_booster")
-  overallRating Float   @map("overall_rating")
+  overallRating Float    @map("overall_rating")
   tags          TAG[]    
   deleted       Boolean  @default(false)
   delivery      DELIVERY?
