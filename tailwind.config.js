@@ -20,6 +20,9 @@ module.exports = {
       fontSize: {
         xxs: '0.7rem'
       },
+      fontFamily: {
+        inter: ['var(--font-inter)'],
+      },
       letterSpacing: {
         tightest: '-.075em'
       },
