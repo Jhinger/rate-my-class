@@ -6,7 +6,7 @@ interface ITagProps {
 
 const Tag = ({ className, children }: ITagProps) => {
     return (
-        <div className={`${className} rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1`}>
+        <div className={`${className} w-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1`}>
             { children }
         </div>
     )

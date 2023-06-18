@@ -18,6 +18,7 @@ import { colors_blue } from '@/constants/boosterColors';
 
 import type { Metadata } from "next";
 import type { Comment as CommentType } from '@prisma/client';
+import LoadMore from '@/components/Button/LoadMore';
 
 export async function generateMetadata({ params }: { params: { _class: string; school: string } }): Promise<Metadata | undefined> {
     const { _class, school } = params;
@@ -87,7 +88,7 @@ export default async function ClassPage({ params }: { params: { _class: string; 
                     </div>
                 </div>
             </ClassHeader>
-            <CommentsContainer className="bg-secondary p-16 flex flex-col justify-center items-center text-white w-full">
+            <CommentsContainer className="bg-secondary py-16 flex flex-col justify-center items-center text-white w-full">
                 <CommentOptionsContainer className="flex flex-row justify-end mb-4 w-[65rem]">
                     <CallToAction className="bg-tertiary text-black h-[2.5rem]">Filter</CallToAction>
                 </CommentOptionsContainer>
@@ -98,6 +99,7 @@ export default async function ClassPage({ params }: { params: { _class: string; 
                         </div>
                     )}
                 </div>
+                <LoadMore type='comment' className="text-black my-8 relative top-12" />
             </CommentsContainer>
         </div>
     )
