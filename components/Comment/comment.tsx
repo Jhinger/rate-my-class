@@ -28,7 +28,7 @@ const Comment = ({ comment }: ICommentProps) => {
     return (
         <div className="bg-gray-200 text-black flex flex-col text-base font-semibold rounded-md w-[65rem] h-[26rem]">
             <div className='w-full flex mt-4 justify-between items-center px-8'> 
-                { commentDate }
+                <span>{ commentDate }</span>
                 <Icon>
                     <MoreVerticalIcon size={20} />
                 </Icon>
@@ -44,7 +44,7 @@ const Comment = ({ comment }: ICommentProps) => {
                     <div className='w-full flex justify-center items-center text-xs font-normal h-12 bg-white rounded-sm'>
                         <ProgressBar className='w-11/12' label="Workload Hours" percent={comment.workload ?? 0} maxPercent={5} textColor="#fff" color="bg-[#4BA0EF]" percentSize='text-xxs' inRatio={true}/>
                     </div>
-                    <div className='w-full overflow-hidden flex gap-x-1 flex-wrap justify-center items-center font-normal h-24 bg-white rounded-sm'>
+                    <div className='w-full flex gap-x-1 flex-wrap justify-center items-center font-normal h-24 bg-white rounded-sm'>
                         { renderTags }
                     </div>
                 </div>
