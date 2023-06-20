@@ -2,6 +2,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator zod {
+  provider = "prisma-zod-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -103,18 +107,18 @@ model Comment {
   classId       Int
   createdAt     DateTime @default(now()) @map("created_at")
   difficulty    Int
-  isRecommended Boolean? @map("is_recommended")
+  isRecommended Boolean  @map("is_recommended")
   upvoteCount   Int      @default(0) @map("upvote_count")
-  workload      Int?
+  workload      Int
   teacher       String?  @db.VarChar(35)
-  department    String?
-  isGPABooster  Int?     @map("gpa_booster")
+  department    String
+  isGPABooster  Int      @map("gpa_booster")
   overallRating Float    @map("overall_rating")
   tags          TAG[]    
   deleted       Boolean  @default(false)
-  delivery      DELIVERY?
-  gradeRecieved Int?     @map("grade_recieved")
-  primaryText   String?  @default("") @map("primary_text") @db.VarChar(350)
+  delivery      DELIVERY
+  gradeRecieved Int      @map("grade_recieved")
+  primaryText   String   @default("") @map("primary_text") @db.VarChar(350)
   secondaryText String?  @default("") @map("secondary_text") @db.VarChar(350)
   class         Class    @relation(fields: [classId], references: [id])
   User          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
