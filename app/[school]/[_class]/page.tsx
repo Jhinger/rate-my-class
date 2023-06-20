@@ -41,8 +41,8 @@ export async function generateMetadata({ params }: { params: { _class: string; s
 }
 
 const getTest = async () => {
-    const res = await fetch(process.env.URL + '/api/school/class', {
-        method: "GET"
+    const res = await fetch(process.env.URL + '/api/school/SFU', {
+        method: "GET",
     })
 
     if (res.ok) return res.json();
