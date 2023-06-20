@@ -12,9 +12,6 @@ const nextConfig = {
       'lh5.googleusercontent.com',
       'lh6.googleusercontent.com',
     ],
-    expiremental: {
-      appDir: true
-    }
   }
 }
 
