@@ -13,7 +13,6 @@ const Schema: z.ZodType<Prisma.CommentMinAggregateInputType> = z
     upvoteCount: z.literal(true).optional(),
     workload: z.literal(true).optional(),
     teacher: z.literal(true).optional(),
-    department: z.literal(true).optional(),
     isGPABooster: z.literal(true).optional(),
     overallRating: z.literal(true).optional(),
     deleted: z.literal(true).optional(),

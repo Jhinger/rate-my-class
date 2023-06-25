@@ -63,9 +63,6 @@ const Schema: z.ZodType<Prisma.CommentScalarWhereWithAggregatesInput> = z
       ])
       .optional()
       .nullable(),
-    department: z
-      .union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
-      .optional(),
     isGPABooster: z
       .union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.number()])
       .optional(),

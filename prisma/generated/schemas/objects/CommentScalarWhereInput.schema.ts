@@ -55,9 +55,6 @@ const Schema: z.ZodType<Prisma.CommentScalarWhereInput> = z
       .union([z.lazy(() => StringNullableFilterObjectSchema), z.string()])
       .optional()
       .nullable(),
-    department: z
-      .union([z.lazy(() => StringFilterObjectSchema), z.string()])
-      .optional(),
     isGPABooster: z
       .union([z.lazy(() => IntFilterObjectSchema), z.number()])
       .optional(),

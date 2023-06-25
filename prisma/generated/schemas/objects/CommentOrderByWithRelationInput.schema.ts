@@ -22,7 +22,6 @@ const Schema: z.ZodType<Prisma.CommentOrderByWithRelationInput> = z
         z.lazy(() => SortOrderInputObjectSchema),
       ])
       .optional(),
-    department: z.lazy(() => SortOrderSchema).optional(),
     isGPABooster: z.lazy(() => SortOrderSchema).optional(),
     overallRating: z.lazy(() => SortOrderSchema).optional(),
     tags: z.lazy(() => SortOrderSchema).optional(),

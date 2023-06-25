@@ -3,12 +3,12 @@ import { IntFieldUpdateOperationsInputObjectSchema } from './IntFieldUpdateOpera
 import { DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema';
 import { BoolFieldUpdateOperationsInputObjectSchema } from './BoolFieldUpdateOperationsInput.schema';
 import { NullableStringFieldUpdateOperationsInputObjectSchema } from './NullableStringFieldUpdateOperationsInput.schema';
-import { StringFieldUpdateOperationsInputObjectSchema } from './StringFieldUpdateOperationsInput.schema';
 import { FloatFieldUpdateOperationsInputObjectSchema } from './FloatFieldUpdateOperationsInput.schema';
 import { CommentUpdatetagsInputObjectSchema } from './CommentUpdatetagsInput.schema';
 import { TAGSchema } from '../enums/TAG.schema';
 import { DELIVERYSchema } from '../enums/DELIVERY.schema';
 import { EnumDELIVERYFieldUpdateOperationsInputObjectSchema } from './EnumDELIVERYFieldUpdateOperationsInput.schema';
+import { StringFieldUpdateOperationsInputObjectSchema } from './StringFieldUpdateOperationsInput.schema';
 
 import type { Prisma } from '@prisma/client';
 
@@ -63,12 +63,6 @@ const Schema: z.ZodType<Prisma.CommentUncheckedUpdateWithoutUserInput> = z
       ])
       .optional()
       .nullable(),
-    department: z
-      .union([
-        z.string(),
-        z.lazy(() => StringFieldUpdateOperationsInputObjectSchema),
-      ])
-      .optional(),
     isGPABooster: z
       .union([
         z.number(),

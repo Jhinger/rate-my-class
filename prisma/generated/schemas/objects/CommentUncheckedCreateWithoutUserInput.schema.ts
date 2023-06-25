@@ -15,7 +15,6 @@ const Schema: z.ZodType<Prisma.CommentUncheckedCreateWithoutUserInput> = z
     upvoteCount: z.number().optional(),
     workload: z.number(),
     teacher: z.string().optional().nullable(),
-    department: z.string(),
     isGPABooster: z.number(),
     overallRating: z.number(),
     tags: z

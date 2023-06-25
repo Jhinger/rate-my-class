@@ -69,12 +69,6 @@ const Schema: z.ZodType<Prisma.CommentUncheckedUpdateManyInput> = z
       ])
       .optional()
       .nullable(),
-    department: z
-      .union([
-        z.string(),
-        z.lazy(() => StringFieldUpdateOperationsInputObjectSchema),
-      ])
-      .optional(),
     isGPABooster: z
       .union([
         z.number(),
