@@ -3,12 +3,12 @@ import { DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldU
 import { IntFieldUpdateOperationsInputObjectSchema } from './IntFieldUpdateOperationsInput.schema';
 import { BoolFieldUpdateOperationsInputObjectSchema } from './BoolFieldUpdateOperationsInput.schema';
 import { NullableStringFieldUpdateOperationsInputObjectSchema } from './NullableStringFieldUpdateOperationsInput.schema';
-import { StringFieldUpdateOperationsInputObjectSchema } from './StringFieldUpdateOperationsInput.schema';
 import { FloatFieldUpdateOperationsInputObjectSchema } from './FloatFieldUpdateOperationsInput.schema';
 import { CommentUpdatetagsInputObjectSchema } from './CommentUpdatetagsInput.schema';
 import { TAGSchema } from '../enums/TAG.schema';
 import { DELIVERYSchema } from '../enums/DELIVERY.schema';
 import { EnumDELIVERYFieldUpdateOperationsInputObjectSchema } from './EnumDELIVERYFieldUpdateOperationsInput.schema';
+import { StringFieldUpdateOperationsInputObjectSchema } from './StringFieldUpdateOperationsInput.schema';
 import { ClassUpdateOneRequiredWithoutCommentsNestedInputObjectSchema } from './ClassUpdateOneRequiredWithoutCommentsNestedInput.schema';
 import { UserUpdateOneRequiredWithoutCommentsNestedInputObjectSchema } from './UserUpdateOneRequiredWithoutCommentsNestedInput.schema';
 
@@ -53,12 +53,6 @@ const Schema: z.ZodType<Prisma.CommentUpdateInput> = z
       ])
       .optional()
       .nullable(),
-    department: z
-      .union([
-        z.string(),
-        z.lazy(() => StringFieldUpdateOperationsInputObjectSchema),
-      ])
-      .optional(),
     isGPABooster: z
       .union([
         z.number(),

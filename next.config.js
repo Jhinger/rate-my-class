@@ -12,6 +12,9 @@ const nextConfig = {
       'lh5.googleusercontent.com',
       'lh6.googleusercontent.com',
     ],
+  },
+  experimental: {
+    serverActions: true,
   }
 }
 

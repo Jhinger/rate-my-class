@@ -14,7 +14,6 @@ const Schema: z.ZodType<Prisma.CommentMinOrderByAggregateInput> = z
     upvoteCount: z.lazy(() => SortOrderSchema).optional(),
     workload: z.lazy(() => SortOrderSchema).optional(),
     teacher: z.lazy(() => SortOrderSchema).optional(),
-    department: z.lazy(() => SortOrderSchema).optional(),
     isGPABooster: z.lazy(() => SortOrderSchema).optional(),
     overallRating: z.lazy(() => SortOrderSchema).optional(),
     deleted: z.lazy(() => SortOrderSchema).optional(),
