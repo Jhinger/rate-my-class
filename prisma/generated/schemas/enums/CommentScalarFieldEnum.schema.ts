@@ -10,7 +10,6 @@ export const CommentScalarFieldEnumSchema = z.enum([
   'upvoteCount',
   'workload',
   'teacher',
-  'department',
   'isGPABooster',
   'overallRating',
   'tags',
