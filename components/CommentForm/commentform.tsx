@@ -4,6 +4,11 @@ import { onSubmit } from './actions';
 import * as z from 'zod';
 
 import { 
+    NUM_TEXTAREA_ROWS, 
+    NUM_TEXTAREA_COLS 
+} from '@/constants';
+
+import { 
     CommentCreatetagsInputObjectSchema, 
     DELIVERYSchema, 
     TAGSchema 
@@ -43,25 +48,25 @@ const CommentForm = ({ className }: ICommentFormProps) => {
     });
 
     return (
-        <div className="w-[60rem] h-full flex justify-center items-center border-2 border-solid border-red-500">
+        <div className="w-[60rem] h-full flex justify-center items-center border-2 border-solid border-red-500 overflow-y-scroll overscroll-contain relative">
             <form className="flex flex-col flex-wrap justify-center items-center w-max h-max text-sm">
                 <div className='flex flex-col justify-center items-center my-4'>
                     <label>Delivery:</label>
                     <div className='flex flex-row'>
                         <div className='m-2'>
                             <input type="radio" id='classDeliveryInPerson' name='classDelivery' value="INPERSON" className='hidden peer' defaultChecked/>
-                            <label htmlFor="classDeliveryInPerson" className='bg-primary rounded-sm py-2 px-4 peer-checked:bg-primaryAccent duration-100'>In Person</label>
+                            <label htmlFor="classDeliveryInPerson" className='bg-primary rounded-sm py-2 px-4 peer-checked:bg-primaryAccent duration-100 cursor-pointer'>In Person</label>
                         </div>
                         <div className='m-2'>
                             <input type="radio" id='classDeliveryOnline' name='classDelivery' value="ONLINE" className='hidden peer'/>
-                            <label htmlFor="classDeliveryOnline" className='bg-primary rounded-sm py-2 px-4 peer-checked:bg-primaryAccent duration-100'>Online</label>
+                            <label htmlFor="classDeliveryOnline" className='bg-primary rounded-sm py-2 px-4 peer-checked:bg-primaryAccent duration-100 cursor-pointer'>Online</label>
                         </div>
                     </div>
                 </div>
 
                 <div className='flex flex-col justify-center items-center mb-4'>
                     <label htmlFor="teacher">Teacher:</label>
-                    <input type="text" id='teacher' name='teacher'/>
+                    <input type="text" id='teacher' name='teacher' className='w-[25rem] py-2 text-center rounded-md' autoComplete='off' autoFocus/>
                 </div>
 
                 <div className='flex flex-col mb-4 justify-center items-center bg-white w-max rounded-md py-5 px-20'>
@@ -131,10 +136,10 @@ const CommentForm = ({ className }: ICommentFormProps) => {
                 <input type="text" id='isGPABooster' name='isGPABooster'/>
 
                 <label htmlFor="primaryText">General Overview:</label>
-                <textarea name="primaryText" id="primaryText" cols={80} rows={1} />
+                <textarea name="primaryText" id="primaryText" cols={NUM_TEXTAREA_COLS} rows={NUM_TEXTAREA_ROWS} />
 
                 <label htmlFor="secondaryText">Exam Tips:</label>
-                <textarea name="secondaryText" id="secondaryText" cols={80} rows={1} />
+                <textarea name="secondaryText" id="secondaryText" cols={NUM_TEXTAREA_COLS} rows={NUM_TEXTAREA_ROWS} />
 
                 <button type="submit" formAction={(e) => onSubmit(e)} className=''>Submit</button>
             </form>
