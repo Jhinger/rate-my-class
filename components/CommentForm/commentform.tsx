@@ -48,7 +48,7 @@ const CommentForm = ({ className }: ICommentFormProps) => {
     });
 
     return (
-        <div className="w-[60rem] h-full flex justify-center items-center border-2 border-solid border-red-500 overflow-y-scroll overscroll-contain relative">
+        <div className="w-[60rem] h-max flex justify-center items-center border-2 border-solid border-gray-400">
             <form className="flex flex-col flex-wrap justify-center items-center w-max h-max text-sm">
                 <div className='flex flex-col justify-center items-center my-4'>
                     <label>Delivery:</label>
@@ -70,7 +70,7 @@ const CommentForm = ({ className }: ICommentFormProps) => {
                 </div>
 
                 <div className='flex flex-col mb-4 justify-center items-center bg-white w-max rounded-md py-5 px-20'>
-                    <label className='mb-2 text-xs'>Overall Rating:</label>
+                    <label className='mb-2 text-xs'>Overall Rating: <em className='text-xxs text-gray-500'>(1 = low, 5 = high)</em></label>
                     <div className='flex flex-row-reverse gap-3'>
                         <input type="radio" id='overallRatingFive' name='overallRating' value={5} className="hidden peer peer/rating"/>
                         <label htmlFor="overallRatingFive" className='peer-checked:bg-green-500 peer-checked/rating:ring-2 peer-checked/rating:ring-green-700 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer'>5</label>
@@ -90,7 +90,7 @@ const CommentForm = ({ className }: ICommentFormProps) => {
                 </div>
                                 
                 <div className='flex flex-col mb-4 justify-center items-center bg-white w-max rounded-md py-5 px-20'>
-                    <label className='mb-2 text-xs'>Difficulty:</label>
+                    <label className='mb-2 text-xs'>Difficulty: <em className='text-xxs text-gray-500'>(1 = low, 5 = high)</em></label>
                     <div className='flex flex-row-reverse gap-3'>
                         <input type="radio" id='difficultyFive' name='difficulty' value={5} className="hidden peer peer/difficulty"/>
                         <label htmlFor="difficultyFive" className='peer-checked:bg-rose-500 peer-checked/difficulty:ring-2 peer-checked/difficulty:ring-rose-700 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer'>5</label>
@@ -110,7 +110,7 @@ const CommentForm = ({ className }: ICommentFormProps) => {
                 </div>
 
                 <div className='flex flex-col mb-4 justify-center items-center bg-white w-max rounded-md py-5 px-20'>
-                    <label className='mb-2 text-xs'>Workload:</label>
+                    <label className='mb-2 text-xs'>Workload: <em className='text-xxs text-gray-500'>(1 = low, 5 = high)</em></label>
                     <div className='flex flex-row-reverse gap-3'>
                         <input type="radio" id='workloadFive' name='workload' value={5} className="hidden peer peer/workload"/>
                         <label htmlFor="workloadFive" className='peer-checked:bg-sky-500 peer-checked/workload:ring-2 peer-checked/workload:ring-sky-700 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer'>5</label>
