@@ -1,7 +1,7 @@
+"use client";
+
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTransition } from 'react';
-// import { onSubmit } from './actions'; 
 import * as z from 'zod';
 
 import { 
@@ -18,31 +18,27 @@ import type { Class } from '@prisma/client';
 import { onSubmit, IFormValues } from './actions';
 
 interface ICommentFormProps {
+    schoolName: string | null;
     schoolClass: Partial<Class> | null;
     className?: string;
 }
 
 const CommentSchema = z
     .object({
-        tags: z
-            .union([
-                z.lazy(() => CommentCreatetagsInputObjectSchema),
-                z.lazy(() => TAGSchema).array().max(3),
-            ])
-            .optional(),
+        tags: z.lazy(() => TAGSchema).array().max(3, { message: "Only select a max of 3 Tags." }).optional(),
     }).strict();
 
-const CommentForm = ({ schoolClass, className }: ICommentFormProps) => {
+const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isDirty, isValid },
     } = useForm<IFormValues>({
         resolver: zodResolver(CommentSchema)
     });
 
     const onSubmit: SubmitHandler<IFormValues> = async (form) => {
-        const data = await fetch(`/api/SFU/class/${schoolClass?.name}`, {
+        const data = await fetch(`/api/${schoolName}/class/${schoolClass?.name}`, {
             method: 'POST',
             body: JSON.stringify(form)
         })
@@ -138,12 +134,12 @@ const CommentForm = ({ schoolClass, className }: ICommentFormProps) => {
 
                 <div className='flex flex-col justify-center items-center my-2'>
                     <label>Would you Recommend {schoolClass?.name ?? 'this Class'}?</label>
-                    <div className='flex flex-row'>
-                        <div className='mx-2 my-4'>
+                    <div className='flex flex-row my-4 gap-4'>
+                        <div>
                             <input type="radio" id='isRecommendedYes' name='isRecommended' value="true" className='hidden peer'/>
                             <label htmlFor="isRecommendedYes" className='bg-primary rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>Yes</label>
                         </div>
-                        <div className='mx-2 my-4'>
+                        <div>
                             <input type="radio" id='isRecommendedNo' name='isRecommended' value="false" className='hidden peer'/>
                             <label htmlFor="isRecommendedNo" className='bg-primary rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>No</label>
                         </div>
@@ -152,12 +148,12 @@ const CommentForm = ({ schoolClass, className }: ICommentFormProps) => {
 
                 <div className='flex flex-col justify-center items-center my-2'>
                     <label>Is {schoolClass?.name ?? 'this Class'} a GPA Booster?</label>
-                    <div className='flex flex-row'>
-                        <div className='mx-2 my-4'>
+                    <div className='flex flex-row my-4 gap-4'>
+                        <div>
                             <input type="radio" id='isGPABoosterYes' name='isGPABooster' value={1} className='hidden peer'/>
                             <label htmlFor="isGPABoosterYes" className='bg-primary rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>Yes</label>
                         </div>
-                        <div className='mx-2 my-4'>
+                        <div>
                             <input type="radio" id='isGPABoosterNo' name='isGPABooster' value={0} className='hidden peer'/>
                             <label htmlFor="isGPABoosterNo" className='bg-primary rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>No</label>
                         </div>
@@ -165,19 +161,37 @@ const CommentForm = ({ schoolClass, className }: ICommentFormProps) => {
                 </div>
 
                 <div className='flex flex-col justify-center items-center my-2'>
-                    <label>Select up to 3 Tags:</label>
-                    <div className='flex flex-row justify-center items-center'>
-                        <input type="checkbox" id='tagTestHeavy' value="TEST_HEAVY" className='hidden peer' {...register('tags')} />
-                        <label htmlFor="tagTestHeavy" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>Test Heavy</label>
+                    <label className='flex flex-col justify-center items-center'>
+                        <span>Select up to <strong>3 Tags:</strong></span>
+                        {errors.tags?.message && <span className='text-red-500 text-xxs'>{errors.tags.message}</span>}
+                    </label>
+                    <div className='flex flex-row flex-wrap w-1/2 my-4 gap-2 justify-center items-center'>
+                        <input type="checkbox" id='tagTestHeavy' value="TEST_HEAVY" className='hidden peer/test' {...register('tags')} />
+                        <label htmlFor="tagTestHeavy" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/test:bg-primaryAccent peer-checked/test:ring-2 peer-checked/test:ring-blue-500 duration-100 cursor-pointer unselectable'>Test Heavy</label>
 
-                        <input type="checkbox" {...register('tags')} value="ASSIGNMENT_HEAVY" placeholder='Assignment Heavy' />
-                        <input type="checkbox" {...register('tags')} value="LECTURES_RECORDED" />
-                        <input type="checkbox" {...register('tags')} value="REQUIRED" />
-                        <input type="checkbox" {...register('tags')} value="AVOID" />
-                        <input type="checkbox" {...register('tags')} value="THEORY_HEAVY" />
-                        <input type="checkbox" {...register('tags')} value="READING_HEAVY" />
-                        <input type="checkbox" {...register('tags')} value="GROUPWORK_HEAVY" />
-                        <input type="checkbox" {...register('tags')} value="PARTICIPATION_HEAVY" />
+                        <input type="checkbox" id='tagAssignmentHeavy' value="ASSIGNMENT_HEAVY" className='hidden peer/assign' {...register('tags')} />
+                        <label htmlFor="tagAssignmentHeavy" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/assign:bg-primaryAccent peer-checked/assign:ring-2 peer-checked/assign:ring-blue-500 duration-100 cursor-pointer unselectable'>Assignment Heavy</label>
+
+                        <input type="checkbox" id='tagLectures' value="LECTURES_RECORDED" className='hidden peer/lectures' {...register('tags')} />
+                        <label htmlFor="tagLectures" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/lectures:bg-primaryAccent peer-checked/lectures:ring-2 peer-checked/lectures:ring-blue-500 duration-100 cursor-pointer unselectable'>Lectures Recorded</label>
+
+                        <input type="checkbox" id='tagRequired' value="REQUIRED" className='hidden peer/required' {...register('tags')} />
+                        <label htmlFor="tagRequired" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/required:bg-primaryAccent peer-checked/required:ring-2 peer-checked/required:ring-blue-500 duration-100 cursor-pointer unselectable'>Required</label>
+
+                        <input type="checkbox" id='tagAvoid' value="AVOID" className='hidden peer/avoid' {...register('tags')} />
+                        <label htmlFor="tagAvoid" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/avoid:bg-primaryAccent peer-checked/avoid:ring-2 peer-checked/avoid:ring-blue-500 duration-100 cursor-pointer unselectable'>Avoid</label>
+
+                        <input type="checkbox" id='tagTheory' value="THEORY_HEAVY" className='hidden peer/theory' {...register('tags')} />
+                        <label htmlFor="tagTheory" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/theory:bg-primaryAccent peer-checked/theory:ring-2 peer-checked/theory:ring-blue-500 duration-100 cursor-pointer unselectable'>Theory Heavy</label>
+
+                        <input type="checkbox" id='tagReading' value="READING_HEAVY" className='hidden peer/reading' {...register('tags')} />
+                        <label htmlFor="tagReading" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/reading:bg-primaryAccent peer-checked/reading:ring-2 peer-checked/reading:ring-blue-500 duration-100 cursor-pointer unselectable'>Reading Heavy</label>
+
+                        <input type="checkbox" id='tagGroup' value="GROUPWORK_HEAVY" className='hidden peer/group' {...register('tags')} />
+                        <label htmlFor="tagGroup" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/group:bg-primaryAccent peer-checked/group:ring-2 peer-checked/group:ring-blue-500 duration-100 cursor-pointer unselectable'>Groupwork Heavy</label>
+
+                        <input type="checkbox" id='tagParticipation' value="PARTICIPATION_MATTERS" className='hidden peer/participation' {...register('tags')} />
+                        <label htmlFor="tagParticipation" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/participation:bg-primaryAccent peer-checked/participation:ring-2 peer-checked/participation:ring-blue-500 duration-100 cursor-pointer unselectable'>Participation Matters</label>
                     </div>
                 </div>
 
@@ -192,7 +206,7 @@ const CommentForm = ({ schoolClass, className }: ICommentFormProps) => {
                 </div>
 
                 <div className='text-xxs text-gray-400'>Legal stuff here.</div>
-                <button type="submit" className='py-2 px-6 rounded-md bg-tertiary m-4'>Submit</button>
+                <button type="submit" className='py-2 px-6 rounded-md bg-tertiary m-4 disabled:bg-opacity-50 disabled:cursor-not-allowed' disabled={!isDirty || !isValid}>Submit</button>
             </form>
         </div>
     )
