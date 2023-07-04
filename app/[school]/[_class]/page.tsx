@@ -79,7 +79,7 @@ export default async function ClassPage({ params }: { params: { _class: string; 
                             className={_class_!.name!}
                         />
                         <div className="w-max">
-                            <ClassActions />
+                            <ClassActions schoolClass={_class_} />
                         </div>
                     </div>
                     <div className="min-w-min flex gap-8 justify-center items-center flex-row">
