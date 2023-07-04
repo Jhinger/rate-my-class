@@ -5,9 +5,10 @@ import Dialog from "@/components/Dialog";
 import CommentForm from "@/components/CommentForm";
 import { Clipboard, ClipboardCheck } from "lucide-react";
 import { useState } from "react";
-import type { Class } from "@prisma/client";
+import type { Class, School } from "@prisma/client";
 
 interface IClassActionProps {
+    school: Partial<School> | null;
     schoolClass: Partial<Class> | null;
 }
 
@@ -27,7 +28,7 @@ const ClassActions = ({ schoolClass }: IClassActionProps) => {
     return (
         <div>
             <Dialog isOpen={dialogOpen} setIsOpen={setIsDialogOpen}>
-                <CommentForm schoolClass={schoolClass} />
+                <CommentForm schoolName={schoolClass?.name ?? ""} schoolClass={schoolClass} />
             </Dialog>
             <div className="flex flex-row gap-x-4 justify-center items-start w-max">
                 <CallToAction onClick={openDialog} className="bg-green-300 h-10">
