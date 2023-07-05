@@ -2,6 +2,7 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import * as z from 'zod';
 
 import { 
@@ -9,11 +10,7 @@ import {
     NUM_TEXTAREA_COLS 
 } from '@/constants';
 
-import { 
-    CommentCreatetagsInputObjectSchema, 
-    DELIVERYSchema, 
-    TAGSchema 
-} from '@/prisma/generated/schemas';
+import { TAGSchema } from '@/prisma/generated/schemas';
 import type { Class } from '@prisma/client';
 import { onSubmit, IFormValues } from './actions';
 
@@ -34,7 +31,8 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
         handleSubmit,
         formState: { errors, isDirty, isValid },
     } = useForm<IFormValues>({
-        resolver: zodResolver(CommentSchema)
+        resolver: zodResolver(CommentSchema),
+        mode: 'onChange'
     });
 
     const onSubmit: SubmitHandler<IFormValues> = async (form) => {
@@ -160,10 +158,9 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
                     </div>
                 </div>
 
-                <div className='flex flex-col justify-center items-center my-2'>
+                <div className='flex flex-col justify-center items-center my-6 relative'>
                     <label className='flex flex-col justify-center items-center'>
-                        <span>Select up to <strong>3 Tags:</strong></span>
-                        {errors.tags?.message && <span className='text-red-500 text-xxs'>{errors.tags.message}</span>}
+                        <span>Select up to <strong>3 Tags:</strong> <span className='text-xxs text-gray-500'>(optional)</span></span>
                     </label>
                     <div className='flex flex-row flex-wrap w-1/2 my-4 gap-2 justify-center items-center'>
                         <input type="checkbox" id='tagTestHeavy' value="TEST_HEAVY" className='hidden peer/test' {...register('tags')} />
@@ -193,6 +190,7 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
                         <input type="checkbox" id='tagParticipation' value="PARTICIPATION_MATTERS" className='hidden peer/participation' {...register('tags')} />
                         <label htmlFor="tagParticipation" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/participation:bg-primaryAccent peer-checked/participation:ring-2 peer-checked/participation:ring-blue-500 duration-100 cursor-pointer unselectable'>Participation Matters</label>
                     </div>
+                    {errors.tags?.message && <span className='text-red-500 text-xxs font-semibold absolute -bottom-4'>{errors.tags.message}</span>}
                 </div>
 
                 <div className='flex flex-col justify-center items-center my-4'>
@@ -205,8 +203,11 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
                     <textarea name="secondaryText" id="secondaryText" className='my-2 rounded-md p-8' cols={NUM_TEXTAREA_COLS} rows={NUM_TEXTAREA_ROWS} />
                 </div>
 
-                <div className='text-xxs text-gray-400'>Legal stuff here.</div>
-                <button type="submit" className='py-2 px-6 rounded-md bg-tertiary m-4 disabled:bg-opacity-50 disabled:cursor-not-allowed' disabled={!isDirty || !isValid}>Submit</button>
+                <div className='text-xxs text-gray-500 w-1/2 text-center my-2'>
+                    By clicking the &quot;Submit&quot; button, I acknowledge that I have read and agreed to the RateMyClass <Link href={'/site-guidelines'} className="text-blue-400 hover:text-tertiaryComplement duration-100 hover:cursor-pointer">Site Guidelines</Link>,
+                    <Link href={'/terms'} className="text-blue-400 hover:text-tertiaryComplement duration-100 hover:cursor-pointer"> Terms of Use</Link> and <Link href={'/privacy-policy'} className="text-blue-400 hover:text-tertiaryComplement duration-100 hover:cursor-pointer">Privacy Policy</Link>. Submitted data becomes the property of RateMyClass.io
+                </div>
+                <button type="submit" className='py-2 px-6 rounded-md bg-primaryAccent hover:ring-2 hover:ring-blue-500 hover:ring-inset duration-75 m-4 disabled:bg-opacity-50 disabled:cursor-not-allowed' disabled={!isDirty || !isValid}>Submit</button>
             </form>
         </div>
     )
