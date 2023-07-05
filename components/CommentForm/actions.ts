@@ -5,6 +5,8 @@ import { revalidatePath } from 'next/cache';
 import type { FieldValues, SubmitHandler } from 'react-hook-form';
 
 export interface IFormValues {
+    difficulty: number;
+    // isRecommended: boolean;
     tags: string[];
 }
 
