@@ -22,6 +22,7 @@ interface ICommentFormProps {
 
 const CommentSchema = z
     .object({
+        difficulty: z.coerce.number().min(1).max(5, { message: "Must select a Difficulty" }),
         tags: z.lazy(() => TAGSchema).array().max(3, { message: "Only select a max of 3 Tags." }).optional(),
     }).strict();
 
@@ -93,21 +94,22 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
                 <div className='flex flex-col mb-4 justify-center items-center bg-white w-max rounded-md py-5 px-20'>
                     <label className='mb-2 text-xs'>Difficulty: <em className='text-xxs text-gray-500'>(1 = low, 5 = high)</em></label>
                     <div className='flex flex-row-reverse gap-3'>
-                        <input type="radio" id='difficultyFive' name='difficulty' value={5} className="hidden peer peer/difficulty"/>
+                        <input type="radio" id='difficultyFive' value={5} className="hidden peer peer/difficulty" {...register('difficulty')} />
                         <label htmlFor="difficultyFive" className='peer-checked:bg-rose-500 peer-checked/difficulty:ring-2 peer-checked/difficulty:ring-rose-700 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>5</label>
 
-                        <input type="radio" id='difficultyFour' name='difficulty' value={4} className="hidden peer peer/difficulty" />
+                        <input type="radio" id='difficultyFour' value={4} className="hidden peer peer/difficulty" {...register('difficulty')} />
                         <label htmlFor="difficultyFour" className='peer-checked:bg-rose-400 peer-checked/difficulty:ring-2 peer-checked/difficulty:ring-rose-600 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>4</label>
 
-                        <input type="radio" id='difficultyThree' name='difficulty' value={3} className="hidden peer peer/difficulty" />
+                        <input type="radio" id='difficultyThree' value={3} className="hidden peer peer/difficulty" {...register('difficulty')} />
                         <label htmlFor="difficultyThree" className='peer-checked:bg-rose-300 peer-checked/difficulty:ring-2 peer-checked/difficulty:ring-rose-500 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>3</label>
 
-                        <input type="radio" id='difficultyTwo' name='difficulty' value={2} className="hidden peer peer/difficulty" />
+                        <input type="radio" id='difficultyTwo' value={2} className="hidden peer peer/difficulty" {...register('difficulty')} />
                         <label htmlFor="difficultyTwo" className='peer-checked:bg-rose-200 peer-checked/difficulty:ring-2 peer-checked/difficulty:ring-rose-500 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>2</label>
 
-                        <input type="radio" id='difficultyOne' name='difficulty' value={1} className="hidden peer peer/difficulty" />
+                        <input type="radio" id='difficultyOne' value={1} className="hidden peer peer/difficulty" {...register('difficulty')} />
                         <label htmlFor="difficultyOne" className='peer-checked:bg-rose-100 peer-checked/difficulty:ring-2 peer-checked/difficulty:ring-rose-500 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>1</label>
                     </div>    
+                    {errors.difficulty?.message && <span>{errors.difficulty.message}</span>}
                 </div>
 
                 <div className='flex flex-col mb-4 justify-center items-center bg-white w-max rounded-md py-5 px-20'>
@@ -207,7 +209,7 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
                     By clicking the &quot;Submit&quot; button, I acknowledge that I have read and agreed to the RateMyClass <Link href={'/site-guidelines'} className="text-blue-400 hover:text-tertiaryComplement duration-100 hover:cursor-pointer">Site Guidelines</Link>,
                     <Link href={'/terms'} className="text-blue-400 hover:text-tertiaryComplement duration-100 hover:cursor-pointer"> Terms of Use</Link> and <Link href={'/privacy-policy'} className="text-blue-400 hover:text-tertiaryComplement duration-100 hover:cursor-pointer">Privacy Policy</Link>. Submitted data becomes the property of RateMyClass.io
                 </div>
-                <button type="submit" className='py-2 px-6 rounded-md bg-primaryAccent hover:ring-2 hover:ring-blue-500 hover:ring-inset duration-75 m-4 disabled:bg-opacity-50 disabled:cursor-not-allowed' disabled={!isDirty || !isValid}>Submit</button>
+                <button type="submit" className='py-2 px-6 rounded-md bg-primaryAccent hover:ring-2 hover:ring-blue-500 hover:ring-inset duration-75 m-4 disabled:bg-opacity-50 disabled:cursor-not-allowed' disabled={!isValid}>Submit</button>
             </form>
         </div>
     )
