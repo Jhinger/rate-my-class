@@ -23,23 +23,27 @@ interface ICommentFormProps {
 const CommentSchema = z
     .object({
         difficulty: z.coerce.number().min(1).max(5, { message: "Must select a Difficulty" }),
-        tags: z.lazy(() => TAGSchema).array().max(3, { message: "Only select a max of 3 Tags." }).optional(),
+        tags: z.lazy(() => TAGSchema).array().min(0).max(3, { message: "Only select a max of 3 Tags." }).optional(),
     }).strict();
 
 const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) => {
     const {
         register,
         handleSubmit,
-        formState: { errors, isDirty, isValid },
+        formState: { errors, isValid },
     } = useForm<IFormValues>({
         resolver: zodResolver(CommentSchema),
         mode: 'onChange'
     });
 
-    const onSubmit: SubmitHandler<IFormValues> = async (form) => {
+    const onSubmit: SubmitHandler<IFormValues> = async (form: IFormValues) => {
+        const body = {
+            classId: schoolClass?.id,
+            ...form,
+        };
         const data = await fetch(`/api/${schoolName}/class/${schoolClass?.name}`, {
             method: 'POST',
-            body: JSON.stringify(form)
+            body: JSON.stringify(body),
         })
 
         if (data.ok) {
@@ -165,31 +169,31 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
                         <span>Select up to <strong>3 Tags:</strong> <span className='text-xxs text-gray-500'>(optional)</span></span>
                     </label>
                     <div className='flex flex-row flex-wrap w-1/2 my-4 gap-2 justify-center items-center'>
-                        <input type="checkbox" id='tagTestHeavy' value="TEST_HEAVY" className='hidden peer/test' {...register('tags')} />
+                        <input type="checkbox" id='tagTestHeavy' value="TEST_HEAVY" className='hidden peer/test' {...register('tags', { required: false })} />
                         <label htmlFor="tagTestHeavy" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/test:bg-primaryAccent peer-checked/test:ring-2 peer-checked/test:ring-blue-500 duration-100 cursor-pointer unselectable'>Test Heavy</label>
 
-                        <input type="checkbox" id='tagAssignmentHeavy' value="ASSIGNMENT_HEAVY" className='hidden peer/assign' {...register('tags')} />
+                        <input type="checkbox" id='tagAssignmentHeavy' value="ASSIGNMENT_HEAVY" className='hidden peer/assign' {...register('tags', { required: false })} />
                         <label htmlFor="tagAssignmentHeavy" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/assign:bg-primaryAccent peer-checked/assign:ring-2 peer-checked/assign:ring-blue-500 duration-100 cursor-pointer unselectable'>Assignment Heavy</label>
 
-                        <input type="checkbox" id='tagLectures' value="LECTURES_RECORDED" className='hidden peer/lectures' {...register('tags')} />
+                        <input type="checkbox" id='tagLectures' value="LECTURES_RECORDED" className='hidden peer/lectures' {...register('tags', { required: false })} />
                         <label htmlFor="tagLectures" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/lectures:bg-primaryAccent peer-checked/lectures:ring-2 peer-checked/lectures:ring-blue-500 duration-100 cursor-pointer unselectable'>Lectures Recorded</label>
 
-                        <input type="checkbox" id='tagRequired' value="REQUIRED" className='hidden peer/required' {...register('tags')} />
+                        <input type="checkbox" id='tagRequired' value="REQUIRED" className='hidden peer/required' {...register('tags', { required: false })} />
                         <label htmlFor="tagRequired" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/required:bg-primaryAccent peer-checked/required:ring-2 peer-checked/required:ring-blue-500 duration-100 cursor-pointer unselectable'>Required</label>
 
-                        <input type="checkbox" id='tagAvoid' value="AVOID" className='hidden peer/avoid' {...register('tags')} />
+                        <input type="checkbox" id='tagAvoid' value="AVOID" className='hidden peer/avoid' {...register('tags', { required: false })} />
                         <label htmlFor="tagAvoid" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/avoid:bg-primaryAccent peer-checked/avoid:ring-2 peer-checked/avoid:ring-blue-500 duration-100 cursor-pointer unselectable'>Avoid</label>
 
-                        <input type="checkbox" id='tagTheory' value="THEORY_HEAVY" className='hidden peer/theory' {...register('tags')} />
+                        <input type="checkbox" id='tagTheory' value="THEORY_HEAVY" className='hidden peer/theory' {...register('tags', { required: false })} />
                         <label htmlFor="tagTheory" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/theory:bg-primaryAccent peer-checked/theory:ring-2 peer-checked/theory:ring-blue-500 duration-100 cursor-pointer unselectable'>Theory Heavy</label>
 
-                        <input type="checkbox" id='tagReading' value="READING_HEAVY" className='hidden peer/reading' {...register('tags')} />
+                        <input type="checkbox" id='tagReading' value="READING_HEAVY" className='hidden peer/reading' {...register('tags', { required: false })} />
                         <label htmlFor="tagReading" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/reading:bg-primaryAccent peer-checked/reading:ring-2 peer-checked/reading:ring-blue-500 duration-100 cursor-pointer unselectable'>Reading Heavy</label>
 
-                        <input type="checkbox" id='tagGroup' value="GROUPWORK_HEAVY" className='hidden peer/group' {...register('tags')} />
+                        <input type="checkbox" id='tagGroup' value="GROUPWORK_HEAVY" className='hidden peer/group' {...register('tags', { required: false })} />
                         <label htmlFor="tagGroup" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/group:bg-primaryAccent peer-checked/group:ring-2 peer-checked/group:ring-blue-500 duration-100 cursor-pointer unselectable'>Groupwork Heavy</label>
 
-                        <input type="checkbox" id='tagParticipation' value="PARTICIPATION_MATTERS" className='hidden peer/participation' {...register('tags')} />
+                        <input type="checkbox" id='tagParticipation' value="PARTICIPATION_MATTERS" className='hidden peer/participation' {...register('tags', { required: false })} />
                         <label htmlFor="tagParticipation" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/participation:bg-primaryAccent peer-checked/participation:ring-2 peer-checked/participation:ring-blue-500 duration-100 cursor-pointer unselectable'>Participation Matters</label>
                     </div>
                     {errors.tags?.message && <span className='text-red-500 text-xxs font-semibold absolute -bottom-4'>{errors.tags.message}</span>}
