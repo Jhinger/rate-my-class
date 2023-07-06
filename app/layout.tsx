@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar/";
 import Footer from "@/components/Footer";
 import { inter } from "./fonts";
+import NextAuthProvider from "@/components/NextAuthProvider";
 import './globals.css';
 
 export const metadata = {
