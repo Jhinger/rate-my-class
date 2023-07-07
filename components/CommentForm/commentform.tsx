@@ -10,9 +10,9 @@ import {
     NUM_TEXTAREA_COLS 
 } from '@/constants';
 
-import { TAGSchema } from '@/prisma/generated/schemas';
+import { DELIVERYSchema, TAGSchema } from '@/prisma/generated/schemas';
 import type { Class } from '@prisma/client';
-import { onSubmit, IFormValues } from './actions';
+import { ICommentFormValues } from '@/types';
 
 interface ICommentFormProps {
     schoolName: string | null;
@@ -22,7 +22,12 @@ interface ICommentFormProps {
 
 const CommentSchema = z
     .object({
+        delivery: z.lazy(() => DELIVERYSchema).default("INPERSON"),
+        teacher: z.string().max(35, { message: "Must be less than 35 characters." }).optional().nullable(),
+        overallRating: z.coerce.number().min(1).max(5, { message: "Must select an Overall Rating" }),
         difficulty: z.coerce.number().min(1).max(5, { message: "Must select a Difficulty" }),
+        workload: z.coerce.number().min(1).max(5, { message: "Must select an Overall Rating" }),
+        isRecommended: z.coerce.boolean(),
         tags: z.lazy(() => TAGSchema).array().min(0).max(3, { message: "Only select a max of 3 Tags." }).optional(),
     }).strict();
 
@@ -31,12 +36,12 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
         register,
         handleSubmit,
         formState: { errors, isValid },
-    } = useForm<IFormValues>({
+    } = useForm<ICommentFormValues>({
         resolver: zodResolver(CommentSchema),
         mode: 'onChange'
     });
 
-    const onSubmit: SubmitHandler<IFormValues> = async (form: IFormValues) => {
+    const onSubmit: SubmitHandler<ICommentFormValues> = async (form: ICommentFormValues) => {
         const body = {
             classId: schoolClass?.id,
             ...form,
@@ -48,8 +53,8 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
 
         if (data.ok) {
             console.log(await data.json());
-        } else {
-            throw new Error("Failed to fetch");
+        } else (error: Error) => {
+            return new Error(error.message);
         }
     }
 
@@ -60,11 +65,11 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
                     <label>Delivery:</label>
                     <div className='flex flex-row my-2'>
                         <div className='m-2'>
-                            <input type="radio" id='classDeliveryInPerson' name='classDelivery' value="INPERSON" className='hidden peer' defaultChecked/>
+                            <input type="radio" id='classDeliveryInPerson' value="INPERSON" className='hidden peer' defaultChecked {...register('delivery')}/>
                             <label htmlFor="classDeliveryInPerson" className='bg-primary rounded-sm py-2 px-4 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>In Person</label>
                         </div>
                         <div className='m-2'>
-                            <input type="radio" id='classDeliveryOnline' name='classDelivery' value="ONLINE" className='hidden peer'/>
+                            <input type="radio" id='classDeliveryOnline' value="ONLINE" className='hidden peer' {...register('delivery')}/>
                             <label htmlFor="classDeliveryOnline" className='bg-primary rounded-sm py-2 px-4 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>Online</label>
                         </div>
                     </div>
@@ -72,25 +77,25 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
 
                 <div className='flex flex-col justify-center items-center mb-4'>
                     <label htmlFor="teacher">Teacher:</label>
-                    <input type="text" id='teacher' name='teacher' className='w-[25rem] py-2 my-2 text-center rounded-md' autoComplete='off' autoFocus/>
+                    <input type="text" id='teacher' className='w-[25rem] py-2 my-2 text-center rounded-md' autoComplete='off' autoFocus {...register('teacher')}/>
                 </div>
 
                 <div className='flex flex-col mb-4 justify-center items-center bg-white w-max rounded-md py-5 px-20'>
                     <label className='mb-2 text-xs'>Overall Rating: <em className='text-xxs text-gray-500'>(1 = low, 5 = high)</em></label>
                     <div className='flex flex-row-reverse gap-3'>
-                        <input type="radio" id='overallRatingFive' name='overallRating' value={5} className="hidden peer peer/rating"/>
+                        <input type="radio" id='overallRatingFive' value={5} className="hidden peer peer/rating" {...register('overallRating')} />
                         <label htmlFor="overallRatingFive" className='peer-checked:bg-green-500 peer-checked/rating:ring-2 peer-checked/rating:ring-green-700 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>5</label>
 
-                        <input type="radio" id='overallRatingFour' name='overallRating' value={4} className="hidden peer peer/rating" />
+                        <input type="radio" id='overallRatingFour' value={4} className="hidden peer peer/rating" {...register('overallRating')} />
                         <label htmlFor="overallRatingFour" className='peer-checked:bg-green-400 peer-checked/rating:ring-2 peer-checked/rating:ring-green-600 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>4</label>
 
-                        <input type="radio" id='overallRatingThree' name='overallRating' value={3} className="hidden peer peer/rating" />
+                        <input type="radio" id='overallRatingThree' value={3} className="hidden peer peer/rating" {...register('overallRating')} />
                         <label htmlFor="overallRatingThree" className='peer-checked:bg-green-300 peer-checked/rating:ring-2 peer-checked/rating:ring-green-500 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>3</label>
 
-                        <input type="radio" id='overallRatingTwo' name='overallRating' value={2} className="hidden peer peer/rating" />
+                        <input type="radio" id='overallRatingTwo' value={2} className="hidden peer peer/rating"{...register('overallRating')}  />
                         <label htmlFor="overallRatingTwo" className='peer-checked:bg-green-200 peer-checked/rating:ring-2 peer-checked/rating:ring-green-500 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>2</label>
 
-                        <input type="radio" id='overallRatingOne' name='overallRating' value={1} className="hidden peer peer/rating" />
+                        <input type="radio" id='overallRatingOne' value={1} className="hidden peer peer/rating" {...register('overallRating')} />
                         <label htmlFor="overallRatingOne" className='peer-checked:bg-green-100 peer-checked/rating:ring-2 peer-checked/rating:ring-green-500 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>1</label>
                     </div>    
                 </div>
@@ -119,19 +124,19 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
                 <div className='flex flex-col mb-4 justify-center items-center bg-white w-max rounded-md py-5 px-20'>
                     <label className='mb-2 text-xs'>Workload: <em className='text-xxs text-gray-500'>(1 = low, 5 = high)</em></label>
                     <div className='flex flex-row-reverse gap-3'>
-                        <input type="radio" id='workloadFive' name='workload' value={5} className="hidden peer peer/workload"/>
+                        <input type="radio" id='workloadFive' value={5} className="hidden peer peer/workload" {...register('workload')} />
                         <label htmlFor="workloadFive" className='peer-checked:bg-sky-500 peer-checked/workload:ring-2 peer-checked/workload:ring-sky-700 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>5</label>
 
-                        <input type="radio" id='workloadFour' name='workload' value={4} className="hidden peer peer/workload" />
+                        <input type="radio" id='workloadFour' value={4} className="hidden peer peer/workload" {...register('workload')} />
                         <label htmlFor="workloadFour" className='peer-checked:bg-sky-400 peer-checked/workload:ring-2 peer-checked/workload:ring-sky-600 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>4</label>
 
-                        <input type="radio" id='workloadThree' name='workload' value={3} className="hidden peer peer/workload" />
+                        <input type="radio" id='workloadThree' value={3} className="hidden peer peer/workload" {...register('workload')} />
                         <label htmlFor="workloadThree" className='peer-checked:bg-sky-300 peer-checked/workload:ring-2 peer-checked/workload:ring-sky-500 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>3</label>
 
-                        <input type="radio" id='workloadTwo' name='workload' value={2} className="hidden peer peer/workload" />
+                        <input type="radio" id='workloadTwo' value={2} className="hidden peer peer/workload" {...register('workload')} />
                         <label htmlFor="workloadTwo" className='peer-checked:bg-sky-200 peer-checked/workload:ring-2 peer-checked/workload:ring-sky-500 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>2</label>
 
-                        <input type="radio" id='workloadOne' name='workload' value={1} className="hidden peer peer/workload" />
+                        <input type="radio" id='workloadOne' value={1} className="hidden peer peer/workload" {...register('workload')} />
                         <label htmlFor="workloadOne" className='peer-checked:bg-sky-100 peer-checked/workload:ring-2 peer-checked/workload:ring-sky-500 ring-inset bg-gray-300 p-4 rounded-md hover:cursor-pointer unselectable'>1</label>
                     </div>    
                 </div>
@@ -140,11 +145,11 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
                     <label>Would you Recommend {schoolClass?.name ?? 'this Class'}?</label>
                     <div className='flex flex-row my-4 gap-4'>
                         <div>
-                            <input type="radio" id='isRecommendedYes' name='isRecommended' value="true" className='hidden peer'/>
+                            <input type="radio" id='isRecommendedYes' value={1} className='hidden peer' {...register('isRecommended')}/>
                             <label htmlFor="isRecommendedYes" className='bg-primary rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>Yes</label>
                         </div>
                         <div>
-                            <input type="radio" id='isRecommendedNo' name='isRecommended' value="false" className='hidden peer'/>
+                            <input type="radio" id='isRecommendedNo' value={0} className='hidden peer' {...register('isRecommended')}/>
                             <label htmlFor="isRecommendedNo" className='bg-primary rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>No</label>
                         </div>
                     </div>
