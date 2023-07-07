@@ -1,3 +1,4 @@
+import type { DELIVERY } from "@prisma/client";
 
 export type PropertyKey = string | number | symbol;
 
@@ -25,4 +26,14 @@ export type Averages = {
     avgGrade: number | null;
     avgRecommended: number | null;
     avgWorkload: number | null;
+}
+
+export interface ICommentFormValues {
+    delivery: DELIVERY;
+    teacher: string;
+    overallRating: number;
+    difficulty: number;
+    workload: number;
+    isRecommended: boolean;
+    tags: string[];
 }

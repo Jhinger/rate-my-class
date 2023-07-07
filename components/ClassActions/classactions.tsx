@@ -12,7 +12,7 @@ interface IClassActionProps {
     schoolClass: Partial<Class> | null;
 }
 
-const ClassActions = ({ schoolClass }: IClassActionProps) => {
+const ClassActions = ({ school, schoolClass }: IClassActionProps) => {
     const [dialogOpen, setIsDialogOpen] = useState(false);
     const [copied, setIsCopied] = useState(false);
 
@@ -28,7 +28,7 @@ const ClassActions = ({ schoolClass }: IClassActionProps) => {
     return (
         <div>
             <Dialog isOpen={dialogOpen} setIsOpen={setIsDialogOpen}>
-                <CommentForm schoolName={schoolClass?.name ?? ""} schoolClass={schoolClass} />
+                <CommentForm schoolName={school!.short ?? ""} schoolClass={schoolClass} />
             </Dialog>
             <div className="flex flex-row gap-x-4 justify-center items-start w-max">
                 <CallToAction onClick={openDialog} className="bg-green-300 h-10">
