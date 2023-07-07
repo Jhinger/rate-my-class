@@ -46,15 +46,20 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
             classId: schoolClass?.id,
             ...form,
         };
-        const data = await fetch(`/api/${schoolName}/class/${schoolClass?.name}`, {
-            method: 'POST',
-            body: JSON.stringify(body),
-        })
-
-        if (data.ok) {
-            console.log(await data.json());
-        } else (error: Error) => {
-            return new Error(error.message);
+        try {
+            const data = await fetch(`/api/${schoolName}/class/${schoolClass?.name}`, {
+                method: 'POST',
+                body: JSON.stringify(body),
+            })
+    
+            if (data.ok) {
+                console.log(await data.json());
+            }
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                return e.message;
+            }
+            return new Error("Failed to post onSubmit");
         }
     }
 
