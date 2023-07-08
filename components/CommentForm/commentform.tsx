@@ -27,7 +27,7 @@ const CommentSchema = z
         overallRating: z.coerce.number().min(1).max(5, { message: "Must select an Overall Rating" }),
         difficulty: z.coerce.number().min(1).max(5, { message: "Must select a Difficulty" }),
         workload: z.coerce.number().min(1).max(5, { message: "Must select an Overall Rating" }),
-        isRecommended: z.coerce.boolean(),
+        isRecommended: z.enum(['1', '0']).transform(val => val === '1'),
         tags: z.lazy(() => TAGSchema).array().min(0).max(3, { message: "Only select a max of 3 Tags." }).optional(),
     }).strict();
 
@@ -150,11 +150,11 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
                     <label>Would you Recommend {schoolClass?.name ?? 'this Class'}?</label>
                     <div className='flex flex-row my-4 gap-4'>
                         <div>
-                            <input type="radio" id='isRecommendedYes' value={1} className='hidden peer' {...register('isRecommended')}/>
+                            <input type="radio" id='isRecommendedYes' value="1" className='hidden peer' {...register('isRecommended')}/>
                             <label htmlFor="isRecommendedYes" className='bg-primary rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>Yes</label>
                         </div>
                         <div>
-                            <input type="radio" id='isRecommendedNo' value={0} className='hidden peer' {...register('isRecommended')}/>
+                            <input type="radio" id='isRecommendedNo' value="0" className='hidden peer' {...register('isRecommended')}/>
                             <label htmlFor="isRecommendedNo" className='bg-primary rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>No</label>
                         </div>
                     </div>
