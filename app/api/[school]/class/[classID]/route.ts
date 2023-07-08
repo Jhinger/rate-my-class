@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import prisma from '@/lib/prismadb';
 
 interface IClassProps {
     params: {
@@ -17,7 +18,15 @@ export async function POST(request: NextRequest, { params }: IClassProps) {
     }
 
     const body = await request.json();
-    const comment = { userId: session.user.id , ...body };
+    const comment = { User: { connect: { id: session.user.id } } , ...body };
     console.log(comment);
-    return NextResponse.json({ "Class-POST": `${params.school}, ${params.classID}` });
+
+    const res = await prisma.comment.create({
+        data: {
+            ...comment
+        }
+    })
+    //console.log(res);
+
+    return NextResponse.json({ "Class-POST": "Hello" });
 }

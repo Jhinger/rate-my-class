@@ -30,10 +30,14 @@ export type Averages = {
 
 export interface ICommentFormValues {
     delivery: DELIVERY;
-    teacher: string;
+    teacher?: string;
     overallRating: number;
     difficulty: number;
+    gradeRecieved: number;
     workload: number;
     isRecommended: boolean;
+    isGPABooster: number;
     tags: string[];
+    primaryText: string;
+    secondaryText?: string;
 }

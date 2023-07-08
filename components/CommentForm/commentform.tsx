@@ -4,6 +4,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import * as z from 'zod';
+import { X } from 'lucide-react';
+import Icon from '@/components/Icon';
 
 import { 
     NUM_TEXTAREA_ROWS, 
@@ -13,10 +15,12 @@ import {
 import { DELIVERYSchema, TAGSchema } from '@/prisma/generated/schemas';
 import type { Class } from '@prisma/client';
 import { ICommentFormValues } from '@/types';
+import { Dispatch, SetStateAction } from 'react';
 
 interface ICommentFormProps {
     schoolName: string | null;
     schoolClass: Partial<Class> | null;
+    setIsOpen: Dispatch<SetStateAction<boolean>>
     className?: string;
 }
 
@@ -27,11 +31,15 @@ const CommentSchema = z
         overallRating: z.coerce.number().min(1).max(5, { message: "Must select an Overall Rating" }),
         difficulty: z.coerce.number().min(1).max(5, { message: "Must select a Difficulty" }),
         workload: z.coerce.number().min(1).max(5, { message: "Must select an Overall Rating" }),
+        gradeRecieved: z.coerce.number().min(0).max(11).optional().default(0).nullable(),
         isRecommended: z.enum(['1', '0']).transform(val => val === '1'),
+        isGPABooster: z.coerce.number().min(0).max(1),
         tags: z.lazy(() => TAGSchema).array().min(0).max(3, { message: "Only select a max of 3 Tags." }).optional(),
+        primaryText: z.string().max(350, { message: "Must be less than 350 characters" }),
+        secondaryText: z.string().max(350, { message: "Must be less than 350 characters" }).optional().nullable()
     }).strict();
 
-const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) => {
+const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: ICommentFormProps) => {
     const {
         register,
         handleSubmit,
@@ -43,7 +51,7 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
 
     const onSubmit: SubmitHandler<ICommentFormValues> = async (form: ICommentFormValues) => {
         const body = {
-            classId: schoolClass?.id,
+            class: { connect: { id: schoolClass?.id } },
             ...form,
         };
         try {
@@ -64,7 +72,12 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
     }
 
     return (
-        <div className="w-[60rem] h-max flex justify-center items-center border-2 border-solid border-gray-400">
+        <div className="w-[60rem] pt-8 pb-16 h-max flex flex-col justify-center items-center rounded-md relative border-2 border-solid border-white overflow-x-hidden">
+            <div className='w-full flex justify-end px-4 py-2 absolute top-0 right-0 hover:cursor-pointer'>
+                <div onClick={() => setIsOpen(false)}>
+                    <Icon icon={<X size={23} />} className="text-blue-500 hover:text-secondary duration-100" />
+                </div>
+            </div>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-wrap justify-center items-center w-max h-max text-sm">
                 <div className='flex flex-col justify-center items-center my-4'>
                     <label>Delivery:</label>
@@ -146,37 +159,58 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
                     </div>    
                 </div>
 
-                <div className='flex flex-col justify-center items-center my-2'>
+                <div className='flex flex-col justify-center items-center my-4'>
+                    <label>Grade Recieved?</label>
+                    <i className='text-xxs text-gray-500'>(Predict your grade if class is in progess)</i>
+                    <div className='flex flex-row my-2 gap-4'>
+                        <select className='bg-white py-2 px-8 rounded-md focus:ring-blue-500 focus:border-blue-500' {...register('gradeRecieved')}>
+                            <option value="0">Unknown</option>
+                            <option value="11">A+</option>
+                            <option value="10">A</option>
+                            <option value="9">A-</option>
+                            <option value="8">B+</option>
+                            <option value="7">B</option>
+                            <option value="6">B-</option>
+                            <option value="5">C+</option>
+                            <option value="4">C</option>
+                            <option value="3">C-</option>
+                            <option value="2">D</option>
+                            <option value="1">F</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div className='flex flex-col justify-center items-center my-4'>
                     <label>Would you Recommend {schoolClass?.name ?? 'this Class'}?</label>
                     <div className='flex flex-row my-4 gap-4'>
                         <div>
                             <input type="radio" id='isRecommendedYes' value="1" className='hidden peer' {...register('isRecommended')}/>
-                            <label htmlFor="isRecommendedYes" className='bg-primary rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>Yes</label>
+                            <label htmlFor="isRecommendedYes" className='bg-white rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>Yes</label>
                         </div>
                         <div>
                             <input type="radio" id='isRecommendedNo' value="0" className='hidden peer' {...register('isRecommended')}/>
-                            <label htmlFor="isRecommendedNo" className='bg-primary rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>No</label>
+                            <label htmlFor="isRecommendedNo" className='bg-white rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>No</label>
                         </div>
                     </div>
                 </div>
 
-                <div className='flex flex-col justify-center items-center my-2'>
+                <div className='flex flex-col justify-center items-center my-4'>
                     <label>Is {schoolClass?.name ?? 'this Class'} a GPA Booster?</label>
                     <div className='flex flex-row my-4 gap-4'>
                         <div>
-                            <input type="radio" id='isGPABoosterYes' name='isGPABooster' value={1} className='hidden peer'/>
-                            <label htmlFor="isGPABoosterYes" className='bg-primary rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>Yes</label>
+                            <input type="radio" id='isGPABoosterYes' value="1" className='hidden peer' {...register('isGPABooster')}/>
+                            <label htmlFor="isGPABoosterYes" className='bg-white rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>Yes</label>
                         </div>
                         <div>
-                            <input type="radio" id='isGPABoosterNo' name='isGPABooster' value={0} className='hidden peer'/>
-                            <label htmlFor="isGPABoosterNo" className='bg-primary rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>No</label>
+                            <input type="radio" id='isGPABoosterNo' value="0" className='hidden peer' {...register('isGPABooster')}/>
+                            <label htmlFor="isGPABoosterNo" className='bg-white rounded-sm py-2 px-8 peer-checked:bg-primaryAccent peer-checked:ring-2 peer-checked:ring-blue-500 duration-100 cursor-pointer unselectable'>No</label>
                         </div>
                     </div>
                 </div>
 
                 <div className='flex flex-col justify-center items-center my-6 relative'>
                     <label className='flex flex-col justify-center items-center'>
-                        <span>Select up to <strong>3 Tags:</strong> <span className='text-xxs text-gray-500'>(optional)</span></span>
+                        <span>Select up to <strong>3 Tags:</strong></span>
                     </label>
                     <div className='flex flex-row flex-wrap w-1/2 my-4 gap-2 justify-center items-center'>
                         <input type="checkbox" id='tagTestHeavy' value="TEST_HEAVY" className='hidden peer/test' {...register('tags', { required: false })} />
@@ -211,12 +245,12 @@ const CommentForm = ({ schoolName, schoolClass, className }: ICommentFormProps) 
 
                 <div className='flex flex-col justify-center items-center my-4'>
                     <label htmlFor="primaryText">General Overview:</label>
-                    <textarea name="primaryText" id="primaryText" className='my-2 rounded-md p-8' cols={NUM_TEXTAREA_COLS} rows={NUM_TEXTAREA_ROWS} />
+                    <textarea id="primaryText" className='my-2 rounded-md p-8' cols={NUM_TEXTAREA_COLS} rows={NUM_TEXTAREA_ROWS} {...register('primaryText')} />
                 </div>
 
                 <div className='flex flex-col justify-center items-center my-4'>
                     <label htmlFor="secondaryText">Exam Tips:</label>
-                    <textarea name="secondaryText" id="secondaryText" className='my-2 rounded-md p-8' cols={NUM_TEXTAREA_COLS} rows={NUM_TEXTAREA_ROWS} />
+                    <textarea id="secondaryText" className='my-2 rounded-md p-8' cols={NUM_TEXTAREA_COLS} rows={NUM_TEXTAREA_ROWS} {...register('secondaryText')} />
                 </div>
 
                 <div className='text-xxs text-gray-500 w-1/2 text-center my-2'>

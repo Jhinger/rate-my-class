@@ -17,3 +17,7 @@ export default prisma.$use(async (params, next) => {
 
     return next(params);
 })
+
+// Check if grade is provided, otherwise we might not want to increment the number of comments.
+// If we have to increment for other averages, we should run the update average functions before
+// incrementing the counter.

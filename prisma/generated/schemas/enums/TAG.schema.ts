@@ -6,7 +6,6 @@ export const TAGSchema = z.enum([
   'LECTURES_RECORDED',
   'REQUIRED',
   'AVOID',
-  'RECOMMENDED',
   'THEORY_HEAVY',
   'READING_HEAVY',
   'GROUPWORK_HEAVY',
