@@ -21,7 +21,7 @@
 
 <div align="center">
   <a href="">
-    <img src="public/static/landingpage.png" alt="Logo" width="1000" height="505">
+    <img src="public/static/landingpage.png" alt="Logo" width="800" height="475">
   </a>
 </div>
 
