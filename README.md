@@ -19,9 +19,7 @@
   </p>
 </div>
 
-<div align="center">
 ![LandingPage](https://raw.githubusercontent.com/jhinger/rate-my-class/master/public/static/landingpage.png)
-</div>
 
 <!-- About -->
 ## About
