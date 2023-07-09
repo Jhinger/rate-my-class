@@ -19,7 +19,7 @@
   </p>
 </div>
 
-![LandingPage](https://raw.githubusercontent.com/jhinger/rate-my-class/master/public/static/landingpage.png)
+<img src="https://raw.githubusercontent.com/jhinger/rate-my-class/master/public/static/landingpage.png" width="1000" height="555">
 
 <!-- About -->
 ## About
