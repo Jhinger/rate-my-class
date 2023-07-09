@@ -90,7 +90,7 @@ export default async function ClassPage({ params }: { params: { _class: string; 
             </ClassHeader>
             <CommentsContainer className="bg-secondary py-16 flex flex-col justify-center items-center text-white w-full">
                 <CommentOptionsContainer className="flex flex-row justify-end mb-4 w-[65rem]">
-                    <CallToAction className="bg-tertiary text-black h-[2.5rem]">Filter</CallToAction>
+                    <CallToAction className="bg-primary text-black h-[2.5rem]">Filter</CallToAction>
                 </CommentOptionsContainer>
                 <div className="flex flex-col gap-y-12">
                     {comments.map((comment: CommentType, index: number) => 
