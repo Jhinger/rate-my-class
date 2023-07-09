@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/jhinger/rate-my-class">
-    <img src="public/static/logo-2.svg" alt="Logo" width="125" height="125">
+    <img src="public/static/logo-2.svg" alt="Logo" width="100" height="100">
   </a>
 
   <h1 align="center">RateMyClass (In Progress)</h1>
@@ -20,9 +20,7 @@
 </div>
 
 <div align="center">
-  <a href="">
-    <img src="public/static/landingpage.png" alt="Logo" width="800" height="475">
-  </a>
+![LandingPage](https://raw.githubusercontent.com/jhinger/rate-my-class/master/public/static/landingpage.png)
 </div>
 
 <!-- About -->
