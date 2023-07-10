@@ -1,8 +1,12 @@
 import prisma from '@/lib/prismadb'
+import type { Prisma } from '@prisma/client';
 
-export default prisma.$use(async (params, next) => {
+export default async function incrementCommentCount(
+        params: Prisma.MiddlewareParams, 
+        next: (params: Prisma.MiddlewareParams) => Promise<any>
+    ) {
     if (params.model === 'Comment' && params.action === 'create') {
-        const classID = params.args.data.classId;
+        const classID = params.args.data.class.connect.id;
         await prisma.class.update({
             where: {
                 id: classID
@@ -16,7 +20,7 @@ export default prisma.$use(async (params, next) => {
     }
 
     return next(params);
-})
+}
 
 // Check if grade is provided, otherwise we might not want to increment the number of comments.
 // If we have to increment for other averages, we should run the update average functions before
