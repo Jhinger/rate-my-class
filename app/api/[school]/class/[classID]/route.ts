@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from '@/lib/prismadb';
+import { revalidatePath } from "next/cache";
 
 interface IClassProps {
     params: {
@@ -19,14 +20,13 @@ export async function POST(request: NextRequest, { params }: IClassProps) {
 
     const body = await request.json();
     const comment = { User: { connect: { id: session.user.id } } , ...body };
-    console.log(comment);
 
     const res = await prisma.comment.create({
         data: {
             ...comment
         }
     })
-    //console.log(res);
+    revalidatePath('/');
 
     return NextResponse.json({ "Class-POST": "Hello" });
 }

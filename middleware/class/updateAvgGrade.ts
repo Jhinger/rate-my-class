@@ -1,9 +1,9 @@
 import prisma from '@/lib/prismadb'
-
+/*
 export default prisma.$use(async (params, next) => {
     const ret = await next(params);
 
-    if (params.model === 'Comment' && params.action === 'create') {
+    /* if (params.model === 'Comment' && params.action === 'create') {
         const userGrade = params.args.data.grade_recieved;
         const classID = params.args.data.classId;
 
@@ -32,7 +32,10 @@ export default prisma.$use(async (params, next) => {
                 }
             }
         })
-    }
+    } 
 
     return ret;
 })
+*/
+
+export {};

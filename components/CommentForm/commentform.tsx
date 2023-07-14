@@ -35,8 +35,8 @@ const CommentSchema = z
         isRecommended: z.enum(['1', '0']).transform(val => val === '1'),
         isGPABooster: z.coerce.number().min(0).max(1),
         tags: z.lazy(() => TAGSchema).array().min(0).max(3, { message: "Only select a max of 3 Tags." }).optional(),
-        primaryText: z.string().max(350, { message: "Must be less than 350 characters" }),
-        secondaryText: z.string().max(350, { message: "Must be less than 350 characters" }).optional().nullable()
+        primaryText: z.string().min(10, { message: "Must have atleast 10 characters." }).max(350, { message: "Must be less than 350 characters" }).nonempty(),
+        secondaryText: z.string().max(350, { message: "Must be less than 350 characters" }).optional()
     }).strict();
 
 const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: ICommentFormProps) => {
@@ -61,6 +61,7 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
             })
     
             if (data.ok) {
+                console.log("Return from Subnmit Route:");
                 console.log(await data.json());
             }
         } catch (e: unknown) {
@@ -245,7 +246,7 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
 
                 <div className='flex flex-col justify-center items-center my-4'>
                     <label htmlFor="primaryText">General Overview:</label>
-                    <textarea id="primaryText" className='my-2 rounded-md p-8' cols={NUM_TEXTAREA_COLS} rows={NUM_TEXTAREA_ROWS} {...register('primaryText')} />
+                    <textarea id="primaryText" className='my-2 rounded-md p-8' cols={NUM_TEXTAREA_COLS} rows={NUM_TEXTAREA_ROWS} {...register('primaryText', { required: true })} />
                 </div>
 
                 <div className='flex flex-col justify-center items-center my-4'>

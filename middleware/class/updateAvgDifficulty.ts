@@ -1,5 +1,5 @@
 import prisma from '@/lib/prismadb'
-
+/*
 export default prisma.$use(async (params, next) => {
     const ret = await next(params);
 
@@ -36,3 +36,6 @@ export default prisma.$use(async (params, next) => {
 
     return ret;
 })
+*/
+
+export {};

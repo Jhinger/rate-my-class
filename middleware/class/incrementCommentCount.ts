@@ -17,9 +17,12 @@ export default async function incrementCommentCount(
                 }
             }
         })
+
+        console.log('Finished running Increment Count');
     }
 
-    return next(params);
+    const result = await next(params);
+    return result;
 }
 
 // Check if grade is provided, otherwise we might not want to increment the number of comments.
