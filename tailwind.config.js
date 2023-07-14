@@ -18,6 +18,7 @@ module.exports = {
         lightGray: "#D9D9D9"
       },
       fontSize: {
+        xxxs: '0.62rem',
         xxs: '0.7rem'
       },
       fontFamily: {

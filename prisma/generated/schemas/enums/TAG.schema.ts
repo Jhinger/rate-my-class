@@ -10,4 +10,10 @@ export const TAGSchema = z.enum([
   'READING_HEAVY',
   'GROUPWORK_HEAVY',
   'PARTICIPATION_MATTERS',
+  'GRADE_SCALED',
+  'GRADE_CURVED',
+  'TOUGH_GRADING',
+  'USEFUL',
+  'NO_FINALS',
+  'QUIZZES',
 ]);

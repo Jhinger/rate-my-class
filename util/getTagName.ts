@@ -11,8 +11,14 @@ export default function getTagName(tag: TAG) {
         THEORY_HEAVY: "Theory Heavy",
         READING_HEAVY: "Reading Heavy",
         GROUPWORK_HEAVY: "Groupwork Heavy",
-        PARTICIPATION_MATTERS: "Participation Matters"
+        PARTICIPATION_MATTERS: "Participation Matters",
+        GRADE_SCALED: "Grade Scaled",
+        GRADE_CURVED: "Grade Curved",
+        TOUGH_GRADING: "Tough Grading",
+        USEFUL: "Useful",
+        NO_FINALS: "No Finals",
+        QUIZZES: "Quizzes"
     }
 
-    return map[tag];
+    return map[tag as keyof typeof map];
 }

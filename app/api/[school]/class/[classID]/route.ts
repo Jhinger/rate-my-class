@@ -26,7 +26,7 @@ export async function POST(request: NextRequest, { params }: IClassProps) {
             ...comment
         }
     })
-    revalidatePath('/');
+    // revalidatePath('/');
 
     return NextResponse.json({ "Class-POST": "Hello" });
 }

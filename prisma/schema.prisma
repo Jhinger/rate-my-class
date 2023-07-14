@@ -110,7 +110,7 @@ model Comment {
   isRecommended Boolean  @map("is_recommended")
   upvoteCount   Int      @default(0) @map("upvote_count")
   workload      Int
-  teacher       String?  @db.VarChar(35)
+  teacher       String?  @db.VarChar(25)
   isGPABooster  Int      @map("gpa_booster")
   overallRating Float    @map("overall_rating")
   tags          TAG[]    
@@ -149,4 +149,10 @@ enum TAG {
   READING_HEAVY
   GROUPWORK_HEAVY
   PARTICIPATION_MATTERS
+  GRADE_SCALED
+  GRADE_CURVED
+  TOUGH_GRADING
+  USEFUL
+  NO_FINALS
+  QUIZZES
 }

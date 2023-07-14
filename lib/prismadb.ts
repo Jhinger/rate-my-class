@@ -8,8 +8,8 @@ declare global {
 
 const prisma = globalThis.prisma || new PrismaClient();
 
-prisma.$use(incrementCommentCount);
-prisma.$use(updateAvgBooster);
+// prisma.$use(incrementCommentCount);
+// prisma.$use(updateAvgBooster);
 
 if (process.env.NODE_ENV !== "production") globalThis.prisma = prisma;
 

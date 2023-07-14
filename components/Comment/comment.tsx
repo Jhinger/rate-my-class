@@ -32,7 +32,7 @@ const Comment = ({ comment }: ICommentProps) => {
                 </Icon>
             </div>
             <div className='w-full h-full flex flex-row justify-center items-center gap-6 relative top-2'>
-                <div className='w-[13rem] h-[17rem] flex flex-col items-center gap-4'>
+                <div className='w-[13rem] h-[17rem] flex flex-col items-center gap-2'>
                     <div className='w-full flex justify-center items-center text-xs font-normal h-12 bg-white rounded-sm'>
                         <ProgressBar 
                             className='w-11/12' 
@@ -69,33 +69,33 @@ const Comment = ({ comment }: ICommentProps) => {
                             inRatio={true}
                         />
                     </div>
-                    <div className='w-full flex gap-x-1 flex-wrap font-normal h-24 bg-white rounded-sm'>
+                    <div className='w-full p-2 flex flex-row justify-center items-center gap-x-2 gap-y-2 flex-wrap font-normal h-max bg-white rounded-sm'>
                         { renderTags }
                     </div>
                 </div>
                 <div className='flex flex-col items-center relative'>
-                    <div className='flex flex-row absolute -top-8'> 
-                        <Tag className='bg-white mx-2'>
+                    <div className='flex flex-row absolute -top-8 gap-x-2'> 
+                        <Tag className='bg-white'>
                             <div>
                                 <span className='font-extrabold'>Prof: </span> { comment.teacher }
                             </div>
                         </Tag>
-                        <Tag className='bg-white mx-2'>
+                        <Tag className='bg-white'>
                             <div>
-                                <span className='font-extrabold'>Grade Recieved: </span> { getGrade(comment.gradeRecieved ?? -1) }
+                                <span className='font-extrabold'>Grade: </span> { getGrade(comment.gradeRecieved ?? -1) }
                             </div>
                         </Tag>
-                        <Tag className='bg-white mx-2'>
+                        <Tag className='bg-white'>
                             <div>
                                 <span className='font-extrabold'>{ comment.isRecommended ? "" : "Not" }</span> Recommended
                             </div>
                         </Tag>
-                        <Tag className='bg-white mx-2'>
+                        <Tag className='bg-white'>
                             <div>
                                 <span className='font-extrabold'>{ comment.isGPABooster ? "" : "Not" }</span> GPA Booster
                             </div>
                         </Tag>
-                        <Tag className='bg-white mx-2'>
+                        <Tag className='bg-white'>
                             <div>
                                 <span className='font-extrabold'>Delivery: </span>{ getDelivery(comment.delivery ?? "INPERSON") }
                             </div>
