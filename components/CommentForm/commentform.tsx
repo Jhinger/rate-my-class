@@ -83,7 +83,7 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
         <div className="w-[60rem] pt-8 pb-16 h-max flex flex-col justify-center items-center rounded-md relative border-2 border-solid border-white overflow-x-hidden">
             <div className='w-full flex justify-end px-4 py-2 absolute top-0 right-0 hover:cursor-pointer'>
                 <div onClick={() => setIsOpen(false)}>
-                    <Icon icon={<X size={23} />} className="text-blue-500 hover:text-secondary duration-100" />
+                    <Icon icon={<X size={23} />} className="text-black hover:text-blue-500 duration-100" />
                 </div>
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-wrap justify-center items-center w-max h-max text-sm">
@@ -270,6 +270,9 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
 
                         <input type="checkbox" id='tagQuizzes' value="QUIZZES" className='hidden peer/quizzes' {...register('tags')} />
                         <label htmlFor="tagQuizzes" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/quizzes:bg-primaryAccent peer-checked/quizzes:ring-2 peer-checked/quizzes:ring-blue-500 duration-100 cursor-pointer unselectable'>Quizzes</label>
+
+                        <input type="checkbox" id='tagInteresting' value="INTERESTING" className='hidden peer/interesting' {...register('tags')} />
+                        <label htmlFor="tagInteresting" className='w-max h-max rounded-sm flex justify-center items-center text-xs font-semibold px-2 py-1 bg-white peer-checked/interesting:bg-primaryAccent peer-checked/interesting:ring-2 peer-checked/interesting:ring-blue-500 duration-100 cursor-pointer unselectable'>Interesting</label>
                     </div>
                     {errors.tags?.message && <span className='text-red-500 text-xxs font-semibold absolute -bottom-4'>{errors.tags.message}</span>}
                 </div>
@@ -298,7 +301,7 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
                     By clicking the &quot;Submit&quot; button, I acknowledge that I have read and agreed to the RateMyClass <Link href={'/site-guidelines'} className="text-blue-400 hover:text-tertiaryComplement duration-100 hover:cursor-pointer">Site Guidelines</Link>,
                     <Link href={'/terms'} className="text-blue-400 hover:text-tertiaryComplement duration-100 hover:cursor-pointer"> Terms of Use</Link> and <Link href={'/privacy-policy'} className="text-blue-400 hover:text-tertiaryComplement duration-100 hover:cursor-pointer">Privacy Policy</Link>. Submitted data becomes the property of RateMyClass.io
                 </div>
-                {!isValid && <span className='text-xxs text-red-500'>Cannot Submit - Form is missing required input.</span>}
+                {!isValid && <span className='text-xxs text-red-500'>Cannot Submit - Form is missing required input(s).</span>}
                 <button type="submit" className='py-2 px-6 rounded-md bg-primaryAccent hover:ring-2 hover:ring-blue-500 hover:ring-inset duration-75 m-4 disabled:bg-opacity-50 disabled:cursor-not-allowed' disabled={!isValid}>Submit</button>
             </form>
         </div>

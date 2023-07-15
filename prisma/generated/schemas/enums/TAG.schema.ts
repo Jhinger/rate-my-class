@@ -16,4 +16,5 @@ export const TAGSchema = z.enum([
   'USEFUL',
   'NO_FINALS',
   'QUIZZES',
+  'INTERESTING',
 ]);
