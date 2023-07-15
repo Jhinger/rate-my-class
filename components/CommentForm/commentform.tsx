@@ -223,7 +223,7 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
 
                 <div className='flex flex-col w-5/6 justify-center items-center my-6 relative'>
                     <label className='flex flex-col justify-center items-center'>
-                        <span>Select up to <strong>3 Tags:</strong><span className='text-red-500'>*</span></span>
+                        <span>Select up to <strong>3 Tags:</strong> <span className='text-red-500'>*</span></span>
                     </label>
                     <div className='flex flex-row flex-wrap w-1/2 my-4 gap-2 justify-center items-center'>
                         <input type="checkbox" id='tagTestHeavy' value="TEST_HEAVY" className='hidden peer/test' {...register('tags')} />
@@ -287,7 +287,7 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
                 <div className='flex flex-col justify-center items-center my-5 relative'>
                     <label htmlFor="secondaryText">Exam Tips:</label>
                     <div className='w-full relative flex justify-center'>
-                        <i className='text-xxs text-gray-500'>(exam format, study tips, study resources to use, etc.)</i>
+                        <i className='text-xxs text-gray-500'>(exam format, study tips, study resources to use, question types, etc.)</i>
                         {examCount !== 0 && <div className='absolute right-2 text-xxxs text-red-500'>{examCount}/{LENGTH_SECONDARY_TEXT}</div>}
                     </div>
                     <textarea id="secondaryText" className='my-2 rounded-md p-8' placeholder='Optional' cols={NUM_TEXTAREA_COLS} rows={NUM_TEXTAREA_ROWS} {...register('secondaryText')} onChange={(e) => setExamCount(e.target.value.length)} />

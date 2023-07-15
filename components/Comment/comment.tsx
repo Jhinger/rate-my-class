@@ -18,7 +18,7 @@ const Comment = ({ comment }: ICommentProps) => {
     const commentDate = getDate(comment.createdAt);
 
     const renderTags = comment.tags.map((tag, index) =>
-        <Tag className="bg-blue-300 text-xxs" key={index}>
+        <Tag className="bg-gray-300 text-xxxs" key={index}>
             { getTagName(tag) }
         </Tag>
     )
@@ -69,7 +69,7 @@ const Comment = ({ comment }: ICommentProps) => {
                             inRatio={true}
                         />
                     </div>
-                    <div className='w-full p-2 flex flex-row justify-center items-center gap-x-2 gap-y-2 flex-wrap font-normal h-max bg-white rounded-sm'>
+                    <div className='w-full py-3 flex flex-row justify-center items-center gap-x-1 gap-y-2 flex-wrap font-normal h-max bg-white rounded-sm'>
                         { renderTags }
                     </div>
                 </div>
@@ -102,14 +102,14 @@ const Comment = ({ comment }: ICommentProps) => {
                         </Tag>
                     </div>
                     <div className='w-[45rem] h-[17rem] bg-white rounded-md flex items-center'>
-                        <div className='flex flex-col gap-10 px-12'>
+                        <div className='flex flex-col gap-8 px-12'>
                             <div className='flex flex-col gap-4'>
                                 <span className='block w-full text-sm'>Overview</span>
-                                <p className='w-full text-xs font-light'>{ comment.primaryText }</p>
+                                <p className='w-full text-xs font-light leading-normal'>{ comment.primaryText }</p>
                             </div>
                             <div className='flex flex-col gap-4'>
                                 <span className='block w-full text-sm'>Exam Tips</span>
-                                <p className='w-full text-xs font-light'>{ comment.secondaryText }</p>
+                                <p className='w-full text-xs font-light leading-normal'>{ comment.secondaryText?.length ? comment.secondaryText : '-' }</p>
                             </div>
                         </div>
                     </div>
