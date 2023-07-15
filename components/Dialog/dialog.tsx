@@ -1,23 +1,13 @@
 "use client";
 
-import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useRef, Dispatch, SetStateAction, useEffect } from "react";
 
 interface IDialogProps {
     children: React.ReactNode;
     isOpen: boolean;
-    setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const Dialog = ({ isOpen, setIsOpen, children }: IDialogProps) => {
-    const ref = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        isOpen
-            ? document.body.style.overflow = 'hidden'
-            : document.body.style.overflow = 'unset'
-    }, [isOpen]);
-
+const Dialog = ({ isOpen, children }: IDialogProps) => {
     return (
         <>
             {isOpen 

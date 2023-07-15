@@ -101,7 +101,7 @@ const Schema: z.ZodType<Prisma.CommentUpdateWithoutUserInput> = z
       ])
       .optional()
       .nullable(),
-    class: z
+    Class: z
       .lazy(() => ClassUpdateOneRequiredWithoutCommentsNestedInputObjectSchema)
       .optional(),
   })

@@ -27,7 +27,7 @@ const Schema: z.ZodType<Prisma.CommentCreateWithoutUserInput> = z
     gradeRecieved: z.number(),
     primaryText: z.string().optional(),
     secondaryText: z.string().optional().nullable(),
-    class: z.lazy(() => ClassCreateNestedOneWithoutCommentsInputObjectSchema),
+    Class: z.lazy(() => ClassCreateNestedOneWithoutCommentsInputObjectSchema),
   })
   .strict();
 

@@ -16,9 +16,10 @@ import {
 } from '@/constants';
 
 import { DELIVERYSchema, TAGSchema } from '@/prisma/generated/schemas';
-import type { Class } from '@prisma/client';
-import { ICommentFormValues } from '@/types';
 import { Dispatch, SetStateAction, useState } from 'react';
+import type { Class } from '@prisma/client';
+import type { ICommentFormValues } from '@/types';
+import { revalidatePath } from 'next/cache';
 
 interface ICommentFormProps {
     schoolName: string | null;
@@ -50,7 +51,7 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
     const {
         register,
         handleSubmit,
-        formState: { errors, isValid },
+        formState: { errors, isValid, isSubmitting },
     } = useForm<ICommentFormValues>({
         resolver: zodResolver(CommentSchema),
         mode: 'all',
@@ -58,18 +59,23 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
 
     const onSubmit: SubmitHandler<ICommentFormValues> = async (form: ICommentFormValues) => {
         const body = {
-            class: { connect: { id: schoolClass?.id } },
+            Class: { connect: { id: schoolClass?.id } },
             ...form,
         };
         try {
-            const data = await fetch(`/api/${schoolName}/class/${schoolClass?.name}`, {
+            const data = await fetch(`/api/${schoolName}/class/${schoolClass?.id}`, {
                 method: 'POST',
                 body: JSON.stringify(body),
             })
     
             if (data.ok) {
-                console.log("Return from Submit Route:");
-                console.log(await data.json());
+                const response = await data.json();
+                if (response.status === '401' || response.status === '403') {
+                    console.log(response.error);
+                    return;
+                }
+                console.log(response);
+                setIsOpen(false);
             }
         } catch (e: unknown) {
             if (e instanceof Error) {
@@ -302,7 +308,7 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
                     <Link href={'/terms'} className="text-blue-400 hover:text-tertiaryComplement duration-100 hover:cursor-pointer"> Terms of Use</Link> and <Link href={'/privacy-policy'} className="text-blue-400 hover:text-tertiaryComplement duration-100 hover:cursor-pointer">Privacy Policy</Link>. Submitted data becomes the property of RateMyClass.io
                 </div>
                 {!isValid && <span className='text-xxs text-red-500'>Cannot Submit - Form is missing required input(s).</span>}
-                <button type="submit" className='py-2 px-6 rounded-md bg-primaryAccent hover:ring-2 hover:ring-blue-500 hover:ring-inset duration-75 m-4 disabled:bg-opacity-50 disabled:cursor-not-allowed' disabled={!isValid}>Submit</button>
+                <button type="submit" className='py-2 px-6 rounded-md bg-primaryAccent hover:ring-2 hover:ring-blue-500 hover:ring-inset duration-75 m-4 disabled:bg-opacity-50 disabled:cursor-not-allowed' disabled={!isValid || isSubmitting}>Submit</button>
             </form>
         </div>
     )

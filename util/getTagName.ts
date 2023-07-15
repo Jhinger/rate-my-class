@@ -17,7 +17,8 @@ export default function getTagName(tag: TAG) {
         TOUGH_GRADING: "Tough Grading",
         USEFUL: "Useful",
         NO_FINALS: "No Finals",
-        QUIZZES: "Quizzes"
+        QUIZZES: "Quizzes",
+        INTERESTING: "Interesting"
     }
 
     return map[tag as keyof typeof map];

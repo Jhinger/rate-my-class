@@ -119,7 +119,7 @@ model Comment {
   gradeRecieved Int      @map("grade_recieved")
   primaryText   String   @default("") @map("primary_text") @db.VarChar(350)
   secondaryText String?  @default("") @map("secondary_text") @db.VarChar(350)
-  class         Class    @relation(fields: [classId], references: [id])
+  Class         Class    @relation(fields: [classId], references: [id])
   User          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([classId])

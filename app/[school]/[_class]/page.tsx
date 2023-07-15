@@ -13,7 +13,6 @@ import Chart from '@/components/Chart';
 import Comment from '@/components/Comment';
 import CommentsContainer from '@/components/CommentsContainer';
 import CommentOptionsContainer from '@/components/CommentOptionsContainer';
-import Dialog from '@/components/Dialog';
 import { colors_blue } from '@/constants/boosterColors';
 
 import type { Metadata } from "next";

@@ -27,7 +27,7 @@ const ClassActions = ({ school, schoolClass }: IClassActionProps) => {
 
     return (
         <div>
-            <Dialog isOpen={dialogOpen} setIsOpen={setIsDialogOpen}>
+            <Dialog isOpen={dialogOpen}>
                 <CommentForm schoolName={school!.short ?? ""} schoolClass={schoolClass} setIsOpen={setIsDialogOpen} />
             </Dialog>
             <div className="flex flex-row gap-x-4 justify-center items-start w-max">

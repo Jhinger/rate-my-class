@@ -35,7 +35,7 @@ const Schema: z.ZodType<Prisma.CommentOrderByWithRelationInput> = z
         z.lazy(() => SortOrderInputObjectSchema),
       ])
       .optional(),
-    class: z.lazy(() => ClassOrderByWithRelationInputObjectSchema).optional(),
+    Class: z.lazy(() => ClassOrderByWithRelationInputObjectSchema).optional(),
     User: z.lazy(() => UserOrderByWithRelationInputObjectSchema).optional(),
   })
   .strict();

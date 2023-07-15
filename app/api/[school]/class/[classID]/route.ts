@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 interface IClassProps {
     params: {
         school: string;
-        classID: string;
+        classID: number;
     }
 }
 
@@ -19,6 +19,17 @@ export async function POST(request: NextRequest, { params }: IClassProps) {
     }
 
     const body = await request.json();
+
+    const userHasCommented = await prisma.comment.findFirst({
+        where: {
+            classId: +params.classID,
+            userId: session.user.id!
+        }
+    });
+    if (userHasCommented && session.user.role === 'USER') {
+        return NextResponse.json({ error: "User has already commented", status: 403 })
+    }
+
     const comment = { User: { connect: { id: session.user.id } } , ...body };
 
     const res = await prisma.comment.create({
@@ -26,7 +37,8 @@ export async function POST(request: NextRequest, { params }: IClassProps) {
             ...comment
         }
     })
-    // revalidatePath('/');
+    // request.nextUrl.searchParams.get('path') || '/'
+    // revalidatePath('/[school]/[_class]/');
 
     return NextResponse.json({ "Class-POST": "Hello" });
 }

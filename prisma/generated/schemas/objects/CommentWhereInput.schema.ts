@@ -85,7 +85,7 @@ const Schema: z.ZodType<Prisma.CommentWhereInput> = z
       .union([z.lazy(() => StringNullableFilterObjectSchema), z.string()])
       .optional()
       .nullable(),
-    class: z
+    Class: z
       .union([
         z.lazy(() => ClassRelationFilterObjectSchema),
         z.lazy(() => ClassWhereInputObjectSchema),
