@@ -15,7 +15,7 @@ export async function POST(request: NextRequest, { params }: IClassProps) {
     const session = await getServerSession(authOptions);
 
     if (!session) {
-        return NextResponse.json({ error: "Not authenticated", status: 401 })
+        return NextResponse.json({ error: "Not authenticated - you must sign in to post a rating.", status: 401 })
     }
 
     const body = await request.json();
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest, { params }: IClassProps) {
         }
     });
     if (userHasCommented && session.user.role === 'USER') {
-        return NextResponse.json({ error: "User has already commented", status: 403 })
+        return NextResponse.json({ error: "Forbidden - You have already left a rating for this class.", status: 403 })
     }
 
     const comment = { User: { connect: { id: session.user.id } } , ...body };

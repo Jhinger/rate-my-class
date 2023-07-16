@@ -20,6 +20,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import type { Class } from '@prisma/client';
 import type { ICommentFormValues } from '@/types';
 import useAlert from '@/hooks/useAlert';
+import LoadingSpinner from '../LoadingSpinner';
 
 interface ICommentFormProps {
     schoolName: string | null;
@@ -71,8 +72,9 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
     
             if (data.ok) {
                 const response = await data.json();
-                if (response.status === '401' || response.status === '403') {
+                if (response.status === 401 || response.status === 403) {
                     setAlert(response.error, "failure")
+                    setIsOpen(false);
                     return;
                 }
                 console.log(response);
@@ -310,7 +312,7 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
                     <Link href={'/terms'} className="text-blue-400 hover:text-tertiaryComplement duration-100 hover:cursor-pointer"> Terms of Use</Link> and <Link href={'/privacy-policy'} className="text-blue-400 hover:text-tertiaryComplement duration-100 hover:cursor-pointer">Privacy Policy</Link>. Submitted data becomes the property of RateMyClass.io
                 </div>
                 {!isValid && <span className='text-xxs text-red-500'>Cannot Submit - Form is missing required input(s).</span>}
-                <button type="submit" className='py-2 px-6 rounded-md bg-primaryAccent hover:ring-2 hover:ring-blue-500 hover:ring-inset duration-75 m-4 disabled:bg-opacity-50 disabled:cursor-not-allowed' disabled={!isValid || isSubmitting}>Submit</button>
+                <button type="submit" className='py-2 px-6 rounded-md bg-primaryAccent hover:ring-2 hover:ring-blue-500 hover:ring-inset duration-75 m-4 disabled:bg-opacity-50 disabled:cursor-not-allowed' disabled={!isValid || isSubmitting}>{isSubmitting ? <LoadingSpinner className='w-6' /> : 'Submit'}</button>
             </form>
         </div>
     )

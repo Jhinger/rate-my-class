@@ -69,7 +69,7 @@ const Comment = ({ comment }: ICommentProps) => {
                             inRatio={true}
                         />
                     </div>
-                    <div className='w-full py-3 flex flex-row justify-center items-center gap-x-1 gap-y-1 flex-wrap font-normal h-max bg-white rounded-sm'>
+                    <div className='w-full py-3 px-1 flex flex-row justify-center items-center gap-x-1 gap-y-1 flex-wrap font-normal h-max bg-white rounded-sm'>
                         { renderTags }
                     </div>
                 </div>

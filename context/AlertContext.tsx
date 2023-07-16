@@ -27,10 +27,10 @@ export const AlertProvider = ({ children }: AlertProviderProps) => {
 		setText(text);
 		setType(type);
 	
-		/*(setTimeout(() => {
+		setTimeout(() => {
 			setText('');
 			setType('');
-		}, ALERT_TIME); */
+		}, ALERT_TIME);
     };
   
     return (
