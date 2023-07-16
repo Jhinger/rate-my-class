@@ -19,7 +19,7 @@ import { DELIVERYSchema, TAGSchema } from '@/prisma/generated/schemas';
 import { Dispatch, SetStateAction, useState } from 'react';
 import type { Class } from '@prisma/client';
 import type { ICommentFormValues } from '@/types';
-import { revalidatePath } from 'next/cache';
+import useAlert from '@/hooks/useAlert';
 
 interface ICommentFormProps {
     schoolName: string | null;
@@ -47,6 +47,7 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
     const [teacherCount, setTeacherCount] = useState(0);
     const [overviewCount, setOverviewCount] = useState(0);
     const [examCount, setExamCount] = useState(0);
+    const { setAlert } = useAlert();
 
     const {
         register,
@@ -71,10 +72,11 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
             if (data.ok) {
                 const response = await data.json();
                 if (response.status === '401' || response.status === '403') {
-                    console.log(response.error);
+                    setAlert(response.error, "failure")
                     return;
                 }
                 console.log(response);
+                setAlert(`Thank You - Your Rating for ${schoolClass?.name} has been posted.`, "success");
                 setIsOpen(false);
             }
         } catch (e: unknown) {

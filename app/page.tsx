@@ -26,7 +26,7 @@ export default async function Page() {
         <>
             <Hero schools={schools} />
             <Features />
-			<Overview />   
+            <Overview /> 
         </>
     )
 }
