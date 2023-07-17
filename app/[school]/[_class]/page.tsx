@@ -1,7 +1,7 @@
 import {
   	findSchool,
   	findClass,
-  	getComments,
+    getComments,
   	getGradeDistribution
 } from './actions';
 
@@ -9,15 +9,13 @@ import ClassHeader from '@/components/ClassHeader';
 import ClassSummary from '@/components/ClassSummary';
 import ClassActions from '@/components/ClassActions';
 import CallToAction from '@/components/Button/CallToAction';
+import DisplayComments from '@/components/DisplayComments';
 import Chart from '@/components/Chart';
-import Comment from '@/components/Comment';
 import CommentsContainer from '@/components/CommentsContainer';
 import CommentOptionsContainer from '@/components/CommentOptionsContainer';
 import { colors_blue } from '@/constants/boosterColors';
 
 import type { Metadata } from "next";
-import type { Comment as CommentType } from '@prisma/client';
-import LoadMore from '@/components/Button/LoadMore';
 
 export async function generateMetadata({ params }: { params: { _class: string; school: string } }): Promise<Metadata | undefined> {
     const { _class, school } = params;
@@ -61,9 +59,8 @@ export default async function ClassPage({ params }: { params: { _class: string; 
     const test = await getTest();
 
     console.log(test);
-
+    console.log(comments);
 	console.log(_class_);
-	console.log(comments);
 	console.log(distribution);
 
     return (
@@ -91,14 +88,7 @@ export default async function ClassPage({ params }: { params: { _class: string; 
                 <CommentOptionsContainer className="flex flex-row justify-end mb-4 w-[65rem]">
                     <CallToAction className="bg-primary text-black h-[2.5rem]">Filter</CallToAction>
                 </CommentOptionsContainer>
-                <div className="flex flex-col gap-y-12">
-                    {comments.map((comment: CommentType, index: number) => 
-                        <div key={index}>
-                            <Comment comment={comment} />
-                        </div>
-                    )}
-                </div>
-                <LoadMore type='comment' className="text-black my-8 relative top-12" />
+                <DisplayComments schoolName={_school!.short!} _class={_class_!} _comments={comments} />
             </CommentsContainer>
         </div>
     )
