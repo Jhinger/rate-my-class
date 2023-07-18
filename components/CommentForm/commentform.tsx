@@ -22,7 +22,6 @@ import { DELIVERYSchema, TAGSchema } from '@/prisma/generated/schemas';
 import type { Class } from '@prisma/client';
 import type { ICommentFormValues } from '@/types';
 
-
 interface ICommentFormProps {
     schoolName: string | null;
     schoolClass: Partial<Class> | null;

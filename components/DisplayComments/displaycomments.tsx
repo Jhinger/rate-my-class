@@ -56,7 +56,7 @@ export default function DisplayComments({ schoolName, _class, _comments }: IDisp
 
     return (
         <div className='relative'>
-            <div className="flex flex-col gap-y-12">
+            <div className="flex flex-col gap-y-16">
                 {comments.map((comment: CommentType, index: number) => 
                     <div key={index}>
                         <Comment comment={comment} />

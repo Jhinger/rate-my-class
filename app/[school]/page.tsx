@@ -70,7 +70,7 @@ export default async function SchoolPage({ params }: { params: { school: string 
                     }
                 </div>
                 <div className="my-12">
-                    <LoadMore type="directory" />
+                    <LoadMore />
                 </div>
             </div>
         </>

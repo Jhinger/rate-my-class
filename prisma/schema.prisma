@@ -11,6 +11,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+/// @@Gen.model(hide: true)
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -29,6 +30,7 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+/// @@Gen.model(hide: true)
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
@@ -37,6 +39,7 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+/// @@Gen.model(hide: true)
 model User {
   id            String    @id @default(cuid())
   email         String?   @unique
@@ -50,6 +53,7 @@ model User {
   comments      Comment[]
 }
 
+/// @@Gen.model(hide: true)
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -58,6 +62,7 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+/// @@Gen.model(hide: true)
 model School {
   id          Int          @id @default(autoincrement())
   name        String
@@ -69,6 +74,7 @@ model School {
   @@map("schools")
 }
 
+/// @@Gen.model(hide: true)
 model Department {
   id          Int     @id @default(autoincrement())
   name        String
@@ -81,6 +87,7 @@ model Department {
   @@index([schoolId, numComments(sort: Desc)])
 }
 
+/// @@Gen.model(hide: true)
 model Class {
   id              Int         @id @default(autoincrement())
   schoolId        Int
@@ -101,6 +108,7 @@ model Class {
   @@map("classes")
 }
 
+/// @@Gen.model(hide: true)
 model Comment {
   id            Int      @id @default(autoincrement())
   userId        String
