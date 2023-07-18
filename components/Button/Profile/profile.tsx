@@ -50,7 +50,7 @@ const Profile = ({ session, className = "" }: IProfileProps) => {
         >
             <Image
                 className={`unselectable rounded-md duration-200 cursor-pointer ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-tertiary`}
-                src={session?.user?.image || defaultuser}
+                src={session?.user?.image ?? defaultuser}
                 height={35}
                 width={35}
                 alt={session?.user?.name || "Profile"}

@@ -1,11 +1,16 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import CallToAction from "@/components/Button/CallToAction";
 import Dialog from "@/components/Dialog";
-import CommentForm from "@/components/CommentForm";
+import ChartLoading from "@/components/ChartLoading";
 import { Clipboard, ClipboardCheck } from "lucide-react";
 import { useState } from "react";
+
 import type { Class, School } from "@prisma/client";
+const CommentForm = dynamic(() => import("@/components/CommentForm"), {
+    loading: () => <ChartLoading />
+});
 
 interface IClassActionProps {
     school: Partial<School> | null;
