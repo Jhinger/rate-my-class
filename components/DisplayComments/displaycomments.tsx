@@ -2,8 +2,9 @@
 
 import LoadMore from '@/components/Button/LoadMore';
 import Comment from '@/components/Comment';
-import { use, useState } from 'react';
-import { MAX_COMMENTS } from '@/constants';
+import { useState } from 'react';
+import useAlert from '@/hooks/useAlert';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 import type { Class, Comment as CommentType } from "@prisma/client";
 
@@ -14,29 +15,44 @@ interface IDisplayCommentsProps {
 }
 
 export default function DisplayComments({ schoolName, _class, _comments }: IDisplayCommentsProps) {
+    const { setAlert } = useAlert();
     const [comments, setComments] = useState(_comments);
+    const [hasMoreComments, setHasMoreComments] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const fetchComments = async () => {
         const response = await fetch(`/api/${schoolName}/class/${_class.id}/comments/${comments.length}`, {
             method: 'POST',
-            body: JSON.stringify({ skip: comments.length, take: MAX_COMMENTS }),
             next: { revalidate: 3600 }
         });
         
         if (response.ok) {
-            const newComments = await response.json();
-            if (newComments.status === 401) {
-                console.log(newComments);
-                console.log("HERE");
-                return '';
+            const data = await response.json();
+            switch (data.status) {
+                case 204: {
+                    return new Error(data.error);
+                }
+                case 200: {
+                    return setComments([...comments, ...data.comments]);
+                }
+                default: {
+                    return new Error('Failed to fetch additional ratings.');
+                }
             }
-            // setComments({...comments, ...newComments});
         } else {
             throw new Error("Unable to fetch comments.");
         }
     }
 
-    const onClick = async () => await fetchComments();
+    const onClick = async () => {
+        setIsLoading(true);
+        const res = await fetchComments();
+        if (res instanceof Error) {
+            setHasMoreComments(false);
+            setAlert(res.message, "failure");
+        }
+        setIsLoading(false);
+    };
 
     return (
         <div className='relative'>
@@ -47,7 +63,12 @@ export default function DisplayComments({ schoolName, _class, _comments }: IDisp
                     </div>
                 )}
             </div>
-            <LoadMore onClick={onClick} className="w-max py-2 px-8 center text-black my-8 relative top-12" />
+            {hasMoreComments
+                ? isLoading 
+                    ? <LoadingSpinner className='w-10 center relative top-12'/>
+                    : <LoadMore onClick={onClick} className="w-max py-2 px-8 center text-black my-8 relative top-12" />
+                : null
+            }
        </div>
     )
 }

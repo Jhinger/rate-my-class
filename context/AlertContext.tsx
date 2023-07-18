@@ -46,5 +46,5 @@ export const AlertProvider = ({ children }: AlertProviderProps) => {
     )
 };
   
-  export default AlertContext;
+export default AlertContext;
   

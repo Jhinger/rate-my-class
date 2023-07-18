@@ -1,3 +1,5 @@
+import prisma from '@/lib/prismadb';
+import { MAX_COMMENTS } from '@/constants';
 import { NextRequest, NextResponse } from "next/server";
 
 interface IClassProps {
@@ -9,5 +11,21 @@ interface IClassProps {
 }
 
 export async function POST(request: NextRequest, { params }: IClassProps) {
-    return NextResponse.json({ error: "Nice one", status: 401 })
+    const nextComments = await prisma.comment.findMany({
+        where: {
+            classId: +params.classID,
+            deleted: false
+        },
+        skip: +params.numSkipComments,
+        take: MAX_COMMENTS,
+        orderBy: {
+            createdAt: 'desc'
+        }
+    })
+
+    if (!nextComments.length) {
+        return NextResponse.json({error: "No more ratings to fetch.", status: 204});
+    }
+
+    return NextResponse.json({ comments: nextComments, status: 200})
 }

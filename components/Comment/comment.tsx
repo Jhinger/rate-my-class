@@ -6,7 +6,6 @@ import getTagName from '@/util/getTagName';
 import { MoreVerticalIcon } from 'lucide-react';
 import getDelivery from '@/util/getDelivery';
 import { getGrade } from '@/util/getGrade';
-import { tagColors } from '@/constants/tagColors';
 
 import type { Comment as CommentType } from '@prisma/client';
 
@@ -18,7 +17,7 @@ const Comment = ({ comment }: ICommentProps) => {
     const commentDate = getDate(comment.createdAt);
 
     const renderTags = comment.tags.map((tag, index) =>
-        <Tag className="bg-gray-300 text-xxxs" key={index}>
+        <Tag className={`bg-sky-200 text-xxxs`} key={index}>
             { getTagName(tag) }
         </Tag>
     )

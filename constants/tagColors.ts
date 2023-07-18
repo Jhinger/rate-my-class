@@ -1,8 +1,8 @@
 
 export const tagColors = [
-    'bg-[#FF7B7B]',
-    'bg-[#ADDDFF]',
-    '#9DFFA7',
+    '#7fd2f5',
+    '#8ef5b9',
+    '#ff99a5',
     '#FD8CF2',
     '#8CFFF1'
 ]
