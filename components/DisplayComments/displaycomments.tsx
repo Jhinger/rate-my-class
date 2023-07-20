@@ -1,10 +1,15 @@
 "use client";
 
+import { useState } from 'react';
 import LoadMore from '@/components/Button/LoadMore';
 import Comment from '@/components/Comment';
-import { useState } from 'react';
 import useAlert from '@/hooks/useAlert';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import CommentOptionsContainer from '@/components/CommentOptionsContainer';
+import CallToAction from '@/components/Button/CallToAction';
+import Tray from '@/components/Tray';
+import TrayItem from '@/components/TrayItem';
+import { MAX_COMMENTS } from '@/constants';
 
 import type { Class, Comment as CommentType } from "@prisma/client";
 
@@ -17,7 +22,7 @@ interface IDisplayCommentsProps {
 export default function DisplayComments({ schoolName, _class, _comments }: IDisplayCommentsProps) {
     const { setAlert } = useAlert();
     const [comments, setComments] = useState(_comments);
-    const [hasMoreComments, setHasMoreComments] = useState(true);
+    const [hasMoreComments, setHasMoreComments] = useState(_comments.length === MAX_COMMENTS);
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchComments = async () => {
@@ -56,6 +61,9 @@ export default function DisplayComments({ schoolName, _class, _comments }: IDisp
 
     return (
         <div className='relative'>
+            <CommentOptionsContainer className="flex justify-end mb-4">
+                <CallToAction className="bg-primary text-black h-[2.5rem]">Filter</CallToAction>
+            </CommentOptionsContainer>
             <div className="flex flex-col gap-y-16">
                 {comments.map((comment: CommentType, index: number) => 
                     <div key={index}>
@@ -65,7 +73,7 @@ export default function DisplayComments({ schoolName, _class, _comments }: IDisp
             </div>
             {hasMoreComments
                 ? isLoading 
-                    ? <LoadingSpinner className='w-10 center relative top-12'/>
+                    ? <div className='my-5'><LoadingSpinner className='w-8 center relative top-12'/></div>
                     : <LoadMore onClick={onClick} className="w-max py-2 px-8 center text-black my-8 relative top-12" />
                 : null
             }

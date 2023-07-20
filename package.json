@@ -17,6 +17,7 @@
     "@prisma/client": "^4.11.0",
     "chart.js": "^4.2.1",
     "eslint": "8.30.0",
+    "framer-motion": "^10.13.0",
     "lucide-react": "^0.180.0",
     "next": "^13.4.1",
     "next-auth": "^4.18.6",

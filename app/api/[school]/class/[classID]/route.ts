@@ -37,8 +37,7 @@ export async function POST(request: NextRequest, { params }: IClassProps) {
             ...comment
         }
     })
-    // request.nextUrl.searchParams.get('path') || '/'
-    // revalidatePath('/[school]/[_class]/');
+    revalidatePath(request.nextUrl.searchParams.get('path') || '/');
 
     return NextResponse.json({ "Class-POST": "Hello" });
 }

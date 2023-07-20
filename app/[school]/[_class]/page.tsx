@@ -8,11 +8,9 @@ import {
 import ClassHeader from '@/components/ClassHeader';
 import ClassSummary from '@/components/ClassSummary';
 import ClassActions from '@/components/ClassActions';
-import CallToAction from '@/components/Button/CallToAction';
 import DisplayComments from '@/components/DisplayComments';
 import Chart from '@/components/Chart';
 import CommentsContainer from '@/components/CommentsContainer';
-import CommentOptionsContainer from '@/components/CommentOptionsContainer';
 import { colors_blue } from '@/constants/boosterColors';
 
 import type { Metadata } from "next";
@@ -73,9 +71,6 @@ export default async function ClassPage({ params }: { params: { _class: string; 
                 </div>
             </ClassHeader>
             <CommentsContainer className="bg-secondary py-16 flex flex-col justify-center items-center text-white w-full">
-                <CommentOptionsContainer className="flex flex-row justify-end mb-4 w-[65rem]">
-                    <CallToAction className="bg-primary text-black h-[2.5rem]">Filter</CallToAction>
-                </CommentOptionsContainer>
                 <DisplayComments schoolName={_school!.short!} _class={_class_!} _comments={comments} />
             </CommentsContainer>
         </div>

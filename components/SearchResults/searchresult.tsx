@@ -32,7 +32,7 @@ const SearchResult = ({
                 <div 
                     key={index} 
                     onMouseEnter={() => onHover(result)}
-                    className={`${cursorClass} duration-100 px-2 py-2 text-sm indent-2 text-gray-500 hover:text-black hover:cursor-pointer hover:bg-gray-200 hover:rounded-md`}
+                    className={`${cursorClass} duration-100 px-2 py-2 w-full h-full text-sm indent-2 text-gray-500 hover:text-black hover:cursor-pointer hover:bg-gray-200 hover:rounded-md`}
                 >
                     <Link href={`${path}/${nextRoute}`}>
                         { result.name }
