@@ -7,6 +7,7 @@ import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { MoreVerticalIcon } from 'lucide-react';
 import useAlert from '@/hooks/useAlert';
 import { usePathname } from 'next/navigation';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 import type { Comment } from '@prisma/client';
 import { useState, useRef } from 'react';
@@ -16,6 +17,7 @@ type CommentActionProps = Pick<Comment, 'classId' | 'id' | 'userId'>;
 const CommentActions = ({ classId, id, userId }: CommentActionProps) => {
     const { setAlert } = useAlert();
     const [isTrayVisible, setIsTrayVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
 
@@ -47,9 +49,9 @@ const CommentActions = ({ classId, id, userId }: CommentActionProps) => {
     }
 
     const deleteComment = async () => {
-        const res = await fetch('', {
+        const res = await fetch('/api/delete/comment', {
             method: 'POST',
-            body: JSON.stringify({})
+            body: JSON.stringify({ classId: classId, userId: userId, commentId: id })
         });
 
         if (res.ok) {
@@ -76,16 +78,21 @@ const CommentActions = ({ classId, id, userId }: CommentActionProps) => {
     }
 
     const onReportClick = async () => {
+        setIsLoading(true);
         const res = await reportComment();
         if (res instanceof Error) {
             setAlert(res.message, "failure");
             setIsTrayVisible(false);
+            setIsLoading(false);
             return;
         }
         setAlert("Thank You - The Rating has been reported", "success");
+        setIsTrayVisible(false);
+        setIsLoading(false);
     }
 
     const onDeleteClick = async () => {
+        setIsLoading(true);
         const res = await deleteComment();
         if (res instanceof Error) {
             setAlert(res.message, "failure");
@@ -93,6 +100,8 @@ const CommentActions = ({ classId, id, userId }: CommentActionProps) => {
             return;
         }
         setAlert("Your Rating has been deleted.", "success");
+        setIsTrayVisible(false);
+        setIsLoading(false);
     }
 
     useOnClickOutside(ref, () => setIsTrayVisible(false));
@@ -109,11 +118,11 @@ const CommentActions = ({ classId, id, userId }: CommentActionProps) => {
                 {isOnUserRoute 
                     ?
                         <TrayItem onClick={onDeleteClick} className='unselectable animate-fadeDown bg-secondary text-primary text-xs px-4 py-2 my-1.5 font-bold hover:text-red-400 duration-200 ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-red-400'>
-                            Delete
+                            {isLoading ? <LoadingSpinner className='w-4' /> : 'Delete'}
                         </TrayItem>
                     :
                         <TrayItem onClick={onReportClick} className='unselectable animate-fadeDown bg-secondary text-primary text-xs px-4 py-2 my-1.5 font-bold hover:text-red-400 duration-200 ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-red-400'>
-                            Report
+                            {isLoading ? <LoadingSpinner className='w-4' /> : 'Report'}
                         </TrayItem>
                 }
             </Tray>
