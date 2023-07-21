@@ -137,6 +137,18 @@ model Comment {
   @@map("comments")
 }
 
+// @@Gen.model(hide: true)
+model Report {
+  id          Int       @id @default(autoincrement())
+  dateCreated DateTime  @default(now())
+  classId     Int
+  userId      String
+  commentId   Int
+  reporteeId  String
+
+  @@index([classId])
+}
+
 enum DELIVERY {
   INPERSON
   ONLINE

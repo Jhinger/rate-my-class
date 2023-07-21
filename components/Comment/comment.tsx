@@ -3,7 +3,7 @@ import Icon from '@/components/Button/Icon';
 import Tag from '@/components/Tag';
 import ProgressBar from '@/components/ProgressBar';
 import getTagName from '@/util/getTagName';
-import { MoreVerticalIcon } from 'lucide-react';
+import CommentActions from '@/components/CommentActions';
 import getDelivery from '@/util/getDelivery';
 import { getGrade } from '@/util/getGrade';
 
@@ -26,9 +26,7 @@ const Comment = ({ comment }: ICommentProps) => {
         <div className="bg-gray-200 text-black flex flex-col text-base font-semibold rounded-md w-[65rem] h-[26rem]">
             <div className='w-full flex mt-4 justify-between items-center px-8'> 
                 <span>{ commentDate }</span>
-                <Icon>
-                    <MoreVerticalIcon size={20} />
-                </Icon>
+                <CommentActions classId={comment.classId} userId={comment.userId} id={comment.id} />
             </div>
             <div className='w-full h-full flex flex-row justify-center items-center gap-6 relative top-2'>
                 <div className='w-[13rem] h-[17rem] flex flex-col items-center gap-2'>

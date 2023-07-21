@@ -7,8 +7,6 @@ import useAlert from '@/hooks/useAlert';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import CommentOptionsContainer from '@/components/CommentOptionsContainer';
 import CallToAction from '@/components/Button/CallToAction';
-import Tray from '@/components/Tray';
-import TrayItem from '@/components/TrayItem';
 import { MAX_COMMENTS } from '@/constants';
 
 import type { Class, Comment as CommentType } from "@prisma/client";
