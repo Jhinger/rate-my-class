@@ -19,6 +19,10 @@ export async function POST(request: NextRequest, { params }: IReportComment) {
         return NextResponse.json({ error: "Not authenticated - you must sign in to report a rating.", status: 401 })
     }
 
+    if (userId === session.user.id) {
+        return NextResponse.json({ error: "Error - you cannot report your own comment", status: 403 });
+    }
+
     const hasAlreadyReported = await prisma.report.findFirst({
         where: {
             reporteeId: session.user.id!,
