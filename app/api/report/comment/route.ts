@@ -1,7 +1,7 @@
 import prisma from '@/lib/prismadb';
 import { getServerSession } from 'next-auth/next';
-import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from '../../auth/[...nextauth]/route';
+import { NextRequest, NextResponse } from "next/server";
 
 interface IReportComment {
     params: {
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest, { params }: IReportComment) {
     }
 
     if (userId === session.user.id) {
-        return NextResponse.json({ error: "Error - you cannot report your own comment", status: 403 });
+        return NextResponse.json({ error: "Error - you cannot report your own comment.", status: 403 });
     }
 
     const hasAlreadyReported = await prisma.report.findFirst({
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest, { params }: IReportComment) {
         }
     })
     if (hasAlreadyReported) {
-        return NextResponse.json({ error: "Error - You have already left a rating for this class", status: 403 })
+        return NextResponse.json({ error: "Error - You have already left a rating for this class.", status: 403 })
     }
 
     await prisma.report.create({
