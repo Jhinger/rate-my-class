@@ -72,7 +72,11 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
     
             if (data.ok) {
                 const response = await data.json();
-                if (response.status === 401 || response.status === 403) {
+                if (
+                    response.status === 401 || 
+                    response.status === 403 || 
+                    response.stats === 500
+                ) {
                     setAlert(response.error, "failure")
                     setIsOpen(false);
                     return;

@@ -14,7 +14,7 @@ const Home = () => {
     return (
         <div>
                 <Image 
-                    className="relative left-6 unselectable cursor-pointer"
+                    className="relative left-3 unselectable cursor-pointer"
                     onClick={goHome}
                     src={logo}
                     width={50}

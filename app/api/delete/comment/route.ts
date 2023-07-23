@@ -22,17 +22,23 @@ export async function POST(request: NextRequest) {
             deleted: true
         }
     })
+    
     if (hasAlreadyDeleted) {
         return NextResponse.json({ error: "Error - You have already deleted this rating.", status: 403 })
     }
 
-    await prisma.comment.update({
-        where: {
-            id: +commentId
-        },
-        data: {
-            deleted: true
-        }
-    })
+    try {
+        await prisma.comment.update({
+            where: {
+                id: +commentId
+            },
+            data: {
+                deleted: true
+            }
+        })
+    } catch (err) {
+        return NextResponse.json({ error: "Server Error - Failed to delete rating.", status: 500 });
+    }
+
     return NextResponse.json({ status: 200 });
 }

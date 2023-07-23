@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from '@/lib/prismadb';
-import { revalidatePath } from "next/cache";
 
 interface IClassProps {
     params: {
@@ -26,18 +25,22 @@ export async function POST(request: NextRequest, { params }: IClassProps) {
             userId: session.user.id!
         }
     });
+    
     if (userHasCommented && session.user.role === 'USER') {
         return NextResponse.json({ error: "Forbidden - You have already left a rating for this class.", status: 403 })
     }
 
     const comment = { User: { connect: { id: session.user.id } } , ...body };
 
-    const res = await prisma.comment.create({
-        data: {
-            ...comment
-        }
-    })
-    revalidatePath(request.nextUrl.searchParams.get('path') || '/');
+    try {
+        await prisma.comment.create({
+            data: {
+                ...comment
+            }
+        })
+    } catch (err) {
+        NextResponse.json({ error: "Server Error - Failed to post rating.", status: 500 })
+    }
 
-    return NextResponse.json({ "Class-POST": "Hello" });
+    return NextResponse.json({ status: 200 });
 }

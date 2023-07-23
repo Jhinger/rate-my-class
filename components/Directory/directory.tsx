@@ -19,9 +19,14 @@ const Directory = ({ summary }: IDirectoryProps) => {
 
     return (
         <div className='flex flex-col items-center justify-start'>
-            <div className='flex flex-row text-white font-extralight justify-end w-full text-sm'>
-                <span>Average Grade:</span>
-                <span className='mx-8'>Num Ratings:</span>
+            <div className='flex flex-row text-white font-light font-inter justify-between w-full text-xs'>
+                <div className='relative left-10'>
+                    <em>Department:</em>
+                </div>
+                <div className='flex flex-row gap-12 relative right-16'>
+                    <em>Avg Grade:</em>
+                    <em># Ratings:</em>
+                </div>
             </div>
             { renderPanels }
         </div>

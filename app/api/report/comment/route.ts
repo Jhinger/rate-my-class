@@ -29,17 +29,23 @@ export async function POST(request: NextRequest, { params }: IReportComment) {
             commentId: +commentId,
         }
     })
+
     if (hasAlreadyReported) {
-        return NextResponse.json({ error: "Error - You have already left a rating for this class.", status: 403 })
+        return NextResponse.json({ error: "Error - You have already reported this class.", status: 403 })
     }
 
-    await prisma.report.create({
-        data: {
-            classId: +classId,
-            userId: userId,
-            commentId: +commentId,
-            reporteeId: session.user.id!
-        }
-    })
+    try {
+        await prisma.report.create({
+            data: {
+                classId: +classId,
+                userId: userId,
+                commentId: +commentId,
+                reporteeId: session.user.id!
+            }
+        })
+    } catch (err) {
+        return NextResponse.json({ error: "Server Error - Failed to report rating.", status: 500 });
+    }
+
     return NextResponse.json({ status: 200 });
 }

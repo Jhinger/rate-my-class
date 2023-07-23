@@ -146,6 +146,7 @@ model Report {
   commentId   Int
   reporteeId  String
 
+  @@unique([commentId, reporteeId])
   @@index([classId])
 }
 

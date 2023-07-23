@@ -39,8 +39,11 @@ const CommentActions = ({ classId, id, userId }: CommentActionProps) => {
                 case 403: {
                     return new Error(data.error);
                 }
+                case 500: {
+                    return new Error(data.error);
+                }
                 default: {
-                    return new Error('5XX - Failed to report rating');
+                    return new Error('5XX - Failed to report rating.');
                 }
             }
         } else {
@@ -62,6 +65,9 @@ const CommentActions = ({ classId, id, userId }: CommentActionProps) => {
                     return new Error(data.error);
                 }
                 case 403: {
+                    return new Error(data.error);
+                }
+                case 500: {
                     return new Error(data.error);
                 }
                 default: {
