@@ -36,6 +36,7 @@ export default function DisplayComments({ schoolName, _class, _comments }: IDisp
                     return new Error(data.error);
                 }
                 case 200: {
+                    setHasMoreComments(data.comments.length === MAX_COMMENTS);
                     return setComments([...comments, ...data.comments]);
                 }
                 default: {

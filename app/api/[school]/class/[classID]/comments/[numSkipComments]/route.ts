@@ -27,5 +27,5 @@ export async function POST(request: NextRequest, { params }: IClassProps) {
         return NextResponse.json({error: "No more ratings to fetch.", status: 204});
     }
 
-    return NextResponse.json({ comments: nextComments, status: 200})
+    return NextResponse.json({ comments: nextComments, status: 200 })
 }

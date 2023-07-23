@@ -25,7 +25,8 @@ export async function POST(request: NextRequest, { params }: IUserCommentsParms)
 
     const nextComments = await prisma.comment.findMany({
         where: {
-            userId: userId
+            userId: userId,
+            deleted: false
         },
         skip: +numSkipComments,
         take: MAX_COMMENTS,

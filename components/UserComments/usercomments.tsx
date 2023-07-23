@@ -4,10 +4,9 @@ import { useState } from 'react';
 import useAlert from '@/hooks/useAlert';
 import type { Comment as CommentType } from '@prisma/client';
 import Comment from '@/components/Comment';
-import CommentOptionsContainer from '@/components/CommentOptionsContainer';
-import CallToAction from '@/components/Button/CallToAction';
 import LoadMore from '@/components/Button/LoadMore';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import { MAX_COMMENTS } from '@/constants';
 
 interface IUserCommentsProps {
     userComments: CommentType[]
@@ -18,7 +17,7 @@ const UserComments = ({ userComments, userId }: IUserCommentsProps) => {
     const { setAlert } = useAlert();
     const [comments, setComments] = useState(userComments);
     const [isLoading, setIsLoading] = useState(false);
-    const [hasMoreComments, setHasMoreComments] = useState(true);
+    const [hasMoreComments, setHasMoreComments] = useState(userComments.length === MAX_COMMENTS);
 
     const fetchComments = async () => {
         const res = await fetch(`/api/user/${userId}/comments/${comments.length}`, {
@@ -27,8 +26,9 @@ const UserComments = ({ userComments, userId }: IUserCommentsProps) => {
 
         if (res.ok) {
             const data = await res.json();
-            switch (res.status) {
+            switch (data.status) {
                 case 200: {
+                    setHasMoreComments(data.comments.length === MAX_COMMENTS);
                     return setComments([...comments, ...data.comments]);
                 }
                 case 204: {
