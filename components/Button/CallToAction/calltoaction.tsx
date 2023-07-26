@@ -1,17 +1,20 @@
 "use client";
 
 interface ICallToActionProps {
-    onClick?: () => unknown;
-    children: React.ReactNode;
-    className?: string;
+	onClick?: () => unknown;
+	children: React.ReactNode;
+	className?: string;
 }
 
 const CallToAction = ({ onClick, children, className }: ICallToActionProps) => {
-    return (
-        <div onClick={onClick} className={`${className} flex flex-row text-sm justify-center items-center rounded-lg px-8 py-3 font-normal hover:bg-tertiary duration-200 cursor-pointer`}>
-            { children }
-        </div>
-    )
-}
+	return (
+		<div
+			onClick={onClick}
+			className={`${className} flex cursor-pointer flex-row items-center justify-center rounded-lg px-8 py-3 text-sm font-normal duration-200 hover:bg-tertiary`}
+		>
+			{children}
+		</div>
+	);
+};
 
 export default CallToAction;

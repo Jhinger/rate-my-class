@@ -1,10 +1,5 @@
-
 const TermsLoading = () => {
-    return (
-        <div className="text-white my-10">
-            Loading.
-        </div>
-    )
-}
+	return <div className="my-10 text-white">Loading.</div>;
+};
 
 export default TermsLoading;

@@ -1,43 +1,59 @@
-import { GithubIcon, LinkedinIcon, InstagramIcon } from 'lucide-react';
-import Home from '@/components/Home';
-import Profile from '@/components/Button/Profile';
-import SignIn from '@/components/Button/SignIn';
-import Icon from '@/components/Icon';
+import { GithubIcon, LinkedinIcon, InstagramIcon } from "lucide-react";
+import Home from "@/components/Home";
+import Profile from "@/components/Button/Profile";
+import SignIn from "@/components/Button/SignIn";
+import Icon from "@/components/Icon";
 
-import type { Session } from 'next-auth';
+import type { Session } from "next-auth";
 
 interface IPrimaryNavbarProps {
-    session: Session | null;
+	session: Session | null;
 }
 
 const PrimaryNavbar = ({ session }: IPrimaryNavbarProps) => {
-    const relevantStatusComponent = (session: Session | null) => {
-        if (session?.user !== undefined) {
-            return <Profile session={session} className="relative right-7"/>
-        }
-        return <SignIn className="relative right-4" />
-    }
+	const relevantStatusComponent = (session: Session | null) => {
+		if (session?.user !== undefined) {
+			return <Profile session={session} className="relative right-7" />;
+		}
+		return <SignIn className="relative right-4" />;
+	};
 
-    return (
-        <div className="relative w-full mt-2 mb-2">
-            <nav className="max-w-[2100px] flex justify-between center items-center">
-                <Home />
+	return (
+		<div className="relative mb-2 mt-2 w-full">
+			<nav className="center flex max-w-[2100px] items-center justify-between">
+				<Home />
 
-                <div className="flex flex-row space-x-10 invisible md:visible">
-                    <Icon icon={<GithubIcon size={22}/>} href="#" className='unselectable text-primary hover:text-tertiary duration-150' />
-                    <Icon icon={<LinkedinIcon size={22}/>} href="#" className='unselectable text-primary hover:text-tertiary duration-150' />
-                    <Icon icon={<InstagramIcon size={22}/>} href="#" className='unselectable text-primary hover:text-tertiary duration-150' />
-                </div>
+				<div className="invisible flex flex-row space-x-10 md:visible">
+					<Icon
+						icon={<GithubIcon size={22} />}
+						href="#"
+						className="unselectable text-primary duration-150 hover:text-tertiary"
+					/>
+					<Icon
+						icon={<LinkedinIcon size={22} />}
+						href="#"
+						className="unselectable text-primary duration-150 hover:text-tertiary"
+					/>
+					<Icon
+						icon={<InstagramIcon size={22} />}
+						href="#"
+						className="unselectable text-primary duration-150 hover:text-tertiary"
+					/>
+				</div>
 
-                <ul className="flex flex-row space-x-10 text-primary font-medium invisible md:visible">
-                    <li className="hover:text-tertiary duration-150 cursor-pointer">contact</li>
-                    <li className="hover:text-tertiary duration-150 cursor-pointer">about</li>
-                </ul>
+				<ul className="invisible flex flex-row space-x-10 font-medium text-primary md:visible">
+					<li className="cursor-pointer duration-150 hover:text-tertiary">
+						contact
+					</li>
+					<li className="cursor-pointer duration-150 hover:text-tertiary">
+						about
+					</li>
+				</ul>
 
-                { relevantStatusComponent(session) }
-            </nav>
-        </div>
-    )
-}
+				{relevantStatusComponent(session)}
+			</nav>
+		</div>
+	);
+};
 
 export default PrimaryNavbar;

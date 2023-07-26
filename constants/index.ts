@@ -1,4 +1,3 @@
-
 const KEY_DOWN = "keydown";
 const KEY_UP = "keyup";
 const ARROW_UP = "ArrowUp";
@@ -24,7 +23,6 @@ const LENGTH_SECONDARY_TEXT = 350;
 
 const ALERT_TIME = 5000;
 
-
 export {
 	KEY_DOWN,
 	KEY_UP,
@@ -43,5 +41,5 @@ export {
 	LENGTH_PRIMARY_TEXT,
 	LENGTH_SECONDARY_TEXT,
 	LENGTH_TEACHER_NAME,
-	ALERT_TIME
-}
+	ALERT_TIME,
+};

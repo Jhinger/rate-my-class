@@ -21,14 +21,16 @@
 ![LandingPage](https://raw.githubusercontent.com/jhinger/rate-my-class/master/public/static/landingpage.png)
 
 <!-- About -->
+
 ## About
 
 RateMyClass is a class-rating application designed to empower students in making informed decisions about their class selections. By harnessing the collective wisdom of the student community, RateMyClass allows users to rate and review their past classes, providing valuable insights into the quality of instruction, curriculum, and overall student experience. With access to a comprehensive database of course ratings, prospective students can confidently explore and compare class options, optimizing their educational journey.
 
 Some Features:
-* <strong>GPA Booster Ratings</strong> - find an easy class to round out your schedule.
-* <strong>Student Opinions</strong> - workload, difficulty, recommendations, and more.
-* <strong>Class/Department Data</strong> - quickly find class averages and departments that return the highest grades.
+
+-   <strong>GPA Booster Ratings</strong> - find an easy class to round out your schedule.
+-   <strong>Student Opinions</strong> - workload, difficulty, recommendations, and more.
+-   <strong>Class/Department Data</strong> - quickly find class averages and departments that return the highest grades.
 
 ## Contact
 

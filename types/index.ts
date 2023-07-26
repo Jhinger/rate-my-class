@@ -9,35 +9,35 @@ export type StatusOptions = "loading" | "authenticated" | "unauthenticated";
 export type ValueOfType<T> = T[keyof T];
 
 export type UntypedObject = {
-    [key: PropertyKey]: any;
-}
+	[key: PropertyKey]: any;
+};
 
 export type ChartType = "barchart" | "piechart";
 
 export type Card = {
-    title: string;
-    subtext: string;
-    imgSrc: string;
-}
+	title: string;
+	subtext: string;
+	imgSrc: string;
+};
 
 export type Averages = {
-    avgBooster: number | null;
-    avgDifficulty: number | null;
-    avgGrade: number | null;
-    avgRecommended: number | null;
-    avgWorkload: number | null;
-}
+	avgBooster: number | null;
+	avgDifficulty: number | null;
+	avgGrade: number | null;
+	avgRecommended: number | null;
+	avgWorkload: number | null;
+};
 
 export interface ICommentFormValues {
-    delivery: DELIVERY;
-    teacher?: string;
-    overallRating: number;
-    difficulty: number;
-    gradeRecieved: number;
-    workload: number;
-    isRecommended: boolean;
-    isGPABooster: number;
-    tags: string[];
-    primaryText: string;
-    secondaryText?: string;
+	delivery: DELIVERY;
+	teacher?: string;
+	overallRating: number;
+	difficulty: number;
+	gradeRecieved: number;
+	workload: number;
+	isRecommended: boolean;
+	isGPABooster: number;
+	tags: string[];
+	primaryText: string;
+	secondaryText?: string;
 }

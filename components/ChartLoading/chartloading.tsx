@@ -1,11 +1,11 @@
 import LoadingSpinner from "@/components/LoadingSpinner";
 
 const ChartLoading = () => {
-    return (
-        <div className="w-[60rem] h-full flex justify-center items-center">
-            <LoadingSpinner className="center w-10" />
-        </div>
-    )
-}
+	return (
+		<div className="flex h-full w-[60rem] items-center justify-center">
+			<LoadingSpinner className="center w-10" />
+		</div>
+	);
+};
 
 export default ChartLoading;

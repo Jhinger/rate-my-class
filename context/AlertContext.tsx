@@ -4,47 +4,46 @@ import { createContext, useState } from "react";
 import { ALERT_TIME } from "@/constants";
 
 type AlertProviderProps = {
-    children: React.ReactNode;
-}
+	children: React.ReactNode;
+};
 
-type AlertTypes = 'success' | 'failure';
+type AlertTypes = "success" | "failure";
 
 const initialState = {
-    text: '',
-    type: ''
-}
+	text: "",
+	type: "",
+};
 
 const AlertContext = createContext({
 	...initialState,
 	setAlert: (text: string, type: AlertTypes) => {},
 });
-  
+
 export const AlertProvider = ({ children }: AlertProviderProps) => {
-    const [text, setText] = useState('');
-    const [type, setType] = useState('');
-  
-    const setAlert = (text: string, type: AlertTypes) => {
+	const [text, setText] = useState("");
+	const [type, setType] = useState("");
+
+	const setAlert = (text: string, type: AlertTypes) => {
 		setText(text);
 		setType(type);
-	
+
 		setTimeout(() => {
-			setText('');
-			setType('');
+			setText("");
+			setType("");
 		}, ALERT_TIME);
-    };
-  
-    return (
+	};
+
+	return (
 		<AlertContext.Provider
 			value={{
 				text,
 				type,
 				setAlert,
 			}}
-    	>
-      		{children}
-    	</AlertContext.Provider>
-    )
+		>
+			{children}
+		</AlertContext.Provider>
+	);
 };
-  
+
 export default AlertContext;
-  

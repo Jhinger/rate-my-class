@@ -3,85 +3,100 @@
 @tailwind utilities;
 
 @layer utilities {
-  .unselectable {
-    user-drag: none;
-    -webkit-user-drag: none;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-  }
+	.unselectable {
+		user-drag: none;
+		-webkit-user-drag: none;
+		user-select: none;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
 
-  .center {
-    margin: 0 auto;
-  }
+	.center {
+		margin: 0 auto;
+	}
 
-  .slider {
-    height: 80px;
-    overflow: hidden;
-    position: relative;
-    width: 700px;
-  }
+	.slider {
+		height: 80px;
+		overflow: hidden;
+		position: relative;
+		width: 700px;
+	}
 
-  .slider::before,
-  .slider::after {
-    background: linear-gradient(to right, #242131 0%, rgba(255, 255, 255, 0) 100%);
-    content: "";
-    height: 100px;
-    position: absolute;
-    width: 200px;
-    z-index: 2;
-  }
+	.slider::before,
+	.slider::after {
+		background: linear-gradient(
+			to right,
+			#242131 0%,
+			rgba(255, 255, 255, 0) 100%
+		);
+		content: "";
+		height: 100px;
+		position: absolute;
+		width: 200px;
+		z-index: 2;
+	}
 
-  .slider::after {
-    right: 0;
-    top: 0;
-    transform: rotateZ(180deg);
-  }
+	.slider::after {
+		right: 0;
+		top: 0;
+		transform: rotateZ(180deg);
+	}
 
-  .slider .slide-track {
-    animation: scroll 30s linear infinite;
-    display: flex;
-    justify-content: center;
-    width: calc(100px * 14);
-    height: auto;
-  }
+	.slider .slide-track {
+		animation: scroll 30s linear infinite;
+		display: flex;
+		justify-content: center;
+		width: calc(100px * 14);
+		height: auto;
+	}
 
-  .slider .slide {
-    height: auto;
-    width: 100px;
-  }
+	.slider .slide {
+		height: auto;
+		width: 100px;
+	}
 
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-100px * 7));
-    }
-  }
+	@keyframes scroll {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(calc(-100px * 7));
+		}
+	}
 }
 
 :root {
-  --primary: "#A8C7F5"
+	--primary: "#A8C7F5";
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
 }
 
 html,
 body {
-  background-color: #353242;
-  max-width: 100vw;
-  overflow-x: hidden;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	background-color: #353242;
+	max-width: 100vw;
+	overflow-x: hidden;
+	font-family:
+		"Inter",
+		-apple-system,
+		BlinkMacSystemFont,
+		Segoe UI,
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		Fira Sans,
+		Droid Sans,
+		Helvetica Neue,
+		sans-serif;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }

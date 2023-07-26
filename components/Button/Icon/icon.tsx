@@ -1,14 +1,9 @@
-
 interface IIconProps {
-    children: React.ReactNode;
+	children: React.ReactNode;
 }
 
 const Icon = ({ children }: IIconProps) => {
-    return (
-        <div>
-            { children }
-        </div>
-    )
-}
+	return <div>{children}</div>;
+};
 
 export default Icon;

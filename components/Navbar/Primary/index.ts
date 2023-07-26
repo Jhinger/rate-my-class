@@ -1,3 +1,3 @@
-import PrimaryNavbar from './primary'
+import PrimaryNavbar from "./primary";
 
 export default PrimaryNavbar;

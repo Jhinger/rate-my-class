@@ -1,15 +1,11 @@
 import type { Comment } from "@prisma/client";
 
 interface ICommentSummaryProps {
-    details: Partial<Comment>
+	details: Partial<Comment>;
 }
 
 const CommentSummary = ({ details }: ICommentSummaryProps) => {
-    return (
-        <div>
-
-        </div>
-    )
-}
+	return <div></div>;
+};
 
 export default CommentSummary;
