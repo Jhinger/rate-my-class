@@ -75,10 +75,11 @@ const CommentForm = ({ schoolName, schoolClass, setIsOpen, className }: IComment
                 if (
                     response.status === 401 || 
                     response.status === 403 || 
-                    response.stats === 500
+                    response.status === 500
                 ) {
                     setAlert(response.error, "failure")
                     setIsOpen(false);
+                    console.log(response.error);
                     return;
                 }
                 console.log(response);

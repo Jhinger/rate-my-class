@@ -78,7 +78,7 @@ model School {
 model Department {
   id          Int     @id @default(autoincrement())
   name        String
-  avgGrade    Int     @default(0)
+  avgGrade    Float   @default(0)
   schoolId    Int
   numComments Int     @default(0)
   school      School  @relation(fields: [schoolId], references: [id])
