@@ -89,19 +89,20 @@ model Department {
 
 /// @@Gen.model(hide: true)
 model Class {
-  id              Int         @id @default(autoincrement())
-  schoolId        Int
-  name            String
-  avgDifficulty   Float?      @default(0) @map("avg_difficulty")
-  avgGrade        Float?      @default(0) @map("avg_grade")
-  numComments     Int         @default(0) @map("num_comments")
-  avgBooster      Float?      @default(0) @map("avg_boost")
-  departmentId    Int
-  avgWorkload     Float?      @default(0) @map("avg_workload")
-  avgRecommended  Float?      @default(0) @map("avg_recommended")
-  department      Department  @relation(fields: [departmentId], references: [id])
-  school          School      @relation(fields: [schoolId], references: [id])
-  comments        Comment[]
+  id             Int        @id @default(autoincrement())
+  schoolId       Int
+  name           String
+  avgRating      Float      @default(0) @map("avg_rating")
+  avgDifficulty  Float      @default(0) @map("avg_difficulty")
+  avgGrade       Float      @default(0) @map("avg_grade")
+  numComments    Int        @default(0) @map("num_comments")
+  avgBooster     Float      @default(0) @map("avg_boost")
+  departmentId   Int
+  avgWorkload    Float      @default(0) @map("avg_workload")
+  avgRecommended Float      @default(0) @map("avg_recommended")
+  department     Department @relation(fields: [departmentId], references: [id])
+  school         School     @relation(fields: [schoolId], references: [id])
+  comments       Comment[]
 
   @@index([schoolId])
   @@index([schoolId, name])
@@ -121,7 +122,7 @@ model Comment {
   teacher       String?  @db.VarChar(25)
   isGPABooster  Int      @map("gpa_booster")
   overallRating Float    @map("overall_rating")
-  tags          TAG[]    
+  tags          TAG[]
   deleted       Boolean  @default(false)
   delivery      DELIVERY
   gradeRecieved Int      @map("grade_recieved")
@@ -139,8 +140,8 @@ model Comment {
 
 // @@Gen.model(hide: true)
 model Report {
-  id          Int       @id @default(autoincrement())
-  dateCreated DateTime  @default(now())
+  id          Int      @id @default(autoincrement())
+  dateCreated DateTime @default(now())
   classId     Int
   userId      String
   commentId   Int

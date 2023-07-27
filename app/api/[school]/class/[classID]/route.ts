@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prismadb";
+import { getNewClassAverages, getNewDepartmentAverages } from "@/util/getNewAverages";
+import { assert } from "console";
 
 interface IClassProps {
 	params: {
@@ -45,6 +47,7 @@ export async function POST(request: NextRequest, { params }: IClassProps) {
 				id: +params.classID,
 			},
 			select: {
+				avgRating: true,
 				avgDifficulty: true,
 				avgGrade: true,
 				numComments: true,
@@ -72,11 +75,8 @@ export async function POST(request: NextRequest, { params }: IClassProps) {
 		});
 	}
 
-	const newDepartmentAvg =
-		(userDepartment!.avgGrade * userDepartment!.numComments +
-			body.gradeRecieved) /
-		(userDepartment!.numComments + 1);
-	const newDepartmentNumComments = userDepartment!.numComments + 1;
+	const newDepartmentAverages = getNewDepartmentAverages(userDepartment!, body.gradeRecieved);
+	const newClassAverages = getNewClassAverages(userClass!, body);
 
 	try {
 		await prisma.department.update({
@@ -84,9 +84,17 @@ export async function POST(request: NextRequest, { params }: IClassProps) {
 				id: userDepartment!.id,
 			},
 			data: {
-				avgGrade: newDepartmentAvg,
-				numComments: newDepartmentNumComments,
+				...newDepartmentAverages
 			},
+		});
+
+		await prisma.class.update({
+			where: {
+				id: +params.classID
+			},
+			data: {
+				...newClassAverages
+			}
 		});
 	} catch (err) {
 		if (err instanceof Error) {

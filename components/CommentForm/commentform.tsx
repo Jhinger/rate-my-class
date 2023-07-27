@@ -18,7 +18,7 @@ import {
 	LENGTH_TEACHER_NAME,
 } from "@/constants";
 
-import { DELIVERYSchema, TAGSchema } from "@/prisma/generated/schemas";
+import { DELIVERYSchema, TAGSchema } from "@/prisma/generated/schemas/enums";
 import type { Class } from "@prisma/client";
 import type { ICommentFormValues } from "@/types";
 

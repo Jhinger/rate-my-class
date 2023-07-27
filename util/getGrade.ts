@@ -16,23 +16,11 @@ function getGrade(num: number): string {
 	return map[num as keyof typeof map] ?? "Unknown";
 }
 
-function getNumberGrade(num: number = 6): number {
+function getNumberGrade(num: number): number {
+	if (num ===0) return 0;
 	const number = Math.round(num);
-	const map = {
-		11: 98.5,
-		10: 92.5,
-		9: 88.5,
-		8: 82.5,
-		7: 78.5,
-		6: 72.5,
-		5: 68.5,
-		4: 62.5,
-		3: 58.5,
-		2: 52.5,
-		1: 48.5,
-	};
-
-	return map[number as keyof typeof map];
+	
+	return ((num + 9) / 20) * 100;
 }
 
 export { getGrade, getNumberGrade };
