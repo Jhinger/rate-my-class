@@ -1,6 +1,7 @@
 import prisma from "@/lib/prismadb";
 import { MAX_COMMENTS } from "@/constants";
 import completeDistribution from "@/util/completeDistribution";
+import { notFound } from "next/navigation";
 
 import type { School, Class, Comment } from "@prisma/client";
 
@@ -16,7 +17,7 @@ async function findSchool(short: string): Promise<Partial<School> | null> {
 		},
 	});
 
-	return _school;
+	return _school ?? notFound();
 }
 
 async function findClass(

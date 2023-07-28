@@ -128,12 +128,11 @@ const CommentForm = ({
 				) {
 					setAlert(response.error, "failure");
 					setIsOpen(false);
-					console.log(response.error);
 					return;
 				}
 				console.log(response);
 				setAlert(
-					`Thank You - Your Rating for ${schoolClass?.name} has been posted.`,
+					`Thank You - Your Rating for ${schoolClass?.name} will be posted soon.`,
 					"success",
 				);
 				setIsOpen(false);
@@ -478,7 +477,7 @@ const CommentForm = ({
 				<div className="my-4 flex flex-col items-center justify-center">
 					<label>Grade Recieved?</label>
 					<i className="text-xxs text-gray-500">
-						(Predict your grade if class is in progess)
+						(Approximate if class is in progress)
 					</i>
 					<div className="my-2 flex flex-row gap-4">
 						<select

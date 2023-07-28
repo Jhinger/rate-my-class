@@ -1,3 +1,5 @@
+import { cache } from "react";
+import { notFound } from "next/navigation";
 import type { School, Class, Department } from "@prisma/client";
 import {
 	MAX_BOOSTER_CLASSES,
@@ -6,17 +8,17 @@ import {
 } from "@/constants";
 import prisma from "@/lib/prismadb";
 
-async function getSchool(short: string): Promise<Partial<School> | null> {
+const getSchool = cache(async (short: string): Promise<Partial<School> | null> => {
 	const school = await prisma.school.findFirst({
 		where: {
 			short: short,
 		},
 	});
 
-	return school;
-}
+	return school ?? notFound();
+})
 
-async function getClasses(school: Partial<School>): Promise<Partial<Class>[]> {
+const getClasses = cache(async (school: Partial<School>): Promise<Partial<Class>[]> => {
 	const classes = await prisma.class.findMany({
 		where: {
 			schoolId: school.id,
@@ -27,11 +29,11 @@ async function getClasses(school: Partial<School>): Promise<Partial<Class>[]> {
 	});
 
 	return classes;
-}
+})
 
-async function getDepartments(
+const getDepartments = cache(async (
 	school: Partial<School>,
-): Promise<Partial<Department>[]> {
+): Promise<Partial<Department>[]> => {
 	const departments = await prisma.department.findMany({
 		where: {
 			schoolId: school!.id,
@@ -48,9 +50,9 @@ async function getDepartments(
 	});
 
 	return departments;
-}
+})
 
-async function getBoosters(school: Partial<School>): Promise<Partial<Class>[]> {
+const getBoosters = cache(async (school: Partial<School>): Promise<Partial<Class>[]> => {
 	const boosters = await prisma.class.findMany({
 		where: {
 			schoolId: school!.id,
@@ -69,11 +71,11 @@ async function getBoosters(school: Partial<School>): Promise<Partial<Class>[]> {
 		value: avgBooster,
 		...rest,
 	}));
-}
+})
 
-async function getDifficultClasses(
+const getDifficultClasses = cache(async (
 	school: Partial<School>,
-): Promise<Partial<Class>[]> {
+): Promise<Partial<Class>[]> => {
 	const difficult = await prisma.class.findMany({
 		where: {
 			schoolId: school!.id,
@@ -92,7 +94,7 @@ async function getDifficultClasses(
 		value: avgDifficulty,
 		...rest,
 	}));
-}
+})
 
 export {
 	getSchool,

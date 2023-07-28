@@ -17,8 +17,7 @@ function getGrade(num: number): string {
 }
 
 function getNumberGrade(num: number): number {
-	if (num ===0) return 0;
-	const number = Math.round(num);
+	if (num === 0) return 0;
 	
 	return ((num + 9) / 20) * 100;
 }

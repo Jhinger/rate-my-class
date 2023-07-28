@@ -2,12 +2,13 @@ import Hero from "@/components/Hero";
 import Features from "@/components/Features";
 import Overview from "@/components/Overview";
 import prisma from "@/lib/prismadb";
+import { cache } from "react";
 
 import type { School } from "@prisma/client";
 
 export const revalidate = 86400;
 
-async function getSchools(): Promise<Partial<School>[]> {
+const getSchools = cache(async (): Promise<Partial<School>[]> => {
 	const schools = await prisma.school.findMany({
 		select: {
 			name: true,
@@ -16,11 +17,10 @@ async function getSchools(): Promise<Partial<School>[]> {
 	});
 
 	return schools;
-}
+});
 
 export default async function Page() {
 	const schools = await getSchools();
-	console.log(schools);
 
 	return (
 		<>

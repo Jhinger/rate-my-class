@@ -42,6 +42,8 @@ export async function generateMetadata({
 	};
 }
 
+export const revalidate = 300;
+
 export default async function ClassPage({
 	params,
 }: {
@@ -51,14 +53,14 @@ export default async function ClassPage({
 
 	const _school = await findSchool(school);
 	const _class_ = await findClass(_school!, _class);
-	const [comments, distribution] = await Promise.all([
-		getComments(_class_!),
-		getGradeDistribution(_class_!),
-	]);
 
-	console.log(comments);
-	console.log(_class_);
-	console.log(distribution);
+	const _comments = getComments(_class_!);
+	const _distribution = getGradeDistribution(_class_!);
+
+	const [comments, distribution] = await Promise.all([
+		_comments,
+		_distribution,
+	]);
 
 	return (
 		<div>

@@ -13,6 +13,7 @@ import LoadMore from "@/components/Button/LoadMore";
 import getPlaceholder from "@/util/getPlaceholder";
 import { colors_blue, colors_mauve } from "@/constants/boosterColors";
 import { optionsBoosters, optionsDifficulty } from "@/config/chart";
+import assert from "@/util/assert";
 
 import type { Metadata } from "next";
 
@@ -43,6 +44,8 @@ export async function generateMetadata({
 	};
 }
 
+export const revalidate = 3600;
+
 export default async function SchoolPage({
 	params,
 }: {
@@ -51,11 +54,16 @@ export default async function SchoolPage({
 	const { school } = params;
 	const _school = await getSchool(school);
 
+	const _classesData = getClasses(_school!);
+	const _departmentsData = getDepartments(_school!);
+	const _boostersData = getBoosters(_school!);
+	const _difficultData = getDifficultClasses(_school!);
+
 	const [classes, departments, boosters, difficults] = await Promise.all([
-		getClasses(_school!),
-		getDepartments(_school!),
-		getBoosters(_school!),
-		getDifficultClasses(_school!),
+		_classesData,
+		_departmentsData,
+		_boostersData,
+		_difficultData,
 	]);
 
 	const placeholder = getPlaceholder([
