@@ -41,7 +41,7 @@ async function findClass(
 		},
 	});
 
-	return _class;
+	return _class ?? notFound();
 }
 
 async function getComments(_class: Partial<Class>): Promise<Comment[]> {

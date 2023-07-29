@@ -33,10 +33,7 @@ const Hero = ({
 							{title}
 						</h1>
 					</div>
-					<h5 className="font-base text-sm text-white">
-						{" "}
-						{subtitle}{" "}
-					</h5>
+					<h5 className="font-base text-sm text-white">{subtitle}</h5>
 				</div>
 				<div className="relative m-4">
 					<SearchBar

@@ -1,16 +1,16 @@
 "use client";
 
+import { useState, useRef } from "react";
 import Tray from "@/components/Tray";
 import TrayItem from "@/components/TrayItem";
 import Icon from "@/components/Button/Icon";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
-import { MoreVerticalIcon } from "lucide-react";
 import useAlert from "@/hooks/useAlert";
-import { usePathname } from "next/navigation";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { usePathname } from "next/navigation";
+import { MoreVerticalIcon } from "lucide-react";
 
 import type { Comment } from "@prisma/client";
-import { useState, useRef } from "react";
 
 type CommentActionProps = Pick<Comment, "classId" | "id" | "userId">;
 

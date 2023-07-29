@@ -88,7 +88,7 @@ const SearchBar = ({
 	}
 
 	return (
-		<div className="relative">
+		<div className="relative shadow-searchBlue">
 			<input
 				autoFocus
 				type="text"

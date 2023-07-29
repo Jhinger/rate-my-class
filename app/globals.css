@@ -56,6 +56,16 @@
 		width: 100px;
 	}
 
+	.dotted {
+		background-image: radial-gradient(#181818 5%, #0000001f 10%);
+		background-position:
+			0 0,
+			14px 14px;
+		background-size: 16px 16px;
+		position: absolute !important;
+		width: 100%;
+	}
+
 	@keyframes scroll {
 		0% {
 			transform: translateX(0);
@@ -63,6 +73,11 @@
 		100% {
 			transform: translateX(calc(-100px * 7));
 		}
+	}
+
+	.scrollbar::-webkit-scrollbar-track {
+		border-radius: 100vh;
+		background: #f7f4ed;
 	}
 }
 
@@ -79,7 +94,6 @@
 html,
 body {
 	background-color: #353242;
-	max-width: 100vw;
 	overflow-x: hidden;
 	font-family:
 		"Inter",
@@ -94,6 +108,7 @@ body {
 		Droid Sans,
 		Helvetica Neue,
 		sans-serif;
+	scroll-behavior: smooth;
 }
 
 a {

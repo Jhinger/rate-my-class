@@ -33,6 +33,12 @@ module.exports = {
 				gradient: "gradient 10s ease-in-out infinite",
 				scroll: "scroll 40s linear infinite",
 			},
+			boxShadow: {
+				'cardBlue': '0 0 40px 0px rgba(168, 199, 245, 0.25)',
+				'searchBlue': '0 0 40px 0px rgba(168, 199, 245, 0.25)',
+				'cardOrange': '0 0 25px 0 rgba(243, 176, 68, 0.25)',
+				'searchOrange': '0 0 25px 0 rgba(243, 176, 68, 0.25)',
+			},
 			keyframes: {
 				fadeDown: {
 					"0%": {

@@ -36,7 +36,7 @@ export default async function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${inter.variable} relative flex min-h-screen flex-col`}
+				className={`${inter.variable} dotted relative flex min-h-screen flex-col`}
 			>
 				<AlertProvider>
 					{/* @ts-expect-error Server Component */}

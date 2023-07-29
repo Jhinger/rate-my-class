@@ -14,7 +14,7 @@ const Card = ({ imgSrc, title, subtext, className }: ICardProps) => {
 	return (
 		<Tilt tiltMaxAngleX={8} tiltMaxAngleY={8} tiltReverse={true}>
 			<div
-				className={`mx-6 flex aspect-square w-[23rem] animate-gradient items-center justify-center rounded-3xl bg-gradient-to-br from-tertiary to-tertiaryComplement`}
+				className={`mx-6 flex aspect-square w-[23rem] animate-gradient items-center justify-center rounded-3xl bg-gradient-to-br from-tertiary to-tertiaryComplement shadow-cardOrange`}
 			>
 				<div
 					className={`${className} m-2 flex aspect-square flex-col items-center justify-center rounded-3xl`}

@@ -56,6 +56,18 @@
 		width: 100px;
 	}
 
+	.dotted {
+		height: 100%;
+		width: 100%;
+		background-image: radial-gradient(#ccc 10%, transparent 10%),
+			radial-gradient(#ccc 10%, transparent 10%);
+		background-color: #fff;
+		background-position:
+			0 0,
+			50px 50px;
+		background-size: 50px 50px;
+	}
+
 	@keyframes scroll {
 		0% {
 			transform: translateX(0);
@@ -83,7 +95,7 @@
 
 html,
 body {
-	background-color: #353242;
+	// background-color: #353242;
 	overflow-x: hidden;
 	font-family:
 		"Inter",

@@ -3,15 +3,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../auth/[...nextauth]/route";
 import { NextRequest, NextResponse } from "next/server";
 
-interface IReportComment {
-	params: {
-		classId: number;
-		userId: string;
-		commentId: number;
-	};
-}
-
-export async function POST(request: NextRequest, { params }: IReportComment) {
+export async function POST(request: NextRequest) {
 	const { classId, userId, commentId } = await request.json();
 	const session = await getServerSession(authOptions);
 
