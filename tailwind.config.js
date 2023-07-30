@@ -35,7 +35,9 @@ module.exports = {
 			},
 			boxShadow: {
 				'cardBlue': '0 0 40px 0px rgba(168, 199, 245, 0.25)',
-				'searchBlue': '0 0 40px 0px rgba(168, 199, 245, 0.25)',
+				'searchBlue': '0 0 40px 0px rgba(168, 199, 245, 0.2)',
+				'chartBlue': '0 0 20px 0px rgba(168, 199, 245, 0.15)',
+				'buttonOrange': '0 0 15px 0px rgba(243, 176, 68, 0.25)',
 				'cardOrange': '0 0 25px 0 rgba(243, 176, 68, 0.25)',
 				'searchOrange': '0 0 25px 0 rgba(243, 176, 68, 0.25)',
 			},

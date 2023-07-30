@@ -113,14 +113,13 @@ export default async function SchoolPage({
 						<Directory summary={departments} />
 					) : (
 						<EmptyState
-							title=""
-							subtitle=""
-							callToAction={() => ""}
+							title="Sorry, there is no data for this school yet..."
+							subtitle="Please check back later."
 						/>
 					)}
 				</div>
 				<div className="my-12">
-					<LoadMore />
+					{departments.length ? <LoadMore /> : null}
 				</div>
 			</div>
 		</>

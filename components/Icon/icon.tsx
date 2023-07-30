@@ -11,8 +11,7 @@ const Icon = ({ icon, href, className }: IIconProps) => {
 		<>
 			{href ? (
 				<Link className={className} href={href}>
-					{" "}
-					{icon}{" "}
+					{icon}
 				</Link>
 			) : (
 				<div className={className}> {icon} </div>

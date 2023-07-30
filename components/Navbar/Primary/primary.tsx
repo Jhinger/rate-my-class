@@ -25,7 +25,9 @@ const PrimaryNavbar = ({ session }: IPrimaryNavbarProps) => {
 
 				<div className="invisible flex flex-row space-x-10 md:visible">
 					<Icon
-						icon={<GithubIcon size={22} />}
+						icon={
+							<GithubIcon size={22} className="shadowSvgOrange" />
+						}
 						href="#"
 						className="unselectable text-primary duration-150 hover:text-tertiary"
 					/>

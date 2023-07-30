@@ -47,7 +47,7 @@ const BarChart = ({ barData, barColors, options, label }: IBarChartProps) => {
 	};
 
 	return (
-		<div className="flex h-max w-full items-center justify-center rounded-md border-4 border-solid border-primaryAccent">
+		<div className="flex h-max w-full items-center justify-center rounded-md border-4 border-solid border-primaryAccent shadow-chartBlue">
 			<Bar data={data} options={options} className="m-4" />
 		</div>
 	);
