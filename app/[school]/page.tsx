@@ -76,8 +76,7 @@ export default async function SchoolPage({
 			<div className="center flex max-w-[75rem] flex-col items-center justify-start">
 				<div className="flex min-w-[75em] flex-col items-center justify-center">
 					<h4 className="mt-8 w-full p-4 text-[2.75rem] font-extrabold tracking-tightest text-primary">
-						{" "}
-						{_school?.name} ({_school?.short}){" "}
+						{_school?.name} ({_school?.short})
 					</h4>
 					<div className="mb-4 flex min-w-max flex-row gap-4">
 						<Chart
@@ -113,7 +112,7 @@ export default async function SchoolPage({
 						<Directory summary={departments} />
 					) : (
 						<EmptyState
-							title="Sorry, there is no data for this school yet..."
+							title="Sorry, there is no data for this school yet."
 							subtitle="Please check back later."
 						/>
 					)}

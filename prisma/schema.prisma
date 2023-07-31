@@ -151,6 +151,16 @@ model Report {
   @@index([classId])
 }
 
+// @@Gen.model(hide: true)
+model Request {
+  id          Int      @id @default(autoincrement())
+  dateCreated DateTime @default(now())
+  userId      String
+  request     String   @db.VarChar(30)
+
+  @@index([userId, dateCreated])
+}
+
 enum DELIVERY {
   INPERSON
   ONLINE
