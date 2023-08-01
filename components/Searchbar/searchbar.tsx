@@ -52,6 +52,7 @@ const SearchBar = ({
 
 	function onEnter(event: React.KeyboardEvent<HTMLDivElement>) {
 		if (event.key === ENTER && filteredOptions.length) {
+			if (cursor < 0) setCursor(0);
 			const nextRoute =
 				filteredOptions[cursor].short ?? filteredOptions[cursor].name;
 			const path = pathname === "/" ? "" : pathname;

@@ -14,19 +14,22 @@ export async function POST(request: NextRequest) {
 		});
 	}
 
+	let lastDay = Date.now() - (24 * 60 * 60 * 1000);
+	let lastDayString = new Date(lastDay).toISOString();
 	const hasAlreadyRequested = await prisma.request.findFirst({
 		where: {
 			userId: session.user.id!,
 			dateCreated: {
-				gte: new Date().setUTCHours(0, 0, 0, 0).toString()
+				gte: lastDayString
 			}
 		},
 		select: {
 			id: true
 		}
 	})
+	console.log(hasAlreadyRequested);
 	if (hasAlreadyRequested) {
-		return NextResponse.json({ error: "Too many requests, try again later.", status: 403 });
+		return NextResponse.json({ error: "Sorry - You are limited to one request per day, please try again later.", status: 403 });
 	}
 
 	try {
