@@ -103,7 +103,7 @@ export default async function SchoolPage({
 						<SearchBar
 							options={classes}
 							placeholder={placeholder}
-							className="w-[60rem]"
+							className="w-[90vw] max-w-[60rem]"
 						/>
 					</div>
 				</div>

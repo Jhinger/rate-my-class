@@ -3,10 +3,6 @@
 import useAlert from "@/hooks/useAlert";
 import { FormEvent, useState } from "react";
 
-interface IFormData {
-	schoolRequest: string;
-}
-
 const Request = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [request, setRequest] = useState("");
