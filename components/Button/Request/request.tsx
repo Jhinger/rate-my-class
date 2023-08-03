@@ -71,7 +71,7 @@ const Request = () => {
 		>
 			<button
 				id="request"
-				className="w-max rounded-md bg-primary px-24 py-4 text-sm font-semibold duration-300 hover:bg-tertiary"
+				className="w-max rounded-md bg-primary px-12 py-4 text-sm font-semibold duration-300 hover:bg-tertiary md:px-24"
 			>
 				REQUEST A SCHOOL / CLASS
 			</button>

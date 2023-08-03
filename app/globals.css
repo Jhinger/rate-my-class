@@ -20,7 +20,7 @@
 		height: 80px;
 		overflow: hidden;
 		position: relative;
-		width: 700px;
+		width: min(700px, 100vw);
 	}
 
 	.slider::before,
