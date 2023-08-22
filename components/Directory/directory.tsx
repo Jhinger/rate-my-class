@@ -12,7 +12,7 @@ const Directory = ({ summary }: IDirectoryProps) => {
 			className="m-5 flex w-full flex-row items-center justify-between rounded-md bg-primary p-4 ring-2 ring-primary ring-offset-2 ring-offset-secondary hover:ring-tertiary hover:duration-150"
 		>
 			<span className="ml-8 font-extrabold">{department.name}</span>
-			<div className="mr-16 flex w-[8rem] flex-row justify-between">
+			<div className="mr-12 flex w-[6rem] flex-row justify-between">
 				<span>
 					{getGrade(Math.ceil(department.avgGrade || 0)) ?? "-"}
 				</span>
@@ -27,7 +27,7 @@ const Directory = ({ summary }: IDirectoryProps) => {
 				<div className="relative left-10">
 					<em>Department:</em>
 				</div>
-				<div className="relative right-16 flex flex-row gap-12">
+				<div className="relative right-10 flex flex-row gap-6">
 					<em>Avg Grade:</em>
 					<em># Ratings:</em>
 				</div>
