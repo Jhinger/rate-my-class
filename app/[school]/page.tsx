@@ -78,10 +78,10 @@ export default async function SchoolPage({
 					<h4 className="mt-8 w-full p-4 text-[2.75rem] font-extrabold tracking-tightest text-primary">
 						{_school?.name} ({_school?.short})
 					</h4>
-					<div className="mb-4 flex min-w-max flex-row gap-4">
+					<div className="mb-4 flex min-w-max flex-col flex-wrap gap-4 lg:flex-row">
 						<Chart
 							type="barchart"
-							classes="w-[36rem] h-max"
+							classes="w-[23rem] sm:w-[30rem] lg:w-[36rem] h-max"
 							data={boosters}
 							label={"Highest Rated GPA Boosters"}
 							colors={colors_blue}
@@ -89,7 +89,7 @@ export default async function SchoolPage({
 						/>
 						<Chart
 							type="barchart"
-							classes="w-[36rem] h-max"
+							classes="w-[23rem] sm:w-[30rem] lg:w-[36rem] h-max"
 							data={difficults}
 							label={"Highest Difficulty Classes"}
 							colors={colors_mauve}
