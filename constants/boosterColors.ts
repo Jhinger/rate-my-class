@@ -9,6 +9,8 @@ export const colors_blue = [
 	"#00ccff",
 	"#1ad1ff",
 	"#33d6ff",
+	'#4ddbff',
+	'#66e0ff'
 ];
 
 export const colors_mauve = [
