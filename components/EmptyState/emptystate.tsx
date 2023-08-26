@@ -15,7 +15,7 @@ const EmptyState = ({ title, subtitle, callToAction }: IEmptyStateProps) => {
 			onClick={callToAction}
 		>
 			<Rat size={150} className="my-2 animate-gradient text-lightGray" />
-			<h3 className="my-2 text-2xl font-black">{title}</h3>
+			<h3 className="my-2 text-center text-2xl font-black">{title}</h3>
 			<div className="text-sm font-extralight">{subtitle}</div>
 		</div>
 	);
